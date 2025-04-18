@@ -17,7 +17,7 @@
   width: 30px;
   height: 20px;
   padding: 0;
-  transition: transform 0.5s ease; /* Agrega una transición suave para la transformación */
+  transition: transform 0.5s ease;
 }
 
 .menu-bar {
@@ -31,7 +31,7 @@
   transform: rotate(45deg) translate(-4px, -4px);
 }
 
-.menu-dropdown {  
+.menu-dropdown {
   box-shadow: 0px 4px 4px rgba(82, 78, 78, 0.25);
   border-radius: 4px;
   padding: 8px;
@@ -39,17 +39,28 @@
   position: absolute;
   top: 100%;
   background: rgba(0, 0, 0, 0.7);
-  transform: translateY(-10px); /* Inicialmente desplazado hacia arriba */
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s;
+  /* Eliminamos las propiedades de transición CSS que pueden causar conflicto con Framer Motion */
+  /* transform: translateY(-10px); */
+  /* visibility: hidden; */
+  /* opacity: 0; */
+  /* transition: visibility 0s, opacity 0.5s; */
+
+  /* Optimizaciones para renderizado */
+  will-change: opacity, transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
-.menu-dropdown.active {
+/* Ya no necesitamos esta clase porque Framer Motion maneja la animación */
+/* .menu-dropdown.active {
   visibility: visible;
   opacity: 1;
   transition: visibility 0s, opacity 0.5s;
-}
+} */
 
 .menu-item {
   display: flex;
@@ -63,7 +74,7 @@
   font-weight: 600;
   font-size: 30px;
   text-align: center;
-  color: #B3BBCE;
+  color: #b3bbce;
   text-decoration: none;
 }
 
@@ -72,10 +83,22 @@
 }
 
 .menu-logo {
-  max-width: 200px; 
+  max-width: 200px;
   max-height: 200px;
   padding: 20px;
   display: block;
   margin: 0 auto;
   color: #8191ba;
+}
+
+/* Optimizaciones específicas para Firefox */
+@-moz-document url-prefix() {
+  .menu-dropdown {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+  .menu-item {
+    transform: translate3d(0, 0, 0);
+  }
 }
