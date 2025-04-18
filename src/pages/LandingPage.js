@@ -21,83 +21,152 @@ const buttonVariants = {
 
 const LandingPage = () => {
   const [buttons, setButtons] = useState([]);
-  const [buttonFontSize, setButtonFontSize] = useState(35); // Tamaño de fuente inicial
+  const [buttonFontSize, setButtonFontSize] = useState(35);
+  const [windowDimensions, setWindowDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
 
+  // Actualizar las dimensiones de la ventana cuando cambia el tamaño
   useEffect(() => {
-    const generateRandomButton = (link, isStrikeThrough) => {
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-
-      const buttonWidth = 110;
-      const buttonHeight = 40;
-
-      const horizontalMargin = 70;
-      const verticalMargin = 70;
-
-      let randomX = Math.floor(
-        horizontalMargin +
-          Math.random() * (screenWidth - buttonWidth - 2 * horizontalMargin)
-      );
-
-      let randomY = Math.floor(
-        verticalMargin +
-          Math.random() * (screenHeight - buttonHeight - 2 * verticalMargin)
-      );
-
-      // Verificar si el botón está fuera del área visible de la pantalla
-      if (randomX + buttonWidth > screenWidth) {
-        randomX = screenWidth - buttonWidth - horizontalMargin;
+    const handleResize = () => {
+      setWindowDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+      // Ajustar el tamaño de fuente según el ancho de la pantalla
+      if (window.innerWidth <= 375) {
+        setButtonFontSize(20);
+      } else if (window.innerWidth <= 768) {
+        setButtonFontSize(25);
+      } else {
+        setButtonFontSize(35);
       }
+    };
 
-      if (randomY + buttonHeight > screenHeight) {
-        randomY = screenHeight - buttonHeight - verticalMargin;
+    window.addEventListener("resize", handleResize);
+
+    // Llamar handleResize inmediatamente para establecer los valores iniciales
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Generar botones cuando cambian las dimensiones de la ventana o el tamaño de fuente
+  useEffect(() => {
+    // Función para verificar si hay superposición entre dos botones
+    const isOverlapping = (newPos, existingPositions) => {
+      const buffer = 20; // Espacio mínimo entre botones
+      for (const pos of existingPositions) {
+        // Comprobar si hay superposición en el eje x e y
+        if (
+          newPos.x < pos.x + pos.width + buffer &&
+          newPos.x + newPos.width + buffer > pos.x &&
+          newPos.y < pos.y + pos.height + buffer &&
+          newPos.y + newPos.height + buffer > pos.y
+        ) {
+          return true; // Hay superposición
+        }
       }
+      return false; // No hay superposición
+    };
 
-      const randomRotation = Math.floor(Math.random() * 2); // 0 o 1
+    const generateRandomButton = (link, isStrikeThrough, existingPositions) => {
+      const { width: screenWidth, height: screenHeight } = windowDimensions;
 
-      return (
-        <motion.div
-          key={link.url}
-          initial="initial"
-          animate="animate"
-          whileHover="hover"
-          variants={buttonVariants}
-        >
-          <Link
+      // Dimensiones del botón basadas en el texto
+      // Usar un factor más conservador para calcular el ancho
+      const buttonWidth = Math.max(120, link.text.length * (buttonFontSize * 0.6));
+      const buttonHeight = buttonFontSize * 1.5;
+
+      // Márgenes de seguridad mucho más generosos
+      const safeMargin = Math.max(50, buttonFontSize);
+
+      // Ajustar la zona segura para posicionar botones
+      const safeWidth = screenWidth - buttonWidth - 2 * safeMargin;
+      const safeHeight = screenHeight - buttonHeight - 2 * safeMargin;
+
+      // Asegurar valores positivos para las áreas disponibles
+      const availableWidth = Math.max(10, safeWidth);
+      const availableHeight = Math.max(10, safeHeight);
+
+      // Intentar encontrar una posición que no se superponga con otros botones
+      let attempts = 0;
+      let randomX, randomY;
+      let position;
+
+      do {
+        // Calcular posición aleatoria dentro del área segura
+        randomX = safeMargin + Math.floor(Math.random() * availableWidth);
+        randomY = safeMargin + Math.floor(Math.random() * availableHeight);
+
+        position = {
+          x: randomX,
+          y: randomY,
+          width: buttonWidth,
+          height: buttonHeight
+        };
+
+        attempts++;
+      } while (isOverlapping(position, existingPositions) && attempts < 50);
+
+      // Agregar la nueva posición a la lista de posiciones existentes
+      existingPositions.push(position);
+
+      // Determinar si el botón debe rotarse (menos probabilidad en móviles)
+      const shouldRotate = windowDimensions.width > 768 ? Math.random() < 0.5 : Math.random() < 0.3;
+      const randomRotation = shouldRotate ? (Math.floor(Math.random() * 2) * 90) : 0;
+
+      return {
+        component: (
+          <motion.div
             key={link.url}
-            to={`/${link.url}`}
-            style={{
-              position: "absolute",
-              top: randomY,
-              left: randomX,
-              width: buttonWidth,
-              height: buttonHeight,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              textDecoration: isStrikeThrough ? "line-through" : "none",
-              color: "#1C1C1C",
-              transform: `rotate(${randomRotation * 90}deg)`,
-              transition: "transform 0.5s ease",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-              fontWeight: "bold",
-              fontFamily: "Nubifont",
-              fontSize: buttonFontSize, // Usar el estado buttonFontSize para establecer el tamaño de la fuente
-              padding: "5px 10px", // Ajusto el espacio interno
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.opacity = "0.5";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.opacity = "1";
-            }}
+            initial="initial"
+            animate="animate"
+            whileHover="hover"
+            variants={buttonVariants}
           >
-            {link.text}
-          </Link>
-        </motion.div>
-      );
+            <Link
+              to={`/${link.url}`}
+              style={{
+                position: "absolute",
+                top: position.y,
+                left: position.x,
+                width: position.width,
+                height: position.height,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                textDecoration: isStrikeThrough ? "line-through" : "none",
+                color: "#1C1C1C",
+                transform: `rotate(${randomRotation}deg)`,
+                transition: "transform 0.5s ease",
+                backgroundColor: "transparent",
+                border: "none",
+                cursor: "pointer",
+                fontWeight: "bold",
+                fontFamily: "Nubifont",
+                fontSize: buttonFontSize,
+                padding: "5px 10px",
+                zIndex: 10,
+                // Agregar para debugging visual
+                // border: "1px solid red",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.opacity = "0.5";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.opacity = "1";
+              }}
+            >
+              {link.text}
+            </Link>
+          </motion.div>
+        ),
+        position
+      };
     };
 
     const links = [
@@ -109,30 +178,25 @@ const LandingPage = () => {
       { text: "LIMONERO", url: "limonero" },
     ];
 
-    const randomIndex = Math.floor(Math.random() * (links.length + 1)); // Agrega 1 a la longitud para incluir la posibilidad de ningún botón tachado
-    const selectedLink = randomIndex < links.length ? links[randomIndex] : null;
+    // Ordenar los enlaces por longitud (más largos primero)
+    // para dar prioridad a los textos más largos al posicionarlos
+    const sortedLinks = [...links].sort((a, b) => b.text.length - a.text.length);
 
-    const generatedButtons = links.map((link) =>
-      generateRandomButton(link, link === selectedLink)
-    );
+    const randomIndex = Math.floor(Math.random() * (sortedLinks.length + 1));
+    const selectedLink = randomIndex < sortedLinks.length ? sortedLinks[randomIndex] : null;
+
+    // Array para mantener registro de posiciones ya utilizadas
+    const existingPositions = [];
+
+    // Generar botones con verificación de superposición
+    const generatedButtons = [];
+    for (const link of sortedLinks) {
+      const buttonData = generateRandomButton(link, link === selectedLink, existingPositions);
+      generatedButtons.push(buttonData.component);
+    }
 
     setButtons(generatedButtons);
-  }, [buttonFontSize]); // Escucha los cambios en el tamaño de la fuente
-
-  useEffect(() => {
-    const handleResize = () => {
-      // Ajusta el tamaño de la fuente dependiendo del ancho de la ventana
-      setButtonFontSize(window.innerWidth <= 375 ? 30 : 35);
-    };
-
-    // Agrega un listener de resize para ajustar dinámicamente el tamaño de la fuente
-    window.addEventListener("resize", handleResize);
-
-    // Limpia el listener cuando el componente se desmonta
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  }, [windowDimensions, buttonFontSize]);
 
   const hexColors = [
     "#86B0A6",
@@ -155,18 +219,24 @@ const LandingPage = () => {
         position: "relative",
         width: "100vw",
         height: "100vh",
+        overflow: "hidden" // Prevenir scroll si algún elemento se coloca muy cerca del borde
       }}
     >
       <div
         className="background-gradient"
         style={{
           background: `linear-gradient(to bottom, ${randomGradient})`,
-          backgroundSize: "contain",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 0
         }}
       ></div>
-      {buttons}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        {buttons}
+      </div>
       <SocialMedia />
     </div>
   );
