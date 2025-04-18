@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import lemonIcon from "../assets/images/lemon-logo.jpeg";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import "../styles/ColaboraPage.css";
 
@@ -71,19 +70,10 @@ const ColaboraPage = () => {
             bancaria:
             <div className="bank-details">
               <p>
-                <strong>Banco: </strong> Lemon Cash{" "}
-                <img
-                  src={lemonIcon}
-                  alt="Acceso a nuestras redes"
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    borderRadius: "10px",
-                  }}
-                />
+                <strong>Banco: </strong> LB Finanzas{" "}
               </p>
               <p>
-                <strong>Alias: </strong> nubila.ar
+                <strong>Alias: </strong> nubila.10
               </p>
               <p>
                 <strong>Nombre del Titular: </strong> Nicolás de la Cruz
