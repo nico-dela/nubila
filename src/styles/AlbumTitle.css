@@ -1,0 +1,40 @@
+.album-title-container {
+  position: fixed;
+  bottom: 100px; /* Posicionado por encima del reproductor de música */
+  left: 0;
+  width: 100%;
+  text-align: center;
+  pointer-events: none; /* Para que no interfiera con los clics */
+  z-index: 4;
+}
+
+.album-title {
+  font-family: "Nubifont";
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  letter-spacing: 3px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ajustes para pantallas más grandes */
+@media (min-width: 768px) {
+  .album-title {
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 375px) {
+  .album-title-container {
+    bottom: 80px;
+  }
+
+  .album-title {
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+}
