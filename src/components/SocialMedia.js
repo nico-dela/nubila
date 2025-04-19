@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion"; // Importa motion de Framer Motion
-import socialMediaIcon from "../assets/images/social-media.png";
+import socialMediaIcon from "../assets/images/social-media.svg";
 import "../styles/SocialMedia.css";
 
 const SocialMedia = () => {
@@ -17,7 +17,7 @@ const SocialMedia = () => {
         rel="noopener noreferrer"
         className="social-link"
       >
-        <img src={socialMediaIcon} alt="Acceso a nuestras redes" />
+        <img src={socialMediaIcon} alt="Acceso a nuestras redes" style={{opacity: 0.6}}/>
       </a>
     </motion.div>
   );
