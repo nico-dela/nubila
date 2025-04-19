@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import SocialMedia from "../components/SocialMedia"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
-import OceanEffect from "../components/OceanEffect"
 import OceanParticles from "../components/OceanParticles"
 import AlbumTitle from "../components/AlbumTitle"
 
@@ -240,8 +239,6 @@ const LandingPage = () => {
         }}
       ></div>
 
-      {/* Efectos oceánicos */}
-      <OceanEffect />
       <OceanParticles />
 
       {/* Título del álbum */}
