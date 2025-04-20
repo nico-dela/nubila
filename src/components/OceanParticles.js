@@ -23,7 +23,7 @@ const OceanParticles = () => {
     resize()
 
     // Crear partículas
-    const particleCount = Math.min(70, Math.floor(window.innerWidth / 15))
+    const particleCount = Math.min(15, Math.floor(window.innerWidth / 15))
     const particles = []
 
     for (let i = 0; i < particleCount; i++) {
