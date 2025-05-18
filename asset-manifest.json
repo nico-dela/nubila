@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.152ba7cb.css",
-    "main.js": "/static/js/main.9d263f2c.js",
+    "main.css": "/static/css/main.494c04d6.css",
+    "main.js": "/static/js/main.c28dab3b.js",
     "static/css/753.c26c3483.chunk.css": "/static/css/753.c26c3483.chunk.css",
     "static/js/753.ef51b845.chunk.js": "/static/js/753.ef51b845.chunk.js",
     "static/css/724.dd5dd357.chunk.css": "/static/css/724.dd5dd357.chunk.css",
@@ -18,7 +18,6 @@
     "static/media/Oceanica.mp3": "/static/media/Oceanica.37c9c5978644becd756b.mp3",
     "static/media/girasoles-midi-vertical.jpeg": "/static/media/girasoles-midi-vertical.bfd99b8cf696345be7fb.jpeg",
     "static/media/girasoles-midi-horizontal.jpeg": "/static/media/girasoles-midi-horizontal.dec119a5252d62b99bae.jpeg",
-    "static/media/banner.jpeg": "/static/media/banner.68e43d3c0a7b8ec7e6a6.jpeg",
     "static/media/mariposa-letra.png": "/static/media/mariposa-letra.caf1d9ff79021550918a.png",
     "static/media/bolerito-midi-vertical.jpeg": "/static/media/bolerito-midi-vertical.ec791b4cc31b7fddbc0d.jpeg",
     "static/media/bolerito-midi-horizontal.jpeg": "/static/media/bolerito-midi-horizontal.2d761a73ab359b5f6fcf.jpeg",
@@ -38,8 +37,8 @@
     "index.html": "/index.html",
     "static/media/circle-xmark-regular.svg": "/static/media/circle-xmark-regular.3962bd1b9e383ecaf67e2ab325a88446.svg",
     "static/media/social-media.svg": "/static/media/social-media.63600e5f603b63bf74868946fa36a5f4.svg",
-    "main.152ba7cb.css.map": "/static/css/main.152ba7cb.css.map",
-    "main.9d263f2c.js.map": "/static/js/main.9d263f2c.js.map",
+    "main.494c04d6.css.map": "/static/css/main.494c04d6.css.map",
+    "main.c28dab3b.js.map": "/static/js/main.c28dab3b.js.map",
     "753.c26c3483.chunk.css.map": "/static/css/753.c26c3483.chunk.css.map",
     "753.ef51b845.chunk.js.map": "/static/js/753.ef51b845.chunk.js.map",
     "724.dd5dd357.chunk.css.map": "/static/css/724.dd5dd357.chunk.css.map",
@@ -48,7 +47,7 @@
     "322.807ab5ec.chunk.js.map": "/static/js/322.807ab5ec.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.152ba7cb.css",
-    "static/js/main.9d263f2c.js"
+    "static/css/main.494c04d6.css",
+    "static/js/main.c28dab3b.js"
   ]
 }
