@@ -7,7 +7,7 @@ import "../styles/Menu.css"
 const menuItems = [
   {
     to: "/",
-    label: <img src={nubilaLogo || "/placeholder.svg"} alt="Nubila Logo" className="menu-logo" color="#8191BA" />,
+    label: <img src={nubilaLogo} alt="Nubila Logo" className="menu-logo" color="#8191BA" />,
   },
   { to: "/acerca", label: "UN CD-WEB" },
   { to: "/creditos", label: "CREDITOS" },
