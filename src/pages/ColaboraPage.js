@@ -83,7 +83,7 @@ const ColaboraPage = () => {
                 />
               </p>
               <p>
-                <strong>Alias: </strong> nubila.ar
+                <strong>Alias: </strong> nubila.10
               </p>
               <p>
                 <strong>Nombre del Titular: </strong> Nicolás de la Cruz
