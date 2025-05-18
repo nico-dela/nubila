@@ -16,10 +16,106 @@
 }
 
 .coming-soon-container img {
-  max-width: 80%;
+  max-width: 100%;
   max-height: 100%;
-  background-color: #fff;
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.coming-soon-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.coming-soon-content h1 {
+  font-size: 48px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.coming-soon-content p {
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.coming-soon-content a:hover {
+  background-color: #0056b3;
+}
+
+.coming-soon-content a:active {
+  background-color: #004085;
+}
+
+.coming-soon-content a:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.coming-soon-content a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.coming-soon-content a:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.coming-soon-text {
+  font-family: "Nubifont";
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+.coming-soon-text h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.coming-soon-text p {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.coming-soon-text a {
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.coming-soon-text a:hover {
+  background-color: #0056b3;
+}
+
+.coming-soon-text a:active {
+  background-color: #004085;
+}
+
+.coming-soon-text a:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.coming-soon-text a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.coming-soon-text a:focus:not(:focus-visible) {
+  box-shadow: none;
 }

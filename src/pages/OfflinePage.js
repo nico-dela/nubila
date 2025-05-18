@@ -1,44 +1,30 @@
-import React, { useEffect, useState } from "react";
-import bannerImage from "../assets/images/banner.jpeg";
-import { Puff } from "react-loader-spinner";
 import "../styles/OfflinePage.css";
 
 const OfflinePage = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  // Función para manejar el evento onLoad de la imagen
-  const handleImageLoad = () => {
-    // Cuando la imagen se carga, actualiza el estado para indicar que la imagen se ha cargado.
-    setImageLoaded(true);
-  };
-
-  useEffect(() => {
-    const image = new Image();
-    image.src = bannerImage;
-    image.onload = handleImageLoad;
-  }, []);
-
   return (
     <div className="overlay">
       <div className="coming-soon-container">
-        {imageLoaded ? (
-          // La imagen se ha cargado, muestra la imagen
-          <img
-            src={bannerImage}
-            alt="Banner oceanica"
-            onLoad={handleImageLoad}
-          />
-        ) : (
-          // La imagen aún se está cargando, muestra la animación de carga
-          <Puff
-            height={80}
-            width={80}
-            radius={1}
-            color="#0A4066"
-            ariaLabel="puff-loading"
-            visible={!imageLoaded} // Oculta el spinner cuando la imagen se carga
-          />
-        )}
+        <div className="coming-soon-text">
+          <h1>🚧 ¡Estamos rearmando nuestra web!</h1>
+          <p>
+            Muy pronto vas a poder recorrer nuestro nuevo espacio virtual.
+          </p>
+          <p>
+            Mientras tanto, podes seguirnos en nuestras redes sociales para
+            estar al tanto de las novedades.
+          </p>
+          <p>
+            ¡Gracias por acompañarnos!
+          </p>
+          <p>
+            Nubila es un proyecto de La Casa Mutante.
+          </p>
+          <p>
+            <a href="https://linktr.ee/nubila" target="_blank" rel="noopener noreferrer">
+              Seguinos en nuestras redes sociales
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
