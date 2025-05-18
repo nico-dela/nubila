@@ -106,10 +106,6 @@ const OceanParticles = () => {
         if (particle.y < -50) particle.y = canvas.height + 50
         if (particle.y > canvas.height + 50) particle.y = -50
 
-        // Hacer pulsar la partícula
-        const pulseFactor = 1 + 0.2 * Math.sin(time * particle.pulseSpeed * 5)
-        const currentRadius = particle.baseRadius * pulseFactor
-
         // Dibujar la partícula deforme
         drawDeformedParticle(particle, time)
       })
