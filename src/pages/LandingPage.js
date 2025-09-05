@@ -94,7 +94,7 @@ const LandingPage = () => {
 
       // Márgenes de seguridad mucho más generosos
       // Aumentamos los márgenes para evitar que los textos se salgan de la pantalla
-      const safeMargin = Math.max(1000, buttonFontSize * 1.5)
+      const safeMargin = Math.max(60, buttonFontSize * 1.5)
 
       // Ajustar la zona segura para posicionar botones
       // Restamos el tamaño efectivo del botón y los márgenes de seguridad
