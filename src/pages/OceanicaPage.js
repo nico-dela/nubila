@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
-import oceanicaHorizontalImage from "../assets/images/oceanica-midi-horizontal.jpeg";
-import oceanicaVerticalImage from "../assets/images/oceanica-midi-vertical.jpeg";
+import oceanicaHorizontalImage from "../assets/images/oceanica-midi-horizontal.webp";
+import oceanicaVerticalImage from "../assets/images/oceanica-midi-vertical.webp";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import { Puff } from "react-loader-spinner";
 import "../styles/LyricsPage.css";

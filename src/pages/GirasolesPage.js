@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
-import girasolesHorizontalImage from "../assets/images/girasoles-midi-horizontal.jpeg";
-import girasolesVerticalImage from "../assets/images/girasoles-midi-vertical.jpeg";
-import girasolesLetraImage from "../assets/images/girasoles-letra.png";
+import girasolesHorizontalImage from "../assets/images/girasoles-midi-horizontal.webp";
+import girasolesVerticalImage from "../assets/images/girasoles-midi-vertical.webp";
+import girasolesLetraImage from "../assets/images/girasoles-letra.webp";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import { Puff } from "react-loader-spinner";
 import "../styles/LyricsPage.css";

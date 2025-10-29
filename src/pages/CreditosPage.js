@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import lacasaLogo from "../assets/images/lacasa-logo.png";
+import lacasaLogo from "../assets/images/lacasa-logo.webp";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import "../styles/CreditosPage.css";
 

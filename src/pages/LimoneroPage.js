@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
-import limoneroHorizontalImage from "../assets/images/limonero-midi-horizontal.jpeg";
-import limoneroVerticalImage from "../assets/images/limonero-midi-vertical.jpeg";
-import limoneroLetraImage from "../assets/images/limonero-letra.png";
+import limoneroHorizontalImage from "../assets/images/limonero-midi-horizontal.webp";
+import limoneroVerticalImage from "../assets/images/limonero-midi-vertical.webp";
+import limoneroLetraImage from "../assets/images/limonero-letra.webp";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import { Puff } from "react-loader-spinner";
 import "../styles/LyricsPage.css";

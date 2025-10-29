@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import lemonIcon from "../assets/images/lemon-logo.jpeg";
+import lemonIcon from "../assets/images/lemon-logo.webp";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import "../styles/ColaboraPage.css";
 

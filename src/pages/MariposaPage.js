@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
-import mariposaHorizontalImage from "../assets/images/mariposa-midi-horizontal.jpeg";
-import mariposaVerticalImage from "../assets/images/mariposa-midi-vertical.jpeg";
-import mariposaLetraImage from "../assets/images/mariposa-letra.png";
+import mariposaHorizontalImage from "../assets/images/mariposa-midi-horizontal.webp";
+import mariposaVerticalImage from "../assets/images/mariposa-midi-vertical.webp";
+import mariposaLetraImage from "../assets/images/mariposa-letra.webp";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import { Puff } from "react-loader-spinner";
 import "../styles/LyricsPage.css";

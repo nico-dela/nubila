@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
-import frioHorizontalImage from "../assets/images/frio-midi-horizontal.jpeg";
-import frioVerticalImage from "../assets/images/frio-midi-vertical.jpeg";
-import frioLetraImage from "../assets/images/frio-letra.png";
+import frioHorizontalImage from "../assets/images/frio-midi-horizontal.webp";
+import frioVerticalImage from "../assets/images/frio-midi-vertical.webp";
+import frioLetraImage from "../assets/images/frio-letra.webp";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import { Puff } from "react-loader-spinner";
 import "../styles/LyricsPage.css";

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
-import boleritoHorizontalImage from "../assets/images/bolerito-midi-horizontal.jpeg";
-import boleritoVerticalImage from "../assets/images/bolerito-midi-vertical.jpeg";
+import boleritoHorizontalImage from "../assets/images/bolerito-midi-horizontal.webp";
+import boleritoVerticalImage from "../assets/images/bolerito-midi-vertical.webp";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import "../styles/LyricsPage.css";
 import { Puff } from "react-loader-spinner";

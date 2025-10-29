@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion" // Importamos AnimatePresence
-import nubilaLogo from "../assets/images/nubila-logo.png"
+import nubilaLogo from "../assets/images/nubila-logo.webp"
 import "../styles/Menu.css"
 
 const menuItems = [
