@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import {
   MdPlayArrow,
   MdPause,
@@ -61,7 +61,10 @@ const MusicPlayer = () => {
   useEffect(() => {
     if (progressBarRef.current) {
       // Crear la variable CSS personalizada para el progreso
-      progressBarRef.current.style.setProperty('--progress-percent', `${progress}%`);
+      progressBarRef.current.style.setProperty(
+        "--progress-percent",
+        `${progress}%`
+      );
     }
   }, [progress]);
 
@@ -76,7 +79,7 @@ const MusicPlayer = () => {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(error => {
+      audioRef.current.play().catch((error) => {
         console.error("Error al reproducir audio:", error);
       });
     }
@@ -96,7 +99,8 @@ const MusicPlayer = () => {
   const handleTimeUpdate = () => {
     const currentTime = audioRef.current.currentTime;
     const duration = audioRef.current.duration || 0;
-    const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0;
+    const progressPercentage =
+      duration > 0 ? (currentTime / duration) * 100 : 0;
 
     if (!isSeeking) {
       setProgress(progressPercentage);
@@ -110,7 +114,7 @@ const MusicPlayer = () => {
   };
 
   const handleSeek = (e) => {
-    const newValue = parseFloat(e.target.value);
+    const newValue = Number.parseFloat(e.target.value);
     const seekTime = (newValue / 100) * (audioRef.current.duration || 0);
 
     if (!isNaN(seekTime) && isFinite(seekTime)) {
@@ -178,12 +182,28 @@ const MusicPlayer = () => {
     }
   };
 
+  const buttonVariants = {
+    hover: {
+      scale: 1.15,
+      transition: { duration: 0.2 },
+    },
+    tap: {
+      scale: 0.9,
+      transition: { duration: 0.1 },
+    },
+  };
+
+  const progressBarVariants = {
+    initial: { scaleX: 0 },
+    animate: { scaleX: 1, transition: { duration: 0.5 } },
+  };
+
   return (
     <motion.div
       className="music-player-container"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       role="region"
       aria-label="Reproductor de música de Nubila"
     >
@@ -192,6 +212,7 @@ const MusicPlayer = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
+        whileHover={{ boxShadow: "0 8px 16px rgba(0,0,0,0.2)" }}
       >
         <motion.div
           className="volume-control"
@@ -251,15 +272,28 @@ const MusicPlayer = () => {
           </motion.div>
         </motion.div>
         <div className="song-info">
-          <div className="song-title" aria-live="polite">
+          <motion.div
+            className="song-title"
+            aria-live="polite"
+            key={currentSong.title}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
+          >
             <span aria-label="Título de la canción">{currentSong.title}</span>
-          </div>
-          <div className="progress-container">
+          </motion.div>
+          <motion.div
+            className="progress-container"
+            variants={progressBarVariants}
+            initial="initial"
+            animate="animate"
+          >
             <span className="time-display" aria-hidden="true">
               {formatTime(currentTime)}
             </span>
             <label htmlFor="progress-bar" className="sr-only">
-              Progreso de la canción: {formatTime(currentTime)} de {formatTime(duration)}
+              Progreso de la canción: {formatTime(currentTime)} de{" "}
+              {formatTime(duration)}
             </label>
             <div className="progress-bar-wrapper">
               <input
@@ -279,40 +313,63 @@ const MusicPlayer = () => {
                 aria-valuemin="0"
                 aria-valuemax="100"
                 aria-valuenow={Math.round(progress)}
-                aria-valuetext={`${formatTime(currentTime)} de ${formatTime(duration)}`}
+                aria-valuetext={`${formatTime(currentTime)} de ${formatTime(
+                  duration
+                )}`}
                 style={{ "--progress-percent": `${progress}%` }}
               />
             </div>
             <span className="time-display" aria-hidden="true">
               {formatTime(duration)}
             </span>
-          </div>
+          </motion.div>
         </div>
-        <div className="controls" role="toolbar" aria-label="Controles de reproducción">
-          <button
+        <div
+          className="controls"
+          role="toolbar"
+          aria-label="Controles de reproducción"
+        >
+          <motion.button
             onClick={handlePreviousSong}
             onKeyDown={(e) => handleKeyDown(e, handlePreviousSong)}
             aria-label="Canción anterior"
             title="Canción anterior"
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
           >
             <MdSkipPrevious aria-hidden="true" />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             onClick={handlePlayPause}
             onKeyDown={(e) => handleKeyDown(e, handlePlayPause)}
             aria-label={isPlaying ? "Pausar" : "Reproducir"}
             title={isPlaying ? "Pausar" : "Reproducir"}
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+            animate={isPlaying ? { scale: [1, 1.05, 1] } : {}}
+            transition={
+              isPlaying ? { duration: 1, repeat: Number.POSITIVE_INFINITY } : {}
+            }
           >
-            {isPlaying ? <MdPause aria-hidden="true" /> : <MdPlayArrow aria-hidden="true" />}
-          </button>
-          <button
+            {isPlaying ? (
+              <MdPause aria-hidden="true" />
+            ) : (
+              <MdPlayArrow aria-hidden="true" />
+            )}
+          </motion.button>
+          <motion.button
             onClick={handleNextSong}
             onKeyDown={(e) => handleKeyDown(e, handleNextSong)}
             aria-label="Siguiente canción"
             title="Siguiente canción"
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
           >
             <MdSkipNext aria-hidden="true" />
-          </button>
+          </motion.button>
         </div>
       </motion.div>
 
@@ -328,11 +385,11 @@ const MusicPlayer = () => {
         <p>Tu navegador no soporta el elemento de audio.</p>
       </audio>
 
-      {/* Announcer para lectores de pantalla */}
       <div className="sr-only" aria-live="polite">
-        {isPlaying ? `Reproduciendo: ${currentSong.title}` : `Pausado: ${currentSong.title}`}
+        {isPlaying
+          ? `Reproduciendo: ${currentSong.title}`
+          : `Pausado: ${currentSong.title}`}
       </div>
-
     </motion.div>
   );
 };
