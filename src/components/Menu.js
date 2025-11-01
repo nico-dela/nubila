@@ -1,18 +1,25 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion" // Importamos AnimatePresence
-import nubilaLogo from "../assets/images/nubila-logo.webp"
-import "../styles/Menu.css"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion"; // Importamos AnimatePresence
+import nubilaLogo from "../assets/images/nubila-logo.webp";
+import "../styles/Menu.css";
 
 const menuItems = [
   {
     to: "/",
-    label: <img src={nubilaLogo} alt="Nubila Logo" className="menu-logo" color="#8191BA" />,
+    label: (
+      <img
+        src={nubilaLogo}
+        alt="Nubila Logo"
+        className="menu-logo"
+        color="#8191BA"
+      />
+    ),
   },
   { to: "/acerca", label: "UN CD-WEB" },
   { to: "/creditos", label: "CREDITOS" },
   { to: "/colabora", label: "COLABORA" },
-]
+];
 
 // Variantes de animación mejoradas para Firefox
 const menuVariants = {
@@ -32,7 +39,7 @@ const menuVariants = {
       ease: "easeInOut",
     },
   },
-}
+};
 
 // Variantes para los elementos del menú con aparición escalonada
 const menuItemVariants = {
@@ -46,30 +53,55 @@ const menuItemVariants = {
       ease: "easeOut",
     },
   }),
-}
+};
 
 const Menu = ({ background }) => {
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
-    setShowMenu(!showMenu)
-  }
+    setShowMenu(!showMenu);
+  };
 
   // Detectar si estamos en Firefox
-  const isFirefox = typeof navigator !== "undefined" && navigator.userAgent.toLowerCase().indexOf("firefox") > -1
+  const isFirefox =
+    typeof navigator !== "undefined" &&
+    navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+
+  const menuVariants = {
+    initial: { opacity: 0, y: 20, scale: 0.8 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
 
   return (
-    <div
+    <motion.div
       className="menu-container"
+      variants={menuVariants}
+      initial="initial"
+      animate="animate"
       style={{
-        background: background ? `linear-gradient(to bottom, ${background})` : undefined,
+        background: background
+          ? `linear-gradient(to bottom, ${background})`
+          : undefined,
         backgroundSize: "contain",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
     >
       {/* Menu Button */}
-      <button className="menu-button" onClick={toggleMenu} aria-expanded={showMenu} aria-label="Menú principal">
+      <button
+        className="menu-button"
+        onClick={toggleMenu}
+        aria-expanded={showMenu}
+        aria-label="Menú principal"
+      >
         <span className={`menu-bar ${showMenu ? "open" : ""}`}></span>
         <span className={`menu-bar ${showMenu ? "open" : ""}`}></span>
         <span className={`menu-bar ${showMenu ? "open" : ""}`}></span>
@@ -112,8 +144,8 @@ const Menu = ({ background }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
-  )
-}
+    </motion.div>
+  );
+};
 
-export default Menu
+export default Menu;
