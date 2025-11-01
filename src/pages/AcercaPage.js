@@ -43,13 +43,22 @@ const AcercaPage = () => {
       <h1 className="header">UN CD-WEB</h1>
       <motion.div className="info" variants={sectionVariants}>
         <p>
-          Un rincón digital el cual se centra menos en la obra resultante y más
-          en el proceso, el cuidado y la artesanía necesarios para llegar allí.
+          Este espacio funciona como un jardín digital: un territorio donde la
+          música se cultiva entre procesos, cuidados y cruces con otras
+          disciplinas. Más que un catálogo de piezas terminadas, es una bitácora
+          viva de cómo llegamos hasta ellas —ensayos, imágenes, textos y sonidos
+          que se entrelazan hasta conformar cada canción.
+        </p>
+        <p>
+          Creemos en la creación como práctica artesanal y compartida: en dar
+          tiempo a las ideas para que florezcan en canciones, visuales o
+          tipografías propias, y en permitir que cada obra dialogue con otras
+          formas de expresión.
         </p>
         <strong>¿Que ideas seguimos?</strong>
         <ol>
           <li>
-            Hacer un{" "}
+            Construir y mantener un{" "}
             <a
               href="https://joelhooks.com/digital-garden"
               target="_blank"
@@ -60,7 +69,7 @@ const AcercaPage = () => {
           </li>
           <li>Elaborar una obra en varios lenguajes artisticos</li>
           <li>
-            La cultura es de{" "}
+            Defender la cultura como un bien de{" "}
             <a
               href="https://archive.org/"
               target="_blank"
@@ -73,8 +82,7 @@ const AcercaPage = () => {
         <strong>¿Que decisiones tomamos?</strong>
         <ul>
           <li>
-            Difundir nuestra música a través de este medio y, luego de lanzar el
-            disco, distribuirla en {""}
+            Difundir nuestra música primero desde este espacio y, luego en {""}
             <a
               href={
                 "https://linktr.ee/nubila?lt_utm_source=lt_share_link#341887887"
@@ -84,7 +92,6 @@ const AcercaPage = () => {
             >
               plataformas digitales
             </a>{" "}
-            de música.
           </li>
           <li>Traducir el universo de la canción en lenguaje gráfico</li>
           <li>
