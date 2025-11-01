@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import SocialMedia from "../components/SocialMedia"
-import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
-import OceanParticles from "../components/OceanParticles"
+import { useEffect, useState } from "react";
+import SocialMedia from "../components/SocialMedia";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import OceanParticles from "../components/OceanParticles";
 
-import "../styles/LandingPage.css"
+import "../styles/LandingPage.css";
 
 const buttonVariants = {
   initial: {
@@ -20,15 +20,15 @@ const buttonVariants = {
       duration: 0.5,
     },
   },
-}
+};
 
 const LandingPage = () => {
-  const [buttons, setButtons] = useState([])
-  const [buttonFontSize, setButtonFontSize] = useState(35)
+  const [buttons, setButtons] = useState([]);
+  const [buttonFontSize, setButtonFontSize] = useState(35);
   const [windowDimensions, setWindowDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
-  })
+  });
 
   // Actualizar las dimensiones de la ventana cuando cambia el tamaño
   useEffect(() => {
@@ -36,32 +36,32 @@ const LandingPage = () => {
       setWindowDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
-      })
+      });
       // Ajustar el tamaño de fuente según el ancho de la pantalla
       if (window.innerWidth <= 375) {
-        setButtonFontSize(20)
+        setButtonFontSize(20);
       } else if (window.innerWidth <= 768) {
-        setButtonFontSize(25)
+        setButtonFontSize(25);
       } else {
-        setButtonFontSize(35)
+        setButtonFontSize(35);
       }
-    }
+    };
 
-    window.addEventListener("resize", handleResize)
+    window.addEventListener("resize", handleResize);
 
     // Llamar handleResize inmediatamente para establecer los valores iniciales
-    handleResize()
+    handleResize();
 
     return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // Generar botones cuando cambian las dimensiones de la ventana o el tamaño de fuente
   useEffect(() => {
     // Función para verificar si hay superposición entre dos botones
     const isOverlapping = (newPos, existingPositions) => {
-      const buffer = 20 // Espacio mínimo entre botones
+      const buffer = 20; // Espacio mínimo entre botones
       for (const pos of existingPositions) {
         // Comprobar si hay superposición en el eje x e y
         if (
@@ -70,71 +70,84 @@ const LandingPage = () => {
           newPos.y < pos.y + pos.height + buffer &&
           newPos.y + newPos.height + buffer > pos.y
         ) {
-          return true // Hay superposición
+          return true; // Hay superposición
         }
       }
-      return false // No hay superposición
-    }
+      return false; // No hay superposición
+    };
 
     const generateRandomButton = (link, isStrikeThrough, existingPositions) => {
-      const { width: screenWidth, height: screenHeight } = windowDimensions
+      const { width: screenWidth, height: screenHeight } = windowDimensions;
 
       // Dimensiones del botón basadas en el texto
       // Usar un factor más conservador para calcular el ancho
-      const buttonWidth = Math.max(120, link.text.length * (buttonFontSize * 0.6))
-      const buttonHeight = buttonFontSize * 1.5
+      const buttonWidth = Math.max(
+        120,
+        link.text.length * (buttonFontSize * 0.6)
+      );
+      const buttonHeight = buttonFontSize * 1.5;
 
       // Determinar si el botón debe rotarse (menos probabilidad en móviles)
-      const shouldRotate = windowDimensions.width > 768 ? Math.random() < 0.3 : Math.random() < 0.1
-      const randomRotation = shouldRotate ? 90 : 0
+      const shouldRotate =
+        windowDimensions.width > 768
+          ? Math.random() < 0.3
+          : Math.random() < 0.1;
+      const randomRotation = shouldRotate ? 90 : 0;
 
       // Calcular el espacio que ocupará el botón considerando la rotación
-      const effectiveWidth = randomRotation === 90 ? buttonHeight : buttonWidth
-      const effectiveHeight = randomRotation === 90 ? buttonWidth : buttonHeight
+      const effectiveWidth = randomRotation === 90 ? buttonHeight : buttonWidth;
+      const effectiveHeight =
+        randomRotation === 90 ? buttonWidth : buttonHeight;
 
       // Márgenes de seguridad mucho más generosos
       // Aumentamos los márgenes para evitar que los textos se salgan de la pantalla
-      const safeMargin = Math.max(60, buttonFontSize * 1.5)
+      const safeMargin = Math.max(60, buttonFontSize * 1.5);
 
       // Ajustar la zona segura para posicionar botones
       // Restamos el tamaño efectivo del botón y los márgenes de seguridad
-      const safeWidth = screenWidth - effectiveWidth - 2 * safeMargin
-      const safeHeight = screenHeight - effectiveHeight - 2 * safeMargin - 80 // 80px adicionales para el reproductor de música
+      const safeWidth = screenWidth - effectiveWidth - 2 * safeMargin;
+      const safeHeight = screenHeight - effectiveHeight - 2 * safeMargin - 80; // 80px adicionales para el reproductor de música
 
       // Asegurar valores positivos para las áreas disponibles
-      const availableWidth = Math.max(10, safeWidth)
-      const availableHeight = Math.max(10, safeHeight)
+      const availableWidth = Math.max(10, safeWidth);
+      const availableHeight = Math.max(10, safeHeight);
 
       // Intentar encontrar una posición que no se superponga con otros botones
-      let attempts = 0
-      let randomX, randomY
-      let position
+      let attempts = 0;
+      let randomX, randomY;
+      let position;
 
       do {
         // Calcular posición aleatoria dentro del área segura
-        randomX = safeMargin + Math.floor(Math.random() * availableWidth)
-        randomY = safeMargin + Math.floor(Math.random() * availableHeight)
+        randomX = safeMargin + Math.floor(Math.random() * availableWidth);
+        randomY = safeMargin + Math.floor(Math.random() * availableHeight);
 
         position = {
           x: randomX,
           y: randomY,
           width: effectiveWidth,
           height: effectiveHeight,
-        }
+        };
 
-        attempts++
-      } while (isOverlapping(position, existingPositions) && attempts < 50)
+        attempts++;
+      } while (isOverlapping(position, existingPositions) && attempts < 50);
 
       // Agregar la nueva posición a la lista de posiciones existentes
-      existingPositions.push(position)
+      existingPositions.push(position);
 
       // Calcular el origen de la transformación para la rotación
       // Esto asegura que la rotación ocurra alrededor del centro del texto
-      const transformOrigin = "center center"
+      const transformOrigin = "center center";
 
       return {
         component: (
-          <motion.div key={link.url} initial="initial" animate="animate" whileHover="hover" variants={buttonVariants}>
+          <motion.div
+            key={link.url}
+            initial="initial"
+            animate="animate"
+            whileHover="hover"
+            variants={buttonVariants}
+          >
             <Link
               to={`/${link.url}`}
               style={{
@@ -164,10 +177,10 @@ const LandingPage = () => {
                 // border: "1px solid red",
               }}
               onMouseEnter={(e) => {
-                e.target.style.opacity = "0.5"
+                e.target.style.opacity = "0.5";
               }}
               onMouseLeave={(e) => {
-                e.target.style.opacity = "1"
+                e.target.style.opacity = "1";
               }}
             >
               {link.text}
@@ -175,8 +188,8 @@ const LandingPage = () => {
           </motion.div>
         ),
         position,
-      }
-    }
+      };
+    };
 
     const links = [
       { text: "OCEANICA", url: "oceanica" },
@@ -185,35 +198,57 @@ const LandingPage = () => {
       { text: "FRIO", url: "frio" },
       { text: "MARIPOSA ORIGAMI", url: "mariposa" },
       { text: "LIMONERO", url: "limonero" },
-    ]
+    ];
 
     // Ordenar los enlaces por longitud (más largos primero)
     // para dar prioridad a los textos más largos al posicionarlos
-    const sortedLinks = [...links].sort((a, b) => b.text.length - a.text.length)
+    const sortedLinks = [...links].sort(
+      (a, b) => b.text.length - a.text.length
+    );
 
-    const randomIndex = Math.floor(Math.random() * (sortedLinks.length + 1))
-    const selectedLink = randomIndex < sortedLinks.length ? sortedLinks[randomIndex] : null
+    const randomIndex = Math.floor(Math.random() * (sortedLinks.length + 1));
+    const selectedLink =
+      randomIndex < sortedLinks.length ? sortedLinks[randomIndex] : null;
 
     // Array para mantener registro de posiciones ya utilizadas
-    const existingPositions = []
+    const existingPositions = [];
 
     // Generar botones con verificación de superposición
-    const generatedButtons = []
+    const generatedButtons = [];
     for (const link of sortedLinks) {
-      const buttonData = generateRandomButton(link, link === selectedLink, existingPositions)
-      generatedButtons.push(buttonData.component)
+      const buttonData = generateRandomButton(
+        link,
+        link === selectedLink,
+        existingPositions
+      );
+      generatedButtons.push(buttonData.component);
     }
 
-    setButtons(generatedButtons)
-  }, [windowDimensions, buttonFontSize])
+    setButtons(generatedButtons);
+  }, [windowDimensions, buttonFontSize]);
 
   // Mantenemos los colores originales del gradiente
-  const hexColors = ["#86B0A6", "#A6C4CF", "#E1CFCB", "#2e7b7f", "#557B86", "#EB7E83"]
+  const hexColors = [
+    "#86B0A6",
+    "#A6C4CF",
+    "#E1CFCB",
+    "#2e7b7f",
+    "#557B86",
+    "#EB7E83",
+  ];
 
   const randomGradient = hexColors
     .sort(() => 0.5 - Math.random())
     .slice(0, 3)
-    .join(",")
+    .join(",");
+
+  const backgroundVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: { duration: 1.5 },
+    },
+  };
 
   return (
     <div
@@ -225,8 +260,11 @@ const LandingPage = () => {
         overflow: "hidden", // Prevenir scroll si algún elemento se coloca muy cerca del borde
       }}
     >
-      <div
+      <motion.div
         className="background-gradient"
+        variants={backgroundVariants}
+        initial="initial"
+        animate="animate"
         style={{
           background: `linear-gradient(to bottom, ${randomGradient})`,
           position: "absolute",
@@ -236,14 +274,14 @@ const LandingPage = () => {
           height: "100%",
           zIndex: 0,
         }}
-      ></div>
+      ></motion.div>
 
       <OceanParticles />
 
       <div style={{ position: "relative", zIndex: 5 }}>{buttons}</div>
       <SocialMedia />
     </div>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;
