@@ -1,3 +1,7 @@
+* {
+  outline: none;
+}
+
 .lyrics {
   display: flex;
   flex-direction: column;
@@ -23,6 +27,14 @@
 .image-container {
   position: relative;
   max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+}
+
+.image-container:focus {
+  outline: none;
+}
+
+.image-container {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .back-to-home-link {
