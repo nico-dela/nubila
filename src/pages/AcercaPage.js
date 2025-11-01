@@ -47,13 +47,10 @@ const AcercaPage = () => {
           música se cultiva entre procesos, cuidados y cruces con otras
           disciplinas. Más que un catálogo de piezas terminadas, es una bitácora
           viva de cómo llegamos hasta ellas —ensayos, imágenes, textos y sonidos
-          que se entrelazan hasta conformar cada canción.
-        </p>
-        <p>
-          Creemos en la creación como práctica artesanal y compartida: en dar
-          tiempo a las ideas para que florezcan en canciones, visuales o
-          tipografías propias, y en permitir que cada obra dialogue con otras
-          formas de expresión.
+          que se entrelazan hasta conformar cada canción. Creemos en la creación
+          como práctica artesanal y compartida: en dar tiempo a las ideas para
+          que florezcan en canciones, visuales o tipografías propias, y en
+          permitir que cada obra dialogue con otras formas de expresión.
         </p>
         <strong>¿Que ideas seguimos?</strong>
         <ol>
