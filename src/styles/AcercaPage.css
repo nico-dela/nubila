@@ -16,7 +16,7 @@
   font-size: 18px;
   color: #555;
   line-height: 1.5;
-  padding: 20px;
+  padding: 30px 150px;
 }
 
 /* Ajustes para dispositivos móviles */
@@ -24,6 +24,7 @@
   .info {
     font-size: 16px;
     padding: 15px;
+    padding: 20px;
   }
 }
 
