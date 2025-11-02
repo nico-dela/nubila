@@ -21,26 +21,6 @@ const menuItems = [
   { to: "/colabora", label: "COLABORA" },
 ];
 
-// Variantes de animación mejoradas para Firefox
-const menuVariants = {
-  hidden: {
-    opacity: 0,
-    y: -10,
-    transition: {
-      duration: 0.2,
-      ease: "easeInOut",
-    },
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.2,
-      ease: "easeInOut",
-    },
-  },
-};
-
 // Variantes para los elementos del menú con aparición escalonada
 const menuItemVariants = {
   hidden: { opacity: 0, y: -5 },

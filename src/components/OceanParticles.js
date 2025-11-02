@@ -1,30 +1,28 @@
-"use client"
-
-import { useEffect, useRef } from "react"
-import { motion } from "framer-motion"
-import "../styles/OceanEffect.css"
+import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import "../styles/OceanEffect.css";
 
 const OceanParticles = () => {
-  const canvasRef = useRef(null)
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext("2d")
-    let animationFrameId
-    let time = 0
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
+    let time = 0;
 
     // Ajustar el tamaño del canvas al tamaño de la ventana
     const resize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
 
-    window.addEventListener("resize", resize)
-    resize()
+    window.addEventListener("resize", resize);
+    resize();
 
     // Crear partículas
-    const particleCount = Math.min(15, Math.floor(window.innerWidth / 15))
-    const particles = []
+    const particleCount = Math.min(15, Math.floor(window.innerWidth / 15));
+    const particles = [];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -43,85 +41,100 @@ const OceanParticles = () => {
         // Parámetros para forma orgánica
         wobble: Math.random() * 0.5 + 0.5, // Factor de ondulación
         wobbleSpeed: Math.random() * 0.05 + 0.02, // Velocidad de ondulación
-      })
+      });
     }
 
     // Función para dibujar una partícula deforme
     const drawDeformedParticle = (particle, time) => {
-      const { x, y, baseRadius, deformFactor, points, rotation, wobble, wobbleSpeed } = particle
+      const {
+        x,
+        y,
+        baseRadius,
+        deformFactor,
+        points,
+        rotation,
+        wobble,
+        wobbleSpeed,
+      } = particle;
 
-      ctx.beginPath()
+      ctx.beginPath();
 
       // Crear una forma orgánica con puntos y curvas
       for (let i = 0; i <= points; i++) {
-        const angle = (i / points) * Math.PI * 2 + rotation + time * particle.rotationSpeed
+        const angle =
+          (i / points) * Math.PI * 2 + rotation + time * particle.rotationSpeed;
 
         // Calcular radio con ondulación basada en tiempo
-        const radiusVariation = Math.sin(time * wobbleSpeed + i) * wobble
-        const currentRadius = baseRadius * (1 + deformFactor * radiusVariation)
+        const radiusVariation = Math.sin(time * wobbleSpeed + i) * wobble;
+        const currentRadius = baseRadius * (1 + deformFactor * radiusVariation);
 
         // Calcular posición del punto
-        const pointX = x + Math.cos(angle) * currentRadius
-        const pointY = y + Math.sin(angle) * currentRadius
+        const pointX = x + Math.cos(angle) * currentRadius;
+        const pointY = y + Math.sin(angle) * currentRadius;
 
         if (i === 0) {
-          ctx.moveTo(pointX, pointY)
+          ctx.moveTo(pointX, pointY);
         } else {
           // Usar curvas cuadráticas para suavizar la forma
-          const prevAngle = ((i - 1) / points) * Math.PI * 2 + rotation + time * particle.rotationSpeed
-          const cpX = x + Math.cos((prevAngle + angle) / 2) * currentRadius * 1.5
-          const cpY = y + Math.sin((prevAngle + angle) / 2) * currentRadius * 1.5
+          const prevAngle =
+            ((i - 1) / points) * Math.PI * 2 +
+            rotation +
+            time * particle.rotationSpeed;
+          const cpX =
+            x + Math.cos((prevAngle + angle) / 2) * currentRadius * 1.5;
+          const cpY =
+            y + Math.sin((prevAngle + angle) / 2) * currentRadius * 1.5;
 
-          ctx.quadraticCurveTo(cpX, cpY, pointX, pointY)
+          ctx.quadraticCurveTo(cpX, cpY, pointX, pointY);
         }
       }
 
-      ctx.closePath()
+      ctx.closePath();
 
       // Aplicar un gradiente radial para dar profundidad
-      const gradient = ctx.createRadialGradient(x, y, 0, x, y, baseRadius * 2)
-      gradient.addColorStop(0, `rgba(0, 0, 0, ${particle.opacity * 1.5})`)
-      gradient.addColorStop(1, `rgba(255, 255, 255, 0.7)`)
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, baseRadius * 2);
+      gradient.addColorStop(0, `rgba(0, 0, 0, ${particle.opacity * 1.5})`);
+      gradient.addColorStop(1, `rgba(255, 255, 255, 0.7)`);
 
-      ctx.fillStyle = gradient
-      ctx.fill()
-    }
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    };
 
     // Función para dibujar y animar las partículas
     const drawParticles = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      time += 0.01
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      time += 0.01;
 
       particles.forEach((particle) => {
         // Mover la partícula
-        particle.x += Math.cos(particle.direction) * particle.speed
-        particle.y += Math.sin(particle.direction) * particle.speed - 0.05 // Ligero movimiento hacia arriba
+        particle.x += Math.cos(particle.direction) * particle.speed;
+        particle.y += Math.sin(particle.direction) * particle.speed - 0.05; // Ligero movimiento hacia arriba
 
         // Cambiar ligeramente la dirección para un movimiento más natural
-        particle.direction += (Math.random() - 0.5) * 0.08
+        particle.direction += (Math.random() - 0.5) * 0.08;
 
         // Si la partícula sale del canvas, reposicionarla
-        if (particle.x < -50) particle.x = canvas.width + 50
-        if (particle.x > canvas.width + 50) particle.x = -50
-        if (particle.y < -50) particle.y = canvas.height + 50
-        if (particle.y > canvas.height + 50) particle.y = -50
+        if (particle.x < -50) particle.x = canvas.width + 50;
+        if (particle.x > canvas.width + 50) particle.x = -50;
+        if (particle.y < -50) particle.y = canvas.height + 50;
+        if (particle.y > canvas.height + 50) particle.y = -50;
 
         // Dibujar la partícula deforme
-        drawDeformedParticle(particle, time)
-      })
+        drawDeformedParticle(particle, time);
+      });
 
-      animationFrameId = requestAnimationFrame(drawParticles)
-    }
+      animationFrameId = requestAnimationFrame(drawParticles);
+    };
 
     // Iniciar la animación
-    drawParticles()
+    drawParticles();
 
     // Limpiar al desmontar
     return () => {
-      window.removeEventListener("resize", resize)
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [])
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   return (
     <motion.canvas
@@ -141,7 +154,7 @@ const OceanParticles = () => {
         mixBlendMode: "screen",
       }}
     />
-  )
-}
+  );
+};
 
-export default OceanParticles
+export default OceanParticles;

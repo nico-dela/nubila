@@ -1,4 +1,3 @@
-import React from "react";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import "../styles/AcercaPage.css";
 import { Link } from "react-router-dom";

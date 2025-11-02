@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
 import oceanicaHorizontalImage from "../assets/images/oceanica-midi-horizontal.webp";
 import oceanicaVerticalImage from "../assets/images/oceanica-midi-vertical.webp";
@@ -91,16 +91,18 @@ const OceanicaPage = () => {
           }}
         >
           {/* {!loading && <img src={oceanicaImage} alt="Oceánica partitura" />} */}
-          {!loading && <motion.img
-                src={oceanicaImage}
-                alt="Oceánica postal"
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "100%",
-                }}
-                animate={imageControls}
-              />}
+          {!loading && (
+            <motion.img
+              src={oceanicaImage}
+              alt="Oceánica postal"
+              style={{
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+              }}
+              animate={imageControls}
+            />
+          )}
         </motion.div>
       </Suspense>
       <motion.div

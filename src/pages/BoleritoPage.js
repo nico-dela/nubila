@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import boleritoHorizontalImage from "../assets/images/bolerito-midi-horizontal.webp";
@@ -92,15 +92,15 @@ const BoleritoPage = () => {
         >
           {!loading && (
             <motion.img
-                src={boleritoImage}
-                alt="Bolerito postal"
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "100%",
-                }}
-                animate={imageControls}
-              />
+              src={boleritoImage}
+              alt="Bolerito postal"
+              style={{
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+              }}
+              animate={imageControls}
+            />
           )}
         </motion.div>
       </Suspense>

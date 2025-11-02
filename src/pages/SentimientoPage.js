@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import YouTube from "react-youtube";
 import volverImage from "../assets/images/circle-xmark-regular.svg";
 import "../styles/SentimientoPage.css";

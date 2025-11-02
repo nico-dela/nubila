@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
 import limoneroHorizontalImage from "../assets/images/limonero-midi-horizontal.webp";
 import limoneroVerticalImage from "../assets/images/limonero-midi-vertical.webp";

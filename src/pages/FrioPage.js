@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
 import frioHorizontalImage from "../assets/images/frio-midi-horizontal.webp";
 import frioVerticalImage from "../assets/images/frio-midi-vertical.webp";
@@ -100,10 +100,10 @@ const FrioPage = () => {
           animate="animate"
           onClick={toggleImages}
           style={{
-            position: 'relative',
-            overflow: 'hidden',
-            maxWidth: '100%',
-            maxHeight: '80vh', // Ajustar altura máxima
+            position: "relative",
+            overflow: "hidden",
+            maxWidth: "100%",
+            maxHeight: "80vh", // Ajustar altura máxima
             cursor: "pointer",
           }}
         >
@@ -114,9 +114,9 @@ const FrioPage = () => {
                 alt="Frío postal"
                 style={{
                   opacity: showLetraImage ? 0 : 1,
-                  objectFit: 'cover',
-                  width: '100%',
-                  height: '100%',
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "100%",
                 }}
                 animate={imageControls}
               />
@@ -125,13 +125,13 @@ const FrioPage = () => {
                 alt="Frío letra"
                 style={{
                   opacity: showLetraImage ? 1 : 0,
-                  objectFit: 'cover',
-                  maxWidth: '100%', // Reducir el tamaño de la imagen para pantallas más grandes
-                  maxHeight: '100%', // Reducir el tamaño de la imagen para pantallas más grandes
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)', // Centrar la imagen en el contenedor
+                  objectFit: "cover",
+                  maxWidth: "100%", // Reducir el tamaño de la imagen para pantallas más grandes
+                  maxHeight: "100%", // Reducir el tamaño de la imagen para pantallas más grandes
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)", // Centrar la imagen en el contenedor
                 }}
                 animate={letraControls}
               />

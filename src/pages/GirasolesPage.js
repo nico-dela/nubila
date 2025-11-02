@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
 import girasolesHorizontalImage from "../assets/images/girasoles-midi-horizontal.webp";
 import girasolesVerticalImage from "../assets/images/girasoles-midi-vertical.webp";
@@ -128,7 +128,7 @@ const GirasolesPage = () => {
                 style={{
                   opacity: showLetraImage ? 1 : 0,
                   objectFit: "cover",
-                  maxWidth: "100%", 
+                  maxWidth: "100%",
                   maxHeight: "100%",
                   position: "absolute",
                   top: "50%",

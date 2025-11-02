@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
 import mariposaHorizontalImage from "../assets/images/mariposa-midi-horizontal.webp";
 import mariposaVerticalImage from "../assets/images/mariposa-midi-vertical.webp";
