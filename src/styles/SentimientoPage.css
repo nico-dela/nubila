@@ -1,6 +1,8 @@
 /* Estilos comunes para todas las resoluciones */
-#main-container {
-  transition: background-color 0.5s ease;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .heading {
@@ -38,10 +40,6 @@
 
 /* Estilos específicos para resoluciones mayores a 768px */
 @media (min-width: 768px) {
-  #main-container {
-    padding: 20px; /* Añade más espacio alrededor del contenedor principal */
-  }
-
   .heading {
     font-size: 4rem; /* Aumenta el tamaño de la fuente para pantallas más grandes */
   }
@@ -49,10 +47,6 @@
 
 /* Estilos específicos para resoluciones mayores a 1024px */
 @media (min-width: 1024px) {
-  #main-container {
-    padding: 40px; /* Añade aún más espacio alrededor del contenedor principal */
-  }
-
   .heading {
     font-size: 5rem; /* Aumenta el tamaño de la fuente para pantallas más grandes */
   }
