@@ -7,6 +7,7 @@ import BoleritoPage from "./pages/BoleritoPage";
 import MariposaPage from "./pages/MariposaPage";
 import FrioPage from "./pages/FrioPage";
 import LimoneroPage from "./pages/LimoneroPage";
+// import SentimientoPage from "./pages/SentimientoPage";
 import CreditosPage from "./pages/CreditosPage";
 import ColaboraPage from "./pages/ColaboraPage";
 import OfflinePage from "./pages/OfflinePage";
@@ -54,6 +55,10 @@ const App = () => {
                 <Route path="/frio" element={<FrioPage />} />
                 <Route path="/limonero" element={<LimoneroPage />} />
                 <Route path="/creditos" element={<CreditosPage />} />
+                {/* <Route
+                  path="/sentimiento-oceanico"
+                  element={<SentimientoPage />}
+                /> */}
                 <Route path="/colabora" element={<ColaboraPage />} />
                 <Route path="/acerca" element={<AcercaPage />} />
                 <Route path="*" element={<NotFoundPage />} />
