@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import SocialMedia from "../components/SocialMedia";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import OceanParticles from "../components/OceanParticles";
@@ -279,7 +278,6 @@ const LandingPage = () => {
       <OceanParticles />
 
       <div style={{ position: "relative", zIndex: 5 }}>{buttons}</div>
-      <SocialMedia />
     </div>
   );
 };
