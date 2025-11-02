@@ -40,7 +40,7 @@ const SentimientoPage = () => {
   const [backgroundColor, setBackgroundColor] = useState("");
 
   const opts = {
-    height: screenHeight * 0.7,
+    height: screenHeight * 0.75,
     width: screenWidth,
     playerVars: {
       autoplay: 0,
@@ -67,12 +67,11 @@ const SentimientoPage = () => {
     <motion.div
       className="container"
       style={{ backgroundColor }}
-      id="main-container"
       variants={pageVariants}
       initial="initial"
       animate="animate"
     >
-      <h1 className="heading">SENTIMIENTO OCEANICO</h1>
+      <h1 className="header">SENTIMIENTO OCEANICO</h1>
       <motion.div variants={sectionVariants}>
         <YouTube
           videoId="zO1L7Grx1VQ"
