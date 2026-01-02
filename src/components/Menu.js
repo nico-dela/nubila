@@ -18,6 +18,7 @@ const menuItems = [
   },
   // { to: "/sentimiento-oceanico", label: "SENTIMIENTO OCEANICO" },
   { to: "/acerca", label: "UN CD-WEB" },
+  { to: "/blog", label: "BLOG" },
   { to: "/creditos", label: "CREDITOS" },
   { to: "/colabora", label: "COLABORA" },
 ];
