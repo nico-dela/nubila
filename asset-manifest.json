@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/static/css/main.906cd1bf.css",
-    "main.js": "/static/js/main.6cacae65.js",
+    "main.css": "/static/css/main.3971a80d.css",
+    "main.js": "/static/js/main.adc4239d.js",
     "static/css/461.cbfa2077.chunk.css": "/static/css/461.cbfa2077.chunk.css",
-    "static/js/461.c9ae7ca9.chunk.js": "/static/js/461.c9ae7ca9.chunk.js",
+    "static/js/461.c7502e5a.chunk.js": "/static/js/461.c7502e5a.chunk.js",
     "static/css/724.dd5dd357.chunk.css": "/static/css/724.dd5dd357.chunk.css",
     "static/js/724.611639c2.chunk.js": "/static/js/724.611639c2.chunk.js",
     "static/js/322.807ab5ec.chunk.js": "/static/js/322.807ab5ec.chunk.js",
@@ -15,11 +15,13 @@
     "static/media/Mariposa Origami.mp3": "/static/media/Mariposa Origami.c9d8f02e9c721fdb9103.mp3",
     "static/media/The Manneporte.mp3": "/static/media/The Manneporte.6409fff2ba3d09b309d7.mp3",
     "static/media/Oceanica.mp3": "/static/media/Oceanica.37c9c5978644becd756b.mp3",
+    "static/media/foto_grupal.webp": "/static/media/foto_grupal.3d05ffb08ac1b0f8a340.webp",
     "static/media/girasoles-midi-vertical.webp": "/static/media/girasoles-midi-vertical.293fcb97d527be8c6b2a.webp",
     "static/media/girasoles-midi-horizontal.webp": "/static/media/girasoles-midi-horizontal.515f9697e5b4f8600b46.webp",
     "static/media/girasoles-letra.webp": "/static/media/girasoles-letra.45f478386b90dfdb9d28.webp",
     "static/media/mariposa-letra.webp": "/static/media/mariposa-letra.84721873d3674622e867.webp",
     "static/media/frio-letra.webp": "/static/media/frio-letra.ea7155862233989b9259.webp",
+    "static/media/sticker nota anim.gif": "/static/media/sticker nota anim.f38436ee78b832f59f7b.gif",
     "static/media/bolerito-midi-vertical.webp": "/static/media/bolerito-midi-vertical.2ca6a9f9bad5e48bffdb.webp",
     "static/media/bolerito-midi-horizontal.webp": "/static/media/bolerito-midi-horizontal.4f6737441dde875e7e9a.webp",
     "static/media/limonero-midi-horizontal.webp": "/static/media/limonero-midi-horizontal.f9d6db6836bc16f5fd2a.webp",
@@ -37,16 +39,16 @@
     "static/media/nubila-logo.webp": "/static/media/nubila-logo.d8015be7a0de3ae2375f.webp",
     "index.html": "/index.html",
     "static/media/circle-xmark-regular.svg": "/static/media/circle-xmark-regular.3962bd1b9e383ecaf67e2ab325a88446.svg",
-    "main.906cd1bf.css.map": "/static/css/main.906cd1bf.css.map",
-    "main.6cacae65.js.map": "/static/js/main.6cacae65.js.map",
+    "main.3971a80d.css.map": "/static/css/main.3971a80d.css.map",
+    "main.adc4239d.js.map": "/static/js/main.adc4239d.js.map",
     "461.cbfa2077.chunk.css.map": "/static/css/461.cbfa2077.chunk.css.map",
-    "461.c9ae7ca9.chunk.js.map": "/static/js/461.c9ae7ca9.chunk.js.map",
+    "461.c7502e5a.chunk.js.map": "/static/js/461.c7502e5a.chunk.js.map",
     "724.dd5dd357.chunk.css.map": "/static/css/724.dd5dd357.chunk.css.map",
     "724.611639c2.chunk.js.map": "/static/js/724.611639c2.chunk.js.map",
     "322.807ab5ec.chunk.js.map": "/static/js/322.807ab5ec.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.906cd1bf.css",
-    "static/js/main.6cacae65.js"
+    "static/css/main.3971a80d.css",
+    "static/js/main.adc4239d.js"
   ]
 }
