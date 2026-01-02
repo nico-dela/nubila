@@ -45,7 +45,7 @@ const CreditosPage = () => {
         <h3 style={{ fontSize: "1.5rem" }}>Hacemos NUBILA</h3>
         <div className="credit">
           Mateo Gencarelli, Nicolás de la Cruz, Tobias Gencarelli, Araceli
-          Bonfigli, Julian Medrano, Candela Gencarelli y Ulises Gencarelli
+          Bonfigli, Julian Medrano, Candela Gencarelli, Camilo Gencarelli y Ulises Gencarelli
         </div>
 
         <br></br>
