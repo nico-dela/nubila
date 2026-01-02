@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import OceanParticles from "../components/OceanParticles";
 
 import "../styles/LandingPage.css";
+import FloatingBlogButton from "../components/FloatingBlogButton";
 
 const buttonVariants = {
   initial: {
@@ -273,9 +273,8 @@ const LandingPage = () => {
         }}
       ></motion.div>
 
-      <OceanParticles />
-
       <div style={{ position: "relative", zIndex: 5 }}>{buttons}</div>
+      <FloatingBlogButton />
     </div>
   );
 };
