@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import OceanicaPage from "./pages/OceanicaPage";
@@ -12,6 +12,7 @@ import CreditosPage from "./pages/CreditosPage";
 import ColaboraPage from "./pages/ColaboraPage";
 import OfflinePage from "./pages/OfflinePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import BlogPage from "./pages/BlogPage";
 
 import "./App.css";
 import AcercaPage from "./pages/AcercaPage";
@@ -55,6 +56,7 @@ const App = () => {
                 <Route path="/frio" element={<FrioPage />} />
                 <Route path="/limonero" element={<LimoneroPage />} />
                 <Route path="/creditos" element={<CreditosPage />} />
+                <Route path="/blog" element={<BlogPage />} />
                 {/* <Route
                   path="/sentimiento-oceanico"
                   element={<SentimientoPage />}
