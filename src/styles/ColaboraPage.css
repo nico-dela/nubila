@@ -1,15 +1,17 @@
 .collaborate {
+  font-family: "Inter", sans-serif;
   text-align: left;
   font-size: 18px;
   color: #555;
-  line-height: 1.5;
-  padding: 20px;
+  line-height: 1.8;
+  padding: 30px 150px;
 }
 
 @media only screen and (max-width: 768px) {
   .collaborate {
+    overflow-y: auto;
     font-size: 16px; /* Ajusta el tamaño de fuente para dispositivos móviles */
-    padding: 15px; /* Ajusta el relleno para dispositivos móviles */
+    padding: 20px 40px;
   }
 }
 
