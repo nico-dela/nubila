@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.f0b26f2f.css",
+    "main.css": "/static/css/main.d2d016cd.css",
     "main.js": "/static/js/main.0affdf2f.js",
     "static/css/461.cbfa2077.chunk.css": "/static/css/461.cbfa2077.chunk.css",
     "static/js/461.c7502e5a.chunk.js": "/static/js/461.c7502e5a.chunk.js",
@@ -39,7 +39,7 @@
     "static/media/nubila-logo.webp": "/static/media/nubila-logo.d8015be7a0de3ae2375f.webp",
     "index.html": "/index.html",
     "static/media/circle-xmark-regular.svg": "/static/media/circle-xmark-regular.3962bd1b9e383ecaf67e2ab325a88446.svg",
-    "main.f0b26f2f.css.map": "/static/css/main.f0b26f2f.css.map",
+    "main.d2d016cd.css.map": "/static/css/main.d2d016cd.css.map",
     "main.0affdf2f.js.map": "/static/js/main.0affdf2f.js.map",
     "461.cbfa2077.chunk.css.map": "/static/css/461.cbfa2077.chunk.css.map",
     "461.c7502e5a.chunk.js.map": "/static/js/461.c7502e5a.chunk.js.map",
@@ -48,7 +48,7 @@
     "322.807ab5ec.chunk.js.map": "/static/js/322.807ab5ec.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f0b26f2f.css",
+    "static/css/main.d2d016cd.css",
     "static/js/main.0affdf2f.js"
   ]
 }
