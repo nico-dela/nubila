@@ -42,7 +42,7 @@ const BlogPage = () => {
       animate="animate"
     >
       <h1 className="heading">BLOG</h1>
-      <motion.div className="credits-container" variants={sectionVariants}>
+      <motion.div className="blog-post-container" variants={sectionVariants}>
         <motion.article
           className="blog-post-card"
           initial="initial"
