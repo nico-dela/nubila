@@ -22,7 +22,7 @@
   background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  padding: 15px;
+  padding: 15px 20px;
   max-height: 70vh; /* Establece una altura máxima */
   width: 95vw;
   scrollbar-width: thin;
@@ -67,6 +67,8 @@
 }
 
 .credit {
+  font-family: "Inter", sans-serif;
+  line-height: 1.5;
   font-size: 22px;
   margin: 5px 0;
 
@@ -77,6 +79,7 @@
 
 .tc-credit-container {
   display: flex;
+  font-family: "Inter", sans-serif;
   flex-direction: row; /* Cambio el diseño a columna en dispositivos móviles */
 }
 
@@ -89,6 +92,7 @@
 .tc-credit {
   display: flex;
   flex-direction: column;
+  line-height: 1.5;
   padding: 20px;
   margin: 20px;
   font-size: 22px;
