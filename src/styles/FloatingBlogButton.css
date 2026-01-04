@@ -4,7 +4,7 @@
   right: 20px;
   width: 100px;
   height: 100px;
-  background-color: rgba(245, 245, 245, 0.2);
+  background-color: transparent;
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -12,8 +12,6 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
-
-  animation: subtleGlow 3.5s ease-in-out infinite;
 }
 
 .floating-blog-gif {
@@ -42,6 +40,9 @@
     right: 5px;
     width: 70px;
     height: 70px;
+
+    background-color: rgba(245, 245, 245, 0.2);
+    animation: subtleGlow 3.5s ease-in-out infinite;
   }
 }
 
