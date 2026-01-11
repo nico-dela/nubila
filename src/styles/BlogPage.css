@@ -159,7 +159,7 @@
   font-family: "Inter", sans-serif;
   font-size: 16px;
   font-weight: 500;
-  color: #444;
+  color: #ff4b54;
   margin: 6px 0 8px 0;
 }
 
@@ -179,7 +179,7 @@
   font-size: 20px;
   line-height: 1.8;
   color: #333;
-  max-width: 600px;
+  text-align: justify;
 }
 
 /* Texto */
@@ -275,7 +275,7 @@
   }
 
   .blog-post-title {
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .blog-post-content p {
