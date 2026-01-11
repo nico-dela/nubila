@@ -19,6 +19,15 @@ import Oceanica from "../assets/music/Oceanica.mp3";
 import Manneporte from "../assets/music/The Manneporte.mp3";
 import OceanicaNylon from "../assets/music/Oceanica Nylon.mp3";
 
+import RioHeladoVivo from "../assets/music/RioHeladoVivo.mp3";
+import FotogramasVivo from "../assets/music/FotogramasVivo.mp3";
+import AsiVivo from "../assets/music/AsiVivo.mp3";
+import OrbitasVivo from "../assets/music/OrbitasVivo.mp3";
+import GirasolesVivo from "../assets/music/GirasolesVivo.mp3";
+import FrioVivo from "../assets/music/FrioVivo.mp3";
+import MariposaOrigamiVivo from "../assets/music/MariposaOrigamiVivo.mp3";
+import EntelequiaVivo from "../assets/music/EntelequiaVivo.mp3";
+
 import { motion } from "framer-motion";
 
 const MusicPlayer = () => {
@@ -37,6 +46,15 @@ const MusicPlayer = () => {
 
   const songs = useMemo(
     () => [
+      { title: "Río Helado - Vivo 10 años en Pez Volcan", source: RioHeladoVivo },
+      { title: "Fotogramas - Vivo 10 años en Pez Volcan", source: FotogramasVivo },
+      { title: "Así - Vivo 10 años en Pez Volcan", source: AsiVivo },
+      { title: "Órbitas - Vivo 10 años en Pez Volcan", source: OrbitasVivo },
+      { title: "Girasoles - Vivo 10 años en Pez Volcan", source: GirasolesVivo },
+      { title: "Frio - Vivo 10 años en Pez Volcan", source: FrioVivo },
+      { title: "Mariposa Origami - Vivo 10 años en Pez Volcan", source: MariposaOrigamiVivo },
+      { title: "Entelequia - Vivo 10 años en Pez Volcan", source: EntelequiaVivo },
+      
       { title: "Oceanica", source: Oceanica },
       { title: "Girasoles", source: Girasoles },
       { title: "Limonero", source: Limonero },
