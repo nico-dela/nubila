@@ -36,8 +36,8 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .floating-blog-button {
-    bottom: 80px;
-    right: 5px;
+    bottom: 95px;
+    right: 10px;
     width: 70px;
     height: 70px;
 
