@@ -23,7 +23,7 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 15px 20px;
-  max-height: 70vh; /* Establece una altura máxima */
+  max-height: 75vh; /* Establece una altura máxima */
   width: 95vw;
   scrollbar-width: thin;
 
