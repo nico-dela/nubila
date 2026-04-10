@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -22,170 +22,174 @@ const buttonVariants = {
 const LandingPage = () => {
   const [buttons, setButtons] = useState([]);
   const [buttonFontSize, setButtonFontSize] = useState(35);
-  const [windowDimensions, setWindowDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+  const stageRef = useRef(null);
+  const [stageSize, setStageSize] = useState(() => ({
+    width: typeof window !== "undefined" ? window.innerWidth : 320,
+    height:
+      typeof window !== "undefined"
+        ? Math.max(240, window.innerHeight - 120)
+        : 400,
+  }));
 
-  // Actualizar las dimensiones de la ventana cuando cambia el tamaño
   useEffect(() => {
     const handleResize = () => {
-      setWindowDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-      // Ajustar el tamaño de fuente según el ancho de la pantalla
-      if (window.innerWidth <= 375) {
-        setButtonFontSize(20);
-      } else if (window.innerWidth <= 768) {
-        setButtonFontSize(25);
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const landscape = w > h;
+      if (w <= 375) {
+        setButtonFontSize(landscape ? 14 : 20);
+      } else if (w <= 768) {
+        setButtonFontSize(landscape ? 16 : 25);
       } else {
-        setButtonFontSize(35);
+        setButtonFontSize(landscape ? 22 : 35);
       }
     };
 
-    window.addEventListener("resize", handleResize);
-
-    // Llamar handleResize inmediatamente para establecer los valores iniciales
     handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Generar botones cuando cambian las dimensiones de la ventana o el tamaño de fuente
   useEffect(() => {
-    // Función para verificar si hay superposición entre dos botones
-    const isOverlapping = (newPos, existingPositions) => {
-      const buffer = 20; // Espacio mínimo entre botones
-      for (const pos of existingPositions) {
-        // Comprobar si hay superposición en el eje x e y
-        if (
-          newPos.x < pos.x + pos.width + buffer &&
-          newPos.x + newPos.width + buffer > pos.x &&
-          newPos.y < pos.y + pos.height + buffer &&
-          newPos.y + newPos.height + buffer > pos.y
-        ) {
-          return true; // Hay superposición
+    const el = stageRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return undefined;
+
+    const ro = new ResizeObserver((entries) => {
+      const cr = entries[0]?.contentRect;
+      if (!cr) return;
+      setStageSize({
+        width: cr.width,
+        height: cr.height,
+      });
+    });
+
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (stageSize.width < 80 || stageSize.height < 80) return;
+
+    const sw = stageSize.width;
+    const sh = stageSize.height;
+    const aspect = sw / sh;
+    /** Horizontal o poco alto: el azar suele superponer; usamos rejilla */
+    const useGridLayout =
+      sh < 440 || (sw > sh && sh < 580) || (aspect >= 1.2 && sh < 520);
+
+    const gridEffectiveFs = Math.min(
+      buttonFontSize,
+      Math.max(11, Math.floor(sh / 13))
+    );
+
+    const fitTextInCell = (text, cellW, cellH, startFs) => {
+      let fs = Math.min(startFs, Math.floor(cellH / 2.2));
+      for (let step = 0; step < 36 && fs >= 10; step++) {
+        const bw = Math.max(
+          56,
+          Math.min(cellW - 8, text.length * (fs * 0.58) + 18)
+        );
+        const bh = fs * 1.5 + 12;
+        if (bw <= cellW - 4 && bh <= cellH - 4) {
+          return { fs, bw, bh };
         }
+        fs -= 1;
       }
-      return false; // No hay superposición
+      return {
+        fs: 10,
+        bw: Math.min(cellW - 8, text.length * 6 + 18),
+        bh: 28,
+      };
     };
 
-    const generateRandomButton = (link, isStrikeThrough, existingPositions) => {
-      const { width: screenWidth, height: screenHeight } = windowDimensions;
+    const renderLink = (
+      link,
+      isStrikeThrough,
+      {
+        left,
+        top,
+        width,
+        height,
+        fontSize,
+        rotation = 0,
+      }
+    ) => (
+      <motion.div
+        key={link.url}
+        initial="initial"
+        animate="animate"
+        whileHover="hover"
+        variants={buttonVariants}
+      >
+        <Link
+          to={`/${link.url}`}
+          style={{
+            position: "absolute",
+            top,
+            left,
+            width,
+            height,
+            boxSizing: "border-box",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textDecoration: isStrikeThrough ? "line-through" : "none",
+            color: "#1C1C1C",
+            transform: `rotate(${rotation}deg)`,
+            transformOrigin: "center center",
+            transition: "transform 0.5s ease",
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontFamily: "Nubifont",
+            fontSize,
+            padding: "4px 8px",
+            zIndex: 10,
+            textShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.opacity = "0.5";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.opacity = "1";
+          }}
+        >
+          {link.text}
+        </Link>
+      </motion.div>
+    );
 
-      // Dimensiones del botón basadas en el texto
-      // Usar un factor más conservador para calcular el ancho
-      const buttonWidth = Math.max(
-        120,
-        link.text.length * (buttonFontSize * 0.6)
-      );
-      const buttonHeight = buttonFontSize * 1.5;
-
-      // Determinar si el botón debe rotarse (menos probabilidad en móviles)
-      const shouldRotate =
-        windowDimensions.width > 768
-          ? Math.random() < 0.3
-          : Math.random() < 0.1;
-      const randomRotation = shouldRotate ? 90 : 0;
-
-      // Calcular el espacio que ocupará el botón considerando la rotación
-      const effectiveWidth = randomRotation === 90 ? buttonHeight : buttonWidth;
-      const effectiveHeight =
-        randomRotation === 90 ? buttonWidth : buttonHeight;
-
-      // Márgenes de seguridad mucho más generosos
-      // Aumentamos los márgenes para evitar que los textos se salgan de la pantalla
-      const safeMargin = Math.max(60, buttonFontSize * 1.5);
-
-      // Ajustar la zona segura para posicionar botones
-      // Restamos el tamaño efectivo del botón y los márgenes de seguridad
-      const safeWidth = screenWidth - effectiveWidth - 2 * safeMargin;
-      const safeHeight = screenHeight - effectiveHeight - 2 * safeMargin - 80; // 80px adicionales para el reproductor de música
-
-      // Asegurar valores positivos para las áreas disponibles
-      const availableWidth = Math.max(10, safeWidth);
-      const availableHeight = Math.max(10, safeHeight);
-
-      // Intentar encontrar una posición que no se superponga con otros botones
-      let attempts = 0;
-      let randomX, randomY;
-      let position;
-
-      do {
-        // Calcular posición aleatoria dentro del área segura
-        randomX = safeMargin + Math.floor(Math.random() * availableWidth);
-        randomY = safeMargin + Math.floor(Math.random() * availableHeight);
-
-        position = {
-          x: randomX,
-          y: randomY,
-          width: effectiveWidth,
-          height: effectiveHeight,
-        };
-
-        attempts++;
-      } while (isOverlapping(position, existingPositions) && attempts < 50);
-
-      // Agregar la nueva posición a la lista de posiciones existentes
-      existingPositions.push(position);
-
-      // Calcular el origen de la transformación para la rotación
-      // Esto asegura que la rotación ocurra alrededor del centro del texto
-      const transformOrigin = "center center";
-
+    // Rectángulo alineado a ejes que realmente ocupa el enlace tras rotar (origin center)
+    const getRotatedAabb = (left, top, w, h, rotationDeg) => {
+      if (rotationDeg === 0) {
+        return { left, top, right: left + w, bottom: top + h };
+      }
+      const cx = left + w / 2;
+      const cy = top + h / 2;
+      const halfW = w / 2;
+      const halfH = h / 2;
       return {
-        component: (
-          <motion.div
-            key={link.url}
-            initial="initial"
-            animate="animate"
-            whileHover="hover"
-            variants={buttonVariants}
-          >
-            <Link
-              to={`/${link.url}`}
-              style={{
-                position: "absolute",
-                top: position.y,
-                left: position.x,
-                width: buttonWidth,
-                height: buttonHeight,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                textDecoration: isStrikeThrough ? "line-through" : "none",
-                color: "#1C1C1C",
-                transform: `rotate(${randomRotation}deg)`,
-                transformOrigin: transformOrigin,
-                transition: "transform 0.5s ease",
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-                fontWeight: "bold",
-                fontFamily: "Nubifont",
-                fontSize: buttonFontSize,
-                padding: "5px 10px",
-                zIndex: 10,
-                textShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
-                // Para debugging visual
-                // border: "1px solid red",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.opacity = "0.5";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.opacity = "1";
-              }}
-            >
-              {link.text}
-            </Link>
-          </motion.div>
-        ),
-        position,
+        left: cx - halfH,
+        top: cy - halfW,
+        right: cx + halfH,
+        bottom: cy + halfW,
       };
+    };
+
+    const aabbOverlaps = (a, b, buffer) =>
+      !(
+        a.right + buffer <= b.left ||
+        a.left - buffer >= b.right ||
+        a.bottom + buffer <= b.top ||
+        a.top - buffer >= b.bottom
+      );
+
+    const isOverlapping = (newAabb, existingAabbs, buffer) => {
+      for (const other of existingAabbs) {
+        if (aabbOverlaps(newAabb, other, buffer)) return true;
+      }
+      return false;
     };
 
     const links = [
@@ -197,8 +201,6 @@ const LandingPage = () => {
       { text: "LIMONERO", url: "limonero" },
     ];
 
-    // Ordenar los enlaces por longitud (más largos primero)
-    // para dar prioridad a los textos más largos al posicionarlos
     const sortedLinks = [...links].sort(
       (a, b) => b.text.length - a.text.length
     );
@@ -207,22 +209,189 @@ const LandingPage = () => {
     const selectedLink =
       randomIndex < sortedLinks.length ? sortedLinks[randomIndex] : null;
 
-    // Array para mantener registro de posiciones ya utilizadas
-    const existingPositions = [];
+    if (useGridLayout) {
+      const gridCols = aspect >= 1.12 ? 3 : 2;
+      const padX = Math.max(6, sw * 0.02);
+      const padY = Math.max(8, sh * 0.06);
+      const innerW = sw - padX * 2;
+      const innerH = sh - padY * 2;
+      const gridRows = Math.ceil(sortedLinks.length / gridCols);
+      const cellW = innerW / gridCols;
+      const cellH = innerH / gridRows;
 
-    // Generar botones con verificación de superposición
+      const gridButtons = sortedLinks.map((link, i) => {
+        const col = i % gridCols;
+        const row = Math.floor(i / gridCols);
+        const { fs, bw, bh } = fitTextInCell(
+          link.text,
+          cellW,
+          cellH,
+          gridEffectiveFs
+        );
+        const left = padX + col * cellW + (cellW - bw) / 2;
+        const top = padY + row * cellH + (cellH - bh) / 2;
+        return renderLink(link, link === selectedLink, {
+          left,
+          top,
+          width: bw,
+          height: bh,
+          fontSize: fs,
+          rotation: 0,
+        });
+      });
+
+      setButtons(gridButtons);
+      return;
+    }
+
+    const generateRandomButton = (link, isStrikeThrough, existingAabbs) => {
+      const screenWidth = stageSize.width;
+      const screenHeight = stageSize.height;
+
+      // Dimensiones del botón: factor conservador + holgura por padding y tipografía variable
+      const buttonWidth = Math.max(
+        120,
+        link.text.length * (buttonFontSize * 0.65) + 24
+      );
+      const buttonHeight = buttonFontSize * 1.5 + 16;
+
+      const canRotateLabel =
+        screenHeight >= 520 && screenWidth <= screenHeight;
+      const shouldRotate =
+        canRotateLabel &&
+        (screenWidth > 768 ? Math.random() < 0.3 : Math.random() < 0.1);
+      const randomRotation = shouldRotate ? 90 : 0;
+
+      const safeMargin = Math.max(
+        24,
+        Math.min(
+          56,
+          Math.max(buttonFontSize * 1.35, screenHeight * 0.06)
+        )
+      );
+      // El escenario ya termina encima del reproductor; no restar playerReserve otra vez
+      const maxBottom = screenHeight - safeMargin;
+
+      // Esquina superior izquierda del box sin rotar, tal que el AABB tras rotate(90deg) quede en pantalla
+      const getTopLeftRanges = (w, h, rot) => {
+        const m = safeMargin;
+        if (rot === 0) {
+          return {
+            minX: m,
+            maxX: screenWidth - m - w,
+            minY: m,
+            maxY: maxBottom - h,
+          };
+        }
+        return {
+          minX: m - w / 2 + h / 2,
+          maxX: screenWidth - m - w / 2 - h / 2,
+          minY: m - h / 2 + w / 2,
+          maxY: maxBottom - h / 2 - w / 2,
+        };
+      };
+
+      let rotation = randomRotation;
+      let ranges = getTopLeftRanges(buttonWidth, buttonHeight, rotation);
+      if (
+        ranges.maxX < ranges.minX ||
+        ranges.maxY < ranges.minY ||
+        maxBottom <= safeMargin
+      ) {
+        rotation = 0;
+        ranges = getTopLeftRanges(buttonWidth, buttonHeight, 0);
+      }
+
+      const buffer =
+        screenHeight < 480
+          ? Math.max(14, screenHeight * 0.035)
+          : screenWidth > screenHeight
+            ? 20
+            : 16;
+      let attempts = 0;
+      let randomX = ranges.minX;
+      let randomY = ranges.minY;
+      let aabb = getRotatedAabb(
+        randomX,
+        randomY,
+        buttonWidth,
+        buttonHeight,
+        rotation
+      );
+
+      const spanX = Math.max(0, ranges.maxX - ranges.minX);
+      const spanY = Math.max(0, ranges.maxY - ranges.minY);
+
+      const nudgeIntoView = (rx, ry) => {
+        let x = rx;
+        let y = ry;
+        for (let i = 0; i < 2; i++) {
+          const b = getRotatedAabb(
+            x,
+            y,
+            buttonWidth,
+            buttonHeight,
+            rotation
+          );
+          x += Math.max(0, safeMargin - b.left);
+          x += Math.min(0, screenWidth - safeMargin - b.right);
+          y += Math.max(0, safeMargin - b.top);
+          y += Math.min(0, maxBottom - b.bottom);
+        }
+        return { x, y };
+      };
+
+      do {
+        if (spanX > 0 && spanY > 0) {
+          randomX = ranges.minX + Math.random() * spanX;
+          randomY = ranges.minY + Math.random() * spanY;
+        } else {
+          randomX = (ranges.minX + ranges.maxX) / 2;
+          randomY = (ranges.minY + ranges.maxY) / 2;
+        }
+
+        const nudged = nudgeIntoView(randomX, randomY);
+        randomX = nudged.x;
+        randomY = nudged.y;
+        aabb = getRotatedAabb(
+          randomX,
+          randomY,
+          buttonWidth,
+          buttonHeight,
+          rotation
+        );
+
+        attempts++;
+      } while (isOverlapping(aabb, existingAabbs, buffer) && attempts < 600);
+
+      existingAabbs.push(aabb);
+
+      return {
+        component: renderLink(link, isStrikeThrough, {
+          left: randomX,
+          top: randomY,
+          width: buttonWidth,
+          height: buttonHeight,
+          fontSize: buttonFontSize,
+          rotation,
+        }),
+      };
+    };
+
+    const existingAabbs = [];
+
     const generatedButtons = [];
     for (const link of sortedLinks) {
       const buttonData = generateRandomButton(
         link,
         link === selectedLink,
-        existingPositions
+        existingAabbs
       );
       generatedButtons.push(buttonData.component);
     }
 
     setButtons(generatedButtons);
-  }, [windowDimensions, buttonFontSize]);
+  }, [stageSize, buttonFontSize]);
 
   // Mantenemos los colores originales del gradiente
   const hexColors = [
@@ -248,15 +417,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div
-      className="landing-page"
-      style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden", // Prevenir scroll si algún elemento se coloca muy cerca del borde
-      }}
-    >
+    <div className="landing-page">
       <motion.div
         className="background-gradient"
         variants={backgroundVariants}
@@ -271,9 +432,12 @@ const LandingPage = () => {
           height: "100%",
           zIndex: 0,
         }}
-      ></motion.div>
+      />
 
-      <div style={{ position: "relative", zIndex: 5 }}>{buttons}</div>
+      <div ref={stageRef} className="landing-page__stage">
+        {buttons}
+      </div>
+
       <FloatingBlogButton />
     </div>
   );

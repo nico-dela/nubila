@@ -8,15 +8,7 @@ const NotFound = () => {
       <p className="not-found-message">
         Parece que te has perdido. La página que buscas no existe. ¿Por qué no
         volves al{" "}
-        <Link
-          to="/"
-          className="volver-button"
-          style={{
-            fontFamily: "Nubifont",
-            fontWeight: "bold",
-            fontSize: "30px",
-          }}
-        >
+        <Link to="/" className="volver-button">
           inicio
         </Link>
         ?

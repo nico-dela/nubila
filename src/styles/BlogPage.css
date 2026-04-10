@@ -1,166 +1,57 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
-/* =====================
-   Layout general
-   ===================== */
+/* Blog alineado visualmente con UN CD-WEB (AcercaPage): blanco, Inter, Nubifont en cabecera */
+
+.header {
+  font-family: "Nubifont";
+  font-size: 3rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
 
 .blog-post-container {
-  height: 100%;
   width: 100%;
-  overflow: auto;
+  max-width: 100%;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: flex-start;
-  align-items: center;
-  background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  max-height: 75vh; /* Establece una altura máxima */
-  width: 95vw;
-  scrollbar-width: thin;
-
-  /* Media query para dispositivos con un ancho máximo de 768px */
-  @media (max-width: 768px) {
-    padding: 10px;
-    font-size: 16px;
-    width: 90vw; /* Reduzco el ancho del contenedor en dispositivos móviles */
-  }
-
-  /* Media query para dispositivos con un ancho máximo de 375px */
-  @media (max-width: 375px) {
-    padding: 5px;
-    font-size: 14px;
-  }
-
-  /* Media query para resoluciones específicas donde el contenido se desborda */
-  @media (max-width: 820px) {
-    /* Ajusta los estilos según tus necesidades */
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  @media (max-width: 912px) {
-    /* Ajusta los estilos según tus necesidades */
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  @media (max-width: 1024px) {
-    /* Ajusta los estilos según tus necesidades */
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  @media (max-width: 1280px) {
-    /* Ajusta los estilos según tus necesidades */
-    font-size: 14px;
-    padding: 10px;
-  }
-}
-
-.blog-page {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Título general del blog */
-.blog-title {
-  font-family: "Source Serif 4", serif;
-  font-size: 48px;
-  font-weight: 700;
-  color: #1c1c1c;
-  margin: 1rem 0;
-  text-align: center;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-/* =====================
-   Contenedor principal
-   ===================== */
-
-.blog-container {
-  height: 100%;
-  width: 95vw;
-  max-width: 800px;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  max-height: 70vh;
+  background: #ffffff;
+  padding: 30px 150px;
+  max-height: calc(100vh - 140px);
+  box-sizing: border-box;
   scrollbar-width: thin;
 }
-
-.blog-header {
-  margin-bottom: 16px;
-}
-
-/* =====================
-   Botón volver
-   ===================== */
-
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 8px;
-  color: #1c1c1c;
-  text-decoration: none;
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 16px;
-}
-
-.back-button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: translateX(-4px);
-}
-
-/* =====================
-   Post
-   ===================== */
 
 .blog-post-card {
   background-color: transparent;
-  padding: 20px;
+  padding: 0;
+  width: 100%;
+  max-width: 900px;
 }
 
-/* Header del post */
 .blog-post-header {
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid rgba(30, 111, 197, 0.2);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .blog-post-title {
-  font-family: "Source Serif 4", serif;
-  font-size: 32px;
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
   font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.35;
   color: #1c1c1c;
-  margin: 0 0 8px 0;
+  margin: 0 0 0.5rem 0;
 }
 
 .blog-post-header h3 {
   font-family: "Inter", sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: #ff4b54;
-  margin: 6px 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #555;
+  margin: 0.5rem 0 0.5rem 0;
 }
 
 .blog-post-date {
@@ -170,32 +61,35 @@
   font-style: italic;
 }
 
-/* =====================
-   Contenido del post
-   ===================== */
-
 .blog-post-content {
   font-family: "Inter", sans-serif;
-  font-size: 20px;
-  line-height: 1.8;
-  color: #333;
   text-align: justify;
+  font-size: 18px;
+  color: #555;
+  line-height: 1.8;
 }
 
-/* Texto */
 .blog-post-content p {
   margin-bottom: 18px;
 }
 
-/* Énfasis */
 .blog-post-content strong {
   font-weight: 600;
+  color: #333;
 }
 
-/* Listas largas: aire visual */
+.blog-post-content a {
+  color: #0000ee;
+  text-decoration: none;
+}
+
+.blog-post-content a:hover {
+  text-decoration: underline;
+}
+
 .blog-post-content ul {
-  padding-left: 20px;
-  margin: 24px 0;
+  padding-left: 1.25rem;
+  margin: 1rem 0 1.5rem;
 }
 
 .blog-post-content li {
@@ -203,87 +97,83 @@
   line-height: 1.7;
 }
 
-/* Imágenes */
 .blog-post-content img {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 4px;
   margin-top: 24px;
   margin-bottom: 16px;
   display: block;
 }
 
-/* =====================
-   Footer del post
-   ===================== */
+@media only screen and (max-width: 768px) {
+  .blog-post-container {
+    overflow-y: auto;
+    font-size: 16px;
+    padding: 20px 40px;
+    max-height: calc(100vh - 120px);
+  }
 
-.blog-post-footer {
-  padding-top: 16px;
-  border-top: 1px solid rgba(30, 111, 197, 0.2);
+  .blog-post-content {
+    font-size: 16px;
+  }
+
+  .blog-post-title {
+    font-size: 1.35rem;
+  }
+
+  .blog-post-header h3 {
+    font-size: 16px;
+  }
 }
 
-.blog-post-author {
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  color: #666;
-  font-weight: 600;
+@media only screen and (max-width: 375px) {
+  .header {
+    font-size: 2.25rem;
+  }
+
+  .blog-post-container {
+    font-size: 14px;
+    padding: 10px;
+    max-height: calc(100vh - 100px);
+  }
+
+  .blog-post-content {
+    font-size: 14px;
+  }
+
+  .blog-post-title {
+    font-size: 1.2rem;
+  }
 }
 
-/* =====================
-   Responsive
-   ===================== */
+@media only screen and (max-width: 280px) {
+  .blog-post-container {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .blog-post-content {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .blog-post-container {
+    font-size: 18px;
+    padding: 20px 40px;
+  }
+}
+
+@media (width: 280px) and (height: 653px) {
+  .header {
+    font-size: 2.5rem;
+  }
+}
 
 @media (min-width: 1024px) {
   .blog-post-content img {
     max-height: 80vh;
     object-fit: contain;
-  }
-}
-
-@media (max-width: 768px) {
-  .blog-title {
-    font-size: 28px;
-  }
-
-  .blog-container {
-    width: 90vw;
-    padding: 10px;
-    max-height: 70vh;
-  }
-
-  .blog-post-title {
-    font-size: 28px;
-  }
-
-  .blog-post-content {
-    font-size: 18px;
-  }
-
-  .blog-post-content p {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 375px) {
-  .blog-title {
-    font-size: 24px;
-  }
-
-  .blog-container {
-    padding: 5px;
-    font-size: 14px;
-  }
-
-  .blog-post-title {
-    font-size: 22px;
-  }
-
-  .blog-post-content p {
-    font-size: 18px;
-  }
-
-  .back-button {
-    font-size: 14px;
-    padding: 6px 12px;
   }
 }

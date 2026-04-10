@@ -2,8 +2,12 @@
   position: absolute;
   top: 0;
   left: 0;
-  padding: 25px 10px;
+  padding: 16px 10px;
+  padding-top: max(12px, env(safe-area-inset-top, 0px));
+  padding-left: max(8px, env(safe-area-inset-left, 0px));
   z-index: 9999;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .menu-button {
@@ -12,19 +16,39 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 20px;
-  padding: 0;
-  transition: transform 0.5s ease;
+  gap: 5px;
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border-radius: var(--radius-sm, 4px);
+  transition: transform 0.5s ease, background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.menu-button:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.menu-button:focus {
+  outline: none;
+}
+
+.menu-button:focus-visible {
+  outline: 2px solid var(--focus-ring, #1e6fc5);
+  outline-offset: 2px;
 }
 
 .menu-bar {
-  width: 100%;
+  width: 22px;
   height: 2px;
   background: #000;
   transition: transform 0.5s ease;
+  flex-shrink: 0;
 }
 
 .open {
@@ -32,13 +56,22 @@
 }
 
 .menu-dropdown {
-  box-shadow: 0px 4px 4px rgba(82, 78, 78, 0.25);
-  border-radius: 4px;
-  padding: 8px;
-  width: 200px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+  padding: 10px 8px;
+  width: min(220px, calc(100vw - 20px));
+  max-height: min(420px, calc(100dvh - 96px));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   position: absolute;
   top: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  left: 0;
+  margin-top: 6px;
+  background: rgba(20, 20, 20, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   /* Eliminamos las propiedades de transición CSS que pueden causar conflicto con Framer Motion */
   /* transform: translateY(-10px); */
   /* visibility: hidden; */
@@ -72,23 +105,74 @@
 .menu-link {
   font-family: "Nubifont";
   font-weight: 600;
-  font-size: 30px;
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
   text-align: center;
-  color: #b3bbce;
+  color: #e8eaf0;
   text-decoration: none;
+  display: block;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm, 4px);
+  transition: opacity 0.2s ease, background-color 0.2s ease;
 }
 
 .menu-link:hover {
-  opacity: 0.5;
+  opacity: 0.85;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.menu-link:focus {
+  outline: none;
+}
+
+.menu-link:focus-visible {
+  outline: 2px solid var(--focus-ring, #1e6fc5);
+  outline-offset: 2px;
 }
 
 .menu-logo {
-  max-width: 200px;
-  max-height: 200px;
-  padding: 20px;
+  max-width: min(200px, 55vw);
+  max-height: min(120px, 22vh);
+  padding: 10px 12px;
   display: block;
   margin: 0 auto;
   color: #8191ba;
+  object-fit: contain;
+}
+
+/* Horizontal / poco alto: menú completo visible con scroll interno si hace falta */
+@media (orientation: landscape) and (max-height: 520px) {
+  .menu-container {
+    padding: 8px 8px;
+  }
+
+  .menu-dropdown {
+    max-height: min(300px, calc(100dvh - 56px));
+    padding: 8px 6px;
+  }
+
+  .menu-item {
+    margin-bottom: 4px;
+  }
+
+  .menu-link {
+    font-size: clamp(0.95rem, 2.8vw, 1.35rem);
+    padding: 4px 6px;
+  }
+
+  .menu-logo {
+    max-height: min(72px, 18vh);
+    padding: 6px;
+  }
+}
+
+@media (max-height: 480px) {
+  .menu-dropdown {
+    max-height: min(280px, calc(100dvh - 72px));
+  }
+
+  .menu-logo {
+    max-height: min(88px, 20vh);
+  }
 }
 
 /* Optimizaciones específicas para Firefox */

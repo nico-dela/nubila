@@ -1,7 +1,7 @@
 .floating-blog-button {
   position: fixed;
-  bottom: 90px;
-  right: 20px;
+  bottom: calc(90px + env(safe-area-inset-bottom, 0));
+  right: calc(20px + env(safe-area-inset-right, 0));
   width: 100px;
   height: 100px;
   background-color: transparent;
@@ -12,6 +12,23 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.floating-blog-button:focus {
+  outline: none;
+}
+
+.floating-blog-button:focus-visible {
+  outline: 2px solid var(--focus-ring, #1e6fc5);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-blog-button {
+    animation: none !important;
+  }
 }
 
 .floating-blog-gif {
@@ -36,8 +53,8 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .floating-blog-button {
-    bottom: 95px;
-    right: 10px;
+    bottom: calc(95px + env(safe-area-inset-bottom, 0));
+    right: calc(10px + env(safe-area-inset-right, 0));
     width: 70px;
     height: 70px;
 
@@ -48,9 +65,18 @@
 
 @media (max-width: 375px) {
   .floating-blog-button {
-    bottom: 75px;
-    right: 12px;
+    bottom: calc(75px + env(safe-area-inset-bottom, 0));
+    right: calc(12px + env(safe-area-inset-right, 0));
     width: 44px;
     height: 44px;
+  }
+}
+
+/* Reproductor más bajo en horizontal: acercar el sticker al borde útil */
+@media (orientation: landscape) and (max-height: 520px) {
+  .floating-blog-button {
+    bottom: calc(52px + env(safe-area-inset-bottom, 0));
+    width: 48px;
+    height: 48px;
   }
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion"; // Importamos AnimatePresence
 import nubilaLogo from "../assets/images/nubila-logo.webp";
@@ -39,10 +39,31 @@ const menuItemVariants = {
 
 const Menu = ({ background }) => {
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  useEffect(() => {
+    if (!showMenu) return undefined;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setShowMenu(false);
+      }
+    };
+    const onPointerDown = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown, true);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown, true);
+    };
+  }, [showMenu]);
 
   // Detectar si estamos en Firefox
   const isFirefox =
@@ -64,6 +85,7 @@ const Menu = ({ background }) => {
 
   return (
     <motion.div
+      ref={menuRef}
       className="menu-container"
       variants={menuVariants}
       initial="initial"

@@ -35,12 +35,12 @@ const sectionVariants = {
 const ColaboraPage = () => {
   return (
     <motion.div
-      className="container"
+      className="container colabora-page"
       variants={pageVariants}
       initial="initial"
       animate="animate"
     >
-      <h1 className="heading">COLABORA</h1>
+      <h1 className="header">COLABORA</h1>
       <motion.div className="collaborate" variants={sectionVariants}>
         <strong>¡Gracias por asomarte!</strong>
         <p>

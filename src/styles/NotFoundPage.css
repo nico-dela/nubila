@@ -44,8 +44,24 @@
 .volver-button {
   font-family: "Nubifont";
   font-weight: bold;
+  font-size: clamp(1.5rem, 5vw, 1.875rem);
+  color: #e8e8ff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm, 4px);
+  transition: opacity 0.2s ease;
 }
 
 .volver-button:hover {
-  opacity: 0.5;
+  opacity: 0.85;
+}
+
+.volver-button:focus {
+  outline: none;
+}
+
+.volver-button:focus-visible {
+  outline: 2px solid var(--focus-ring, #1e6fc5);
+  outline-offset: 3px;
 }

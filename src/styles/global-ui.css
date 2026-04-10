@@ -1,0 +1,46 @@
+/* Patrones compartidos: enlace “volver” (icono cerrar), foco visible */
+
+.back-to-home-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 8px;
+  z-index: 100;
+}
+
+.back-to-home-link a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.back-to-home-link img {
+  height: 40px;
+  width: 40px;
+  display: block;
+}
+
+.back-to-home-link a:hover img {
+  opacity: 0.65;
+}
+
+.back-to-home-link a:focus {
+  outline: none;
+}
+
+.back-to-home-link a:focus-visible {
+  outline: 2px solid var(--focus-ring, #1e6fc5);
+  outline-offset: 3px;
+}
+
+.back-to-home-link a:active img {
+  opacity: 0.85;
+}

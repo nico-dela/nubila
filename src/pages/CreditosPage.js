@@ -35,14 +35,14 @@ const sectionVariants = {
 const CreditosPage = () => {
   return (
     <motion.div
-      className="container"
+      className="container creditos-page"
       variants={pageVariants}
       initial="initial"
       animate="animate"
     >
-      <h1 className="heading">CREDITOS</h1>
+      <h1 className="header">CREDITOS</h1>
       <motion.div className="credits-container" variants={sectionVariants}>
-        <h3 style={{ fontSize: "1.5rem" }}>Hacemos NUBILA</h3>
+        <h3 className="credits-section-heading">Hacemos NUBILA</h3>
         <div className="credit">
           Mateo Gencarelli, Nicolás de la Cruz, Tobias Gencarelli, Araceli
           Bonfigli, Julian Medrano, Candela Gencarelli, Camilo Gencarelli y Ulises Gencarelli
@@ -51,7 +51,7 @@ const CreditosPage = () => {
         <br></br>
         <br></br>
 
-        <h3 style={{ fontSize: "1.5rem" }}>
+        <h3 className="credits-section-heading">
           ¿Qué roles cumplimos en Oceánica?
         </h3>
         <div className="credit">
@@ -68,7 +68,7 @@ const CreditosPage = () => {
         <br></br>
         <br></br>
 
-        <h3 style={{ fontSize: "1.5rem" }}>¿Quiénes?</h3>
+        <h3 className="credits-section-heading">¿Quiénes?</h3>
         <div className="credit">
           <a
             href="https://www.instagram.com/aracelibonfigli/"
@@ -169,7 +169,7 @@ const CreditosPage = () => {
           </a>
         </div>
 
-        <h4 style={{ fontSize: "1.2rem" }}>
+        <h4 className="credits-subheading">
           Taller gráfico que elaboró las postales, imagenes y poemas de este
           disco:{" "}
         </h4>
@@ -247,7 +247,7 @@ const CreditosPage = () => {
           </a>
         </div>
 
-        <h4 style={{ fontSize: "1.2rem" }}>
+        <h4 className="credits-subheading">
           Taller sonoro que elaboró las postales, imágenes y poemas de este
           disco:{" "}
         </h4>
@@ -288,7 +288,7 @@ const CreditosPage = () => {
         <br></br>
         <br></br>
 
-        <h3 style={{ fontSize: "1.5rem" }}>
+        <h3 className="credits-section-heading">
           ¿Qué otros estudios articularon con nosotrxs?
         </h3>
         <div className="credit">
@@ -314,7 +314,7 @@ const CreditosPage = () => {
         <br></br>
         <br></br>
 
-        <h3 style={{ fontSize: "1.5rem" }}>
+        <h3 className="credits-section-heading">
           Agradecimientos especiales a toda la red de La Casa Mutante que aporta
           al trabajo artístico en comunidad.
         </h3>

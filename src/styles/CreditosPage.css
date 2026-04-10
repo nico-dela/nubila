@@ -1,124 +1,212 @@
-.container {
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* Créditos alineados con UN CD-WEB / Blog: blanco, Inter, Nubifont en cabecera */
+
+.creditos-page {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.heading {
+.header {
   font-family: "Nubifont";
   font-size: 3rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   text-align: center;
 }
 
 .credits-container {
-  height: 100%;
   width: 100%;
-  overflow: auto;
+  max-width: 100%;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  padding: 15px 20px;
-  max-height: 75vh; /* Establece una altura máxima */
-  width: 95vw;
+  justify-content: flex-start;
+  background: #ffffff;
+  padding: 30px 150px;
+  max-height: calc(100vh - 140px);
+  box-sizing: border-box;
   scrollbar-width: thin;
+}
 
-  /* Media query para dispositivos con un ancho máximo de 768px */
-  @media (max-width: 768px) {
-    padding: 10px;
-    font-size: 16px;
-    width: 90vw; /* Reduzco el ancho del contenedor en dispositivos móviles */
-  }
+.credits-section-heading {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 1.25rem 0 0.5rem;
+  text-align: justify;
+  width: 100%;
+  max-width: 900px;
+}
 
-  /* Media query para dispositivos con un ancho máximo de 375px */
-  @media (max-width: 375px) {
-    padding: 5px;
-    font-size: 14px;
-  }
-
-  /* Media query para resoluciones específicas donde el contenido se desborda */
-  @media (max-width: 820px) {
-    /* Ajusta los estilos según tus necesidades */
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  @media (max-width: 912px) {
-    /* Ajusta los estilos según tus necesidades */
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  @media (max-width: 1024px) {
-    /* Ajusta los estilos según tus necesidades */
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  @media (max-width: 1280px) {
-    /* Ajusta los estilos según tus necesidades */
-    font-size: 14px;
-    padding: 10px;
-  }
+.credits-subheading {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+  margin: 1rem 0 0.5rem;
+  text-align: justify;
+  width: 100%;
+  max-width: 900px;
 }
 
 .credit {
   font-family: "Inter", sans-serif;
-  line-height: 1.5;
-  font-size: 22px;
-  margin: 5px 0;
-
-  @media (max-width: 768px) {
-    font-size: 18px;
-  }
+  text-align: justify;
+  font-size: 18px;
+  color: #555;
+  line-height: 1.8;
+  margin: 0.5rem 0;
+  width: 100%;
+  max-width: 900px;
 }
 
 .credit a {
+  color: #0000ee;
   text-decoration: none;
+}
+
+.credit a:hover {
+  text-decoration: underline;
+}
+
+.credit strong {
+  font-weight: 600;
+  color: #333;
 }
 
 .tc-credit-container {
   display: flex;
+  flex-direction: row;
   font-family: "Inter", sans-serif;
-  flex-direction: row; /* Cambio el diseño a columna en dispositivos móviles */
-}
-
-@media (max-width: 768px) {
-  .tc-credit-container {
-    flex-direction: column; /* En la versión móvil, cambiar a una columna */
-  }
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
 }
 
 .tc-credit {
   display: flex;
   flex-direction: column;
-  line-height: 1.5;
-  padding: 20px;
-  margin: 20px;
-  font-size: 22px;
-
-  @media (max-width: 768px) {
-    font-size: 18px;
-    padding: 0px;
-    margin: 0px;
-  }
+  line-height: 1.8;
+  padding: 12px 16px;
+  margin: 8px;
+  font-size: 18px;
+  color: #555;
+  text-align: justify;
 }
 
 .tc-credit a {
+  color: #0000ee;
   text-decoration: none;
+}
+
+.tc-credit a:hover {
+  text-decoration: underline;
+}
+
+.tc-credit strong {
+  font-weight: 600;
+  color: #333;
+}
+
+.tc-credit ul {
+  margin: 0.25rem 0 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.tc-credit li {
+  margin-bottom: 0.35rem;
 }
 
 .logo {
   height: 200px;
   width: 200px;
+  margin-top: 1rem;
+  display: block;
+}
+
+@media only screen and (max-width: 768px) {
+  .credits-container {
+    font-size: 16px;
+    padding: 20px 40px;
+    max-height: calc(100vh - 120px);
+  }
+
+  .credit,
+  .tc-credit {
+    font-size: 16px;
+  }
+
+  .credits-section-heading {
+    font-size: 16px;
+  }
+
+  .credits-subheading {
+    font-size: 15px;
+  }
+
+  .tc-credit-container {
+    flex-direction: column;
+  }
+
+  .tc-credit {
+    padding: 8px 0;
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .header {
+    font-size: 2.25rem;
+  }
+
+  .credits-container {
+    font-size: 14px;
+    padding: 10px;
+    max-height: calc(100vh - 100px);
+  }
+
+  .credit,
+  .tc-credit {
+    font-size: 14px;
+  }
+
+  .credits-section-heading {
+    font-size: 14px;
+  }
+
+  .credits-subheading {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width: 280px) {
+  .credits-container {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .credit,
+  .tc-credit {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .credits-container {
+    font-size: 18px;
+    padding: 20px 40px;
+  }
 }
 
 @media (width: 280px) and (height: 653px) {
-  .heading {
-    font-size: 2.5rem; /* Ajusta el tamaño de la fuente para la pantalla específica */
+  .header {
+    font-size: 2.5rem;
   }
 }
