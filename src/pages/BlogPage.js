@@ -36,7 +36,7 @@ const sectionVariants = {
 const BlogPage = () => {
   return (
     <motion.div
-      className="container"
+      className="container blog-page"
       variants={pageVariants}
       initial="initial"
       animate="animate"

@@ -50,7 +50,6 @@
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .floating-blog-button {
     bottom: calc(95px + env(safe-area-inset-bottom, 0));
@@ -67,16 +66,34 @@
   .floating-blog-button {
     bottom: calc(75px + env(safe-area-inset-bottom, 0));
     right: calc(12px + env(safe-area-inset-right, 0));
+  }
+}
+
+/* Solo en vertical muy estrecho: icono pequeño; en horizontal no forzar 44px */
+@media (max-width: 375px) and (orientation: portrait) {
+  .floating-blog-button {
     width: 44px;
     height: 44px;
   }
 }
 
-/* Reproductor más bajo en horizontal: acercar el sticker al borde útil */
-@media (orientation: landscape) and (max-height: 520px) {
+/* Horizontal: mismo orden de magnitud que el bloque móvil 70px (antes quedaba 48px) */
+@media (orientation: landscape) and (max-height: 560px) {
   .floating-blog-button {
     bottom: calc(52px + env(safe-area-inset-bottom, 0));
-    width: 48px;
-    height: 48px;
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    min-height: 72px;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 380px) {
+  .floating-blog-button {
+    bottom: calc(48px + env(safe-area-inset-bottom, 0));
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    min-height: 64px;
   }
 }

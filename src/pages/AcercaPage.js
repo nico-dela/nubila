@@ -24,7 +24,7 @@ const sectionVariants = {
   },
   animate: {
     opacity: 1,
-    y: -30,
+    y: 0,
     transition: {
       duration: 0.5,
     },
@@ -34,13 +34,14 @@ const sectionVariants = {
 const AcercaPage = () => {
   return (
     <motion.div
-      className="container"
+      className="container acerca-page"
       variants={pageVariants}
       initial="initial"
       animate="animate"
     >
       <h1 className="header">UN CD-WEB</h1>
-      <motion.div className="info" variants={sectionVariants}>
+      <motion.div className="acerca-content" variants={sectionVariants}>
+        <div className="acerca-content-inner">
         <p>
           Este espacio funciona como un jardín digital: un territorio donde la
           música se cultiva entre procesos, cuidados y cruces con otras
@@ -104,6 +105,7 @@ const AcercaPage = () => {
             la podés descargar)
           </li>
         </ul>
+        </div>
       </motion.div>
       <motion.div
         className="back-to-home-link"

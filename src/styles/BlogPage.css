@@ -4,8 +4,7 @@
 
 .header {
   font-family: "Nubifont";
-  font-size: 3rem;
-  margin-top: 0.5rem;
+  font-size: 3.5rem;
   text-align: center;
 }
 
@@ -129,12 +128,13 @@
 
 @media only screen and (max-width: 375px) {
   .header {
-    font-size: 2.25rem;
+    font-size: 3rem;
   }
 
   .blog-post-container {
     font-size: 14px;
-    padding: 10px;
+    /* padding-top alineado con UN CD-WEB / pageHeaderRhythm (título → texto) */
+    padding: 1rem 10px 10px;
     max-height: calc(100vh - 100px);
   }
 
@@ -167,7 +167,24 @@
 
 @media (width: 280px) and (height: 653px) {
   .header {
-    font-size: 2.5rem;
+    font-size: 3rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  .header {
+    font-size: clamp(2.75rem, 9vmin, 3.5rem);
+  }
+
+  .blog-post-container {
+    font-size: 16px;
+    padding: 10px 24px 16px;
+    max-height: calc(100vh - 96px);
+    max-height: calc(100dvh - 96px);
+  }
+
+  .blog-post-content {
+    font-size: 16px;
   }
 }
 

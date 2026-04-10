@@ -1,79 +1,134 @@
-.container {
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* Misma estructura que Colabora/Blog: página + bloque blanco scrolleable */
+.acerca-page {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .header {
   font-family: "Nubifont";
-  font-size: 3rem;
-  margin-top: 0.5rem;
+  font-size: 3.5rem;
   text-align: center;
+  flex-shrink: 0;
 }
 
-.info {
+.acerca-content {
   font-family: "Inter", sans-serif;
   text-align: justify;
   font-size: 18px;
   color: #555;
   line-height: 1.8;
   padding: 30px 150px;
+  width: 100%;
+  max-width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 140px);
+  max-height: calc(100dvh - 140px);
+  box-sizing: border-box;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
-.info a {
+.acerca-content-inner {
+  width: 100%;
+  max-width: 900px;
+}
+
+.acerca-content a {
   color: var(--color-link, #0000ee);
   text-decoration: none;
 }
 
-.info a:hover {
+.acerca-content a:hover {
   text-decoration: underline;
 }
 
-.info a:focus {
+.acerca-content a:focus {
   outline: none;
 }
 
-.info a:focus-visible {
+.acerca-content a:focus-visible {
   outline: 2px solid var(--focus-ring, #1e6fc5);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* Ajustes para dispositivos móviles */
 @media only screen and (max-width: 768px) {
-  .info {
-    overflow-y: auto;
+  .acerca-content {
     font-size: 16px;
     padding: 20px 40px;
+    max-height: calc(100vh - 120px);
+    max-height: calc(100dvh - 120px);
   }
 }
 
 @media only screen and (max-width: 375px) {
-  .info {
+  .header {
+    font-size: 3rem;
+  }
+
+  .acerca-content {
     font-size: 14px;
-    padding: 10px;
+    padding: 1rem 10px 10px;
+    max-height: calc(100vh - 100px);
+    max-height: calc(100dvh - 100px);
   }
 }
 
-/* Ajustes específicos para pantallas pequeñas como 280 x 653 */
 @media only screen and (max-width: 280px) {
-  .info {
+  .acerca-content {
     font-size: 12px;
     padding: 8px;
   }
 }
 
-/* Ajustes específicos para pantallas como 1024 x 600 */
 @media only screen and (min-width: 601px) and (max-width: 1024px) {
-  .info {
-    font-size: 20px;
-    padding: 20px;
+  .acerca-content {
+    font-size: 18px;
+    padding: 20px 40px;
   }
 }
 
-/* Estilos específicos para resoluciones de 280 x 653 */
+/* Horizontal: mismo criterio que Blog (ancho > 768 pero poco alto) */
+@media (orientation: landscape) and (max-height: 520px) {
+  .header {
+    font-size: clamp(2.75rem, 9vmin, 3.5rem);
+  }
+
+  .acerca-content {
+    font-size: 16px;
+    line-height: 1.65;
+    padding: 10px 24px 16px;
+    max-height: calc(100vh - 96px);
+    max-height: calc(100dvh - 96px);
+  }
+}
+
+@media (max-height: 480px) {
+  .acerca-content {
+    max-height: calc(100vh - 88px);
+    max-height: calc(100dvh - 88px);
+  }
+}
+
 @media (width: 280px) and (height: 653px) {
   .header {
-    font-size: 2.5rem; /* Ajusta el tamaño de la fuente para la pantalla específica */
+    font-size: 3rem;
   }
 }

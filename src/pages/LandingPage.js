@@ -41,7 +41,8 @@ const LandingPage = () => {
       } else if (w <= 768) {
         setButtonFontSize(landscape ? 16 : 25);
       } else {
-        setButtonFontSize(landscape ? 22 : 35);
+        /* Escritorio / tablet ancha: etiquetas más legibles en pantalla grande */
+        setButtonFontSize(landscape ? 30 : 46);
       }
     };
 
@@ -79,12 +80,12 @@ const LandingPage = () => {
 
     const gridEffectiveFs = Math.min(
       buttonFontSize,
-      Math.max(11, Math.floor(sh / 13))
+      Math.max(14, Math.floor(sh / 10))
     );
 
     const fitTextInCell = (text, cellW, cellH, startFs) => {
       let fs = Math.min(startFs, Math.floor(cellH / 2.2));
-      for (let step = 0; step < 36 && fs >= 10; step++) {
+      for (let step = 0; step < 36 && fs >= 12; step++) {
         const bw = Math.max(
           56,
           Math.min(cellW - 8, text.length * (fs * 0.58) + 18)
@@ -96,9 +97,9 @@ const LandingPage = () => {
         fs -= 1;
       }
       return {
-        fs: 10,
+        fs: 12,
         bw: Math.min(cellW - 8, text.length * 6 + 18),
-        bh: 28,
+        bh: 30,
       };
     };
 
