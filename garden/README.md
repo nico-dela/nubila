@@ -1,17 +1,10 @@
 # Nubila Garden (PoC)
 
-Single-page poetic entrance for Nubila. Preview (does not replace the main site):
+Interactive cabinet entrance for Nubila.
 
-**Share links**
+**Share link:** https://nubila-garden.pages.dev/
 
-- **Cloudflare (best for friends):** https://nubila-garden.pages.dev/
-- Beside the main site: https://nubila.ar/garden/
-
-```bash
-cd garden
-npm run deploy:cf   # Cloudflare Pages
-npm run deploy      # GitHub Pages → /garden/
-```
+## Develop
 
 ```bash
 cd garden
@@ -19,23 +12,19 @@ npm install
 npm run dev
 ```
 
-Production build uses base `/garden/`.
-
-## Deploy preview
+## Deploy (Cloudflare Pages only)
 
 ```bash
 cd garden
 npm run deploy
 ```
 
-Publishes `dist/` into the existing `gh-pages` branch under `/garden/`, next to the live CRA site.
+Does **not** publish to nubila.ar.
 
 ## Interactions
 
 - Move the pointer (or drag / tilt on mobile) for parallax
 - Click an object → zoom → side panel
 - **NUBILA** wordmark → About
-- ES / EN switcher (top right)
+- Theme + language switchers (top right)
 - Ambient *Oceanica Nylon* starts after the first click
-
-Tune positions with `/garden/?debugSectors=1` in production.
