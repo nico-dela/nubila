@@ -1,0 +1,203 @@
+.room-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  padding: 0;
+  pointer-events: none;
+}
+
+.room-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  /* Dim mostly over the panel side so the focused object stays readable */
+  background: linear-gradient(
+    90deg,
+    rgba(12, 28, 32, 0.04) 0%,
+    rgba(12, 28, 32, 0.08) 48%,
+    rgba(12, 28, 32, 0.28) 72%,
+    rgba(12, 28, 32, 0.38) 100%
+  );
+  backdrop-filter: none;
+}
+
+.room-overlay__panel {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+  width: min(100%, 20.5rem);
+  max-width: min(90vw, 35rem);
+  max-height: none;
+  height: 100%;
+  overflow: hidden;
+  border: 0;
+  border-left: 1px solid rgba(26, 42, 46, 0.28);
+  box-shadow: -18px 0 48px rgba(8, 20, 24, 0.28);
+  animation: room-overlay-in 0.4s cubic-bezier(0.22, 0.12, 0.2, 1);
+}
+
+.room-overlay__resize {
+  display: none;
+}
+
+@media (min-width: 641px) {
+  .room-overlay__resize {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    width: 10px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: ew-resize;
+    touch-action: none;
+  }
+
+  .room-overlay__resize::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    width: 3px;
+    height: 3.5rem;
+    border-radius: 2px;
+    background: rgba(26, 42, 46, 0.28);
+    transform: translateY(-50%);
+    transition: background 0.2s ease, height 0.2s ease;
+  }
+
+  .room-overlay__resize:hover::after,
+  .room-overlay__resize:focus-visible::after {
+    background: rgba(26, 42, 46, 0.55);
+    height: 4.5rem;
+  }
+}
+
+body.is-resizing-panel {
+  cursor: ew-resize;
+  user-select: none;
+}
+
+body.is-resizing-panel iframe {
+  pointer-events: none;
+}
+
+.room-overlay__scroll {
+  overflow: auto;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.room-overlay__close {
+  display: inline-block;
+  margin: 4.75rem 1.2rem 0;
+  padding: 0.35rem 0.15rem;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+  color: inherit;
+  position: relative;
+  z-index: 2;
+}
+
+.section-page--overlay,
+.dimension-page--overlay {
+  min-height: 100%;
+  height: auto;
+  padding: 0;
+  position: relative;
+  overflow: visible;
+}
+
+.room-overlay__body {
+  position: relative;
+  z-index: 1;
+  padding: 0.5rem 1.2rem 2rem;
+}
+
+.section-page--overlay .section-page__list button,
+.dimension-page--overlay .dimension-page__nav button {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+  padding: 0.65rem 0;
+  border: 0;
+  border-bottom: 1px solid rgba(26, 42, 46, 0.18);
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.dimension-page--overlay .dimension-page__nav button {
+  width: auto;
+  border-bottom: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  padding: 0;
+}
+
+.section-page--overlay .section-page__list button:hover,
+.section-page--overlay .section-page__list button:focus-visible {
+  color: #0a4066;
+  outline: none;
+}
+
+@keyframes room-overlay-in {
+  from {
+    opacity: 0;
+    transform: translateX(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .room-overlay {
+    align-items: flex-end;
+    justify-content: stretch;
+  }
+
+  .room-overlay__panel {
+    width: 100%;
+    height: min(58dvh, 28rem);
+    border-left: 0;
+    border-top: 1px solid rgba(26, 42, 46, 0.28);
+    box-shadow: 0 -12px 40px rgba(8, 20, 24, 0.28);
+  }
+
+  .room-overlay__close {
+    margin-top: 1rem;
+  }
+
+  @keyframes room-overlay-in {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
