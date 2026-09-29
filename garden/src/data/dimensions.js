@@ -124,6 +124,7 @@ export const dimensions = [
     id: "suenos",
     title: { es: "Sueños", en: "Dreams" },
     element: { es: "Videoclip · Terrario", en: "Music video · Terrarium" },
+    year: 2018,
     intro: {
       es: "Varias caras miran a la vez. El sueño no elige un solo rostro: habita todos juntos. Gira alrededor de Terrario.",
       en: "Several faces look at once. Dream does not choose one face: it inhabits them all together. It orbits Terrarium.",
@@ -140,6 +141,7 @@ export const dimensions = [
     id: "ecosistema",
     title: { es: "Ecosistema", en: "Ecosystem" },
     element: { es: "Videoclip · Terrario", en: "Music video · Terrarium" },
+    year: 2018,
     intro: {
       es: "Un circuito vivo alrededor de Terrario: aire, raíces y ecos que se alimentan entre sí.",
       en: "A living circuit around Terrarium: air, roots, and echoes that feed each other.",
@@ -159,6 +161,7 @@ export const dimensions = [
       en: "Fleeting Creations",
     },
     element: { es: "Videoclip · Nebulosa", en: "Music video · Nebula" },
+    year: 2017,
     intro: {
       es: "Destellos que orbitan el Big Bang de Nubila: formas que aparecen y se disuelven alrededor de Nebulosa.",
       en: "Flashes that orbit Nubila’s Big Bang: forms that appear and dissolve around Nebula.",
@@ -179,6 +182,7 @@ export const dimensions = [
     id: "terrario-virtual",
     title: { es: "Terrario Virtual", en: "Virtual Terrarium" },
     element: { es: "Concierto en vivo", en: "Live concert" },
+    year: 2021,
     intro: {
       es: "La versión viva del álbum: el terrario se abre en escena y el cuarto se llena de gente.",
       en: "The live version of the album: the terrarium opens on stage and the room fills with people.",
@@ -198,6 +202,7 @@ export const dimensions = [
       en: "Live: 10 Years at Pez Volcán",
     },
     element: { es: "Concierto en vivo", en: "Live concert" },
+    year: 2025,
     intro: {
       es: "Diez años de Nubila en Pez Volcán: el recorrido vivo de una década en la habitación.",
       en: "Ten years of Nubila at Pez Volcán: the live arc of a decade in the room.",
@@ -239,8 +244,8 @@ export const dimensions = [
   },
   {
     id: "nubila-about",
-    title: { es: "Nubila", en: "Nubila" },
-    element: { es: "Quiénes somos", en: "About us" },
+    title: { es: "Quiénes somos", en: "About us" },
+    hideEyebrow: true,
     intro: {
       es: "Nubila es una banda de Córdoba. Habitamos un cuarto digital — álbumes, EPs, videoclips y conciertos — donde cada objeto es una puerta a otra temperatura del mismo jardín.",
       en: "Nubila is a band from Córdoba. We inhabit a digital room — albums, EPs, music videos, and concerts — where each object is a door to another temperature of the same garden.",
@@ -257,4 +262,48 @@ export const dimensions = [
 
 export function getDimensionById(id) {
   return dimensions.find((d) => d.id === id);
+}
+
+/** Year used for timeline sort; waitlist / undated → upcoming bucket. */
+export function dimensionSortYear(d) {
+  if (d.waitlist || d.year == null) return null;
+  if (typeof d.year === "number") return d.year;
+  const parsed = parseInt(String(d.year), 10);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+/** Catalog entries for “Las Dimensiones”, oldest → newest, then coming soon. */
+export function getCatalogGroupedByYear() {
+  const items = dimensions.filter((d) => d.id !== "nubila-about");
+  const groups = new Map();
+
+  items.forEach((d) => {
+    const y = dimensionSortYear(d);
+    const key = y == null ? "upcoming" : String(y);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(d);
+  });
+
+  const years = [...groups.keys()]
+    .filter((k) => k !== "upcoming")
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  const result = years.map((y) => ({
+    key: String(y),
+    year: y,
+    label: { es: String(y), en: String(y) },
+    items: groups.get(String(y)),
+  }));
+
+  if (groups.has("upcoming")) {
+    result.push({
+      key: "upcoming",
+      year: null,
+      label: { es: "Próximamente", en: "Coming soon" },
+      items: groups.get("upcoming"),
+    });
+  }
+
+  return result;
 }

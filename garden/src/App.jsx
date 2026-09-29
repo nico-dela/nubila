@@ -1,8 +1,11 @@
 import { useState } from "react";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import ThemeSwitcher from "./components/ThemeSwitcher";
 import EntrancePage from "./pages/EntrancePage";
 import { LocaleProvider } from "./i18n/LocaleContext";
+import { ThemeProvider } from "./theme/ThemeContext";
 import "./styles/App.css";
+import "./styles/ThemeSwitcher.css";
 
 const PANEL_DEFAULT = 328;
 
@@ -25,8 +28,14 @@ function GardenShell() {
   };
 
   return (
-    <div className="garden-app">
-      <LanguageSwitcher />
+    <div
+      className={`garden-app${panel ? " is-panel-open" : ""}`}
+      style={{ "--panel-w": `${panelWidthPx}px` }}
+    >
+      <div className="chrome-controls">
+        <ThemeSwitcher />
+        <LanguageSwitcher />
+      </div>
       <EntrancePage
         panel={panel}
         panelWidthPx={panelWidthPx}
@@ -42,7 +51,9 @@ function GardenShell() {
 export default function App() {
   return (
     <LocaleProvider>
-      <GardenShell />
+      <ThemeProvider>
+        <GardenShell />
+      </ThemeProvider>
     </LocaleProvider>
   );
 }

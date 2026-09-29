@@ -6,16 +6,55 @@
   font-display: swap;
 }
 
-:root {
+:root,
+html[data-theme="light"] {
   --garden-teal: #7eb8b8;
   --garden-ink: #1a2a2e;
   --garden-paper: #f3efe6;
   --garden-muted: #5a6e72;
+  --garden-room: #d8ddd6;
+  --garden-room-glow: #e8eeea;
+  --garden-room-mid: #c9d0ca;
+  --garden-room-deep: #bdc5bf;
+  --chrome-bg: rgba(243, 239, 230, 0.88);
+  --chrome-border: rgba(26, 42, 46, 0.35);
+  --chrome-muted: rgba(26, 42, 46, 0.45);
+  --chrome-sep: rgba(26, 42, 46, 0.3);
+  --hint-bg: rgba(243, 239, 230, 0.72);
+  --hint-border: rgba(26, 42, 46, 0.18);
+  --tooltip-bg: rgba(243, 239, 230, 0.95);
+  --tooltip-border: rgba(26, 42, 46, 0.3);
   --font-brand: "Nubifont", "Libre Baskerville", serif;
   --font-display: "Libre Baskerville", "Palatino Linotype", Palatino, serif;
   --font-ui: "Special Elite", "Courier New", Courier, monospace;
   color: var(--garden-ink);
-  background: var(--garden-teal);
+  background: var(--garden-room);
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --garden-teal: #1a2e2e;
+  --garden-ink: #e6ebe8;
+  --garden-paper: #12181a;
+  --garden-muted: #9aaba8;
+  --garden-room: #0e1416;
+  --garden-room-glow: #1a2624;
+  --garden-room-mid: #121a1c;
+  --garden-room-deep: #0a1012;
+  --chrome-bg: rgba(18, 24, 26, 0.88);
+  --chrome-border: rgba(230, 235, 232, 0.28);
+  --chrome-muted: rgba(230, 235, 232, 0.45);
+  --chrome-sep: rgba(230, 235, 232, 0.28);
+  --hint-bg: rgba(18, 24, 26, 0.78);
+  --hint-border: rgba(230, 235, 232, 0.2);
+  --tooltip-bg: rgba(22, 30, 32, 0.95);
+  --tooltip-border: rgba(230, 235, 232, 0.28);
+  color: var(--garden-ink);
+  background: var(--garden-room);
+  color-scheme: dark;
+}
+
+html {
   font-family: var(--font-ui);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -39,6 +78,8 @@ body,
 
 body {
   min-width: 320px;
+  background: var(--garden-room);
+  color: var(--garden-ink);
 }
 
 a {

@@ -55,6 +55,9 @@ export const ui = {
   },
   listen: { es: "Escuchar", en: "Listen" },
   language: { es: "Idioma", en: "Language" },
+  theme: { es: "Tema", en: "Theme" },
+  themeLight: { es: "Claro", en: "Light" },
+  themeDark: { es: "Oscuro", en: "Dark" },
   menu: {
     room: { es: "La Habitación", en: "The Room" },
     origen: { es: "El Origen", en: "The Origin" },

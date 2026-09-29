@@ -291,3 +291,23 @@
     radial-gradient(ellipse at 40% 20%, rgba(90, 140, 130, 0.2), transparent 45%),
     linear-gradient(180deg, #e4ebe8 0%, #cfd8d4 100%);
 }
+
+html[data-theme="dark"] .dimension-page--about {
+  color: #e4ebe8;
+  background:
+    radial-gradient(ellipse at 40% 20%, rgba(90, 140, 130, 0.18), transparent 45%),
+    linear-gradient(180deg, #15201e 0%, #101816 100%);
+}
+
+html[data-theme="dark"] .dimension-page--trilogia,
+html[data-theme="dark"] .dimension-page--poetica,
+html[data-theme="dark"] .dimension-page--cactus,
+html[data-theme="dark"] .dimension-page--suenos {
+  color: #e8e6e0;
+  background: linear-gradient(180deg, #171b18 0%, #101412 100%);
+}
+
+html[data-theme="dark"] .section-page--overlay {
+  color: var(--garden-ink);
+  background: linear-gradient(180deg, #151a18 0%, #101412 100%);
+}

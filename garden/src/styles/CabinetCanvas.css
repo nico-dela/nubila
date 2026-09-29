@@ -13,7 +13,7 @@
   height: 100dvh;
   min-height: 100dvh;
   overflow: hidden;
-  background: #d8ddd6;
+  background: var(--garden-room);
   touch-action: none;
 }
 
@@ -28,8 +28,13 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 42%, #e8eeea 0%, transparent 48%),
-    linear-gradient(180deg, #d5ddd8 0%, #c9d0ca 55%, #bdc5bf 100%);
+    radial-gradient(ellipse at 50% 42%, var(--garden-room-glow) 0%, transparent 48%),
+    linear-gradient(
+      180deg,
+      var(--garden-room) 0%,
+      var(--garden-room-mid) 55%,
+      var(--garden-room-deep) 100%
+    );
   transform: translate3d(
       calc(var(--parallax-x) * -18px),
       calc(var(--parallax-y) * -12px),
@@ -417,8 +422,8 @@
   z-index: 4;
   transform: translate(-50%, calc(-100% - 0.55rem));
   padding: 0.4rem 0.7rem;
-  background: rgba(243, 239, 230, 0.95);
-  border: 1px solid rgba(26, 42, 46, 0.3);
+  background: var(--tooltip-bg);
+  border: 1px solid var(--tooltip-border);
   color: var(--garden-ink);
   font-family: var(--font-ui);
   font-size: 0.78rem;
@@ -439,9 +444,9 @@
   font-family: var(--font-ui);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
-  color: rgba(26, 42, 46, 0.78);
-  background: rgba(243, 239, 230, 0.72);
-  border: 1px solid rgba(26, 42, 46, 0.18);
+  color: var(--garden-muted);
+  background: var(--hint-bg);
+  border: 1px solid var(--hint-border);
   pointer-events: none;
   white-space: nowrap;
   transition: opacity 0.35s ease;
@@ -468,6 +473,15 @@
 .cabinet-canvas__veil.is-visible {
   opacity: 1;
 }
+
+html[data-theme="dark"] .cabinet-canvas__veil.is-visible {
+  background: radial-gradient(
+    circle at var(--zoom-x) var(--zoom-y),
+    rgba(180, 220, 210, 0.04) 0%,
+    rgba(4, 10, 12, 0.62) 72%
+  );
+}
+
 
 .cabinet-canvas.is-zooming,
 .cabinet-canvas.is-zooming-out {
@@ -499,6 +513,26 @@
 .cabinet-canvas.is-zooming .cabinet-canvas__bg {
   opacity: 0.55;
   transform: scale(1.1);
+}
+
+html[data-theme="dark"] .cabinet-canvas__wordmark:hover,
+html[data-theme="dark"] .cabinet-canvas__wordmark:focus-visible,
+html[data-theme="dark"] .cabinet-canvas__wordmark.is-active {
+  color: #f2f7f4;
+}
+
+html[data-theme="dark"] .cabinet-canvas__object img,
+html[data-theme="dark"] .cabinet-canvas__planet-hit img {
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+
+html[data-theme="dark"] .cabinet-canvas__object.is-active img,
+html[data-theme="dark"] .cabinet-canvas__object:hover img,
+html[data-theme="dark"] .cabinet-canvas__planet.is-active img,
+html[data-theme="dark"] .cabinet-canvas__planet-hit:hover img {
+  opacity: 1;
+  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.25));
 }
 
 @media (max-width: 720px) {
