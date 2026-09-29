@@ -17,7 +17,6 @@
   margin: 0;
   cursor: pointer;
   pointer-events: auto;
-  /* Dim mostly over the panel side so the focused object stays readable */
   background: linear-gradient(
     90deg,
     rgba(12, 28, 32, 0.04) 0%,
@@ -26,6 +25,15 @@
     rgba(12, 28, 32, 0.38) 100%
   );
   backdrop-filter: none;
+}
+
+html[data-theme="dark"] .room-overlay__backdrop {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.12) 0%,
+    rgba(0, 0, 0, 0.28) 48%,
+    rgba(0, 0, 0, 0.48) 100%
+  );
 }
 
 .room-overlay__panel {
@@ -38,9 +46,14 @@
   height: 100%;
   overflow: hidden;
   border: 0;
-  border-left: 1px solid rgba(26, 42, 46, 0.28);
+  border-left: 1px solid var(--panel-edge, rgba(26, 42, 46, 0.28));
   box-shadow: -18px 0 48px rgba(8, 20, 24, 0.28);
   animation: room-overlay-in 0.4s cubic-bezier(0.22, 0.12, 0.2, 1);
+}
+
+html[data-theme="dark"] .room-overlay__panel {
+  --panel-edge: rgba(230, 235, 232, 0.16);
+  box-shadow: -18px 0 48px rgba(0, 0, 0, 0.45);
 }
 
 .room-overlay__resize {
@@ -72,14 +85,14 @@
     width: 3px;
     height: 3.5rem;
     border-radius: 2px;
-    background: rgba(26, 42, 46, 0.28);
+    background: var(--chrome-sep);
     transform: translateY(-50%);
     transition: background 0.2s ease, height 0.2s ease;
   }
 
   .room-overlay__resize:hover::after,
   .room-overlay__resize:focus-visible::after {
-    background: rgba(26, 42, 46, 0.55);
+    background: var(--garden-ink);
     height: 4.5rem;
   }
 }
@@ -97,23 +110,123 @@ body.is-resizing-panel iframe {
   overflow: auto;
   height: 100%;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  background:
+    linear-gradient(var(--panel-scroll-top, rgba(243, 239, 230, 0.96)), transparent 1.25rem),
+    linear-gradient(to top, var(--panel-scroll-bottom, rgba(243, 239, 230, 0.96)), transparent 1.25rem);
+  background-attachment: local, local;
+}
+
+html[data-theme="dark"] .room-overlay__scroll {
+  --panel-scroll-top: rgba(16, 20, 18, 0.94);
+  --panel-scroll-bottom: rgba(16, 20, 18, 0.94);
+}
+
+.room-overlay__toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  padding: 1.15rem 1.15rem 0.65rem;
+  background: linear-gradient(
+    180deg,
+    var(--panel-toolbar-bg, rgba(243, 239, 230, 0.96)) 55%,
+    transparent
+  );
+}
+
+@media (min-width: 641px) {
+  .room-overlay__toolbar {
+    /* Full label fits; chrome sits outside the panel */
+    padding-right: 1.15rem;
+  }
+}
+
+html[data-theme="dark"] .room-overlay__toolbar {
+  --panel-toolbar-bg: rgba(16, 20, 18, 0.96);
 }
 
 .room-overlay__close {
-  display: inline-block;
-  margin: 4.75rem 1.2rem 0;
-  padding: 0.35rem 0.15rem;
-  border: 0;
-  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.45rem 0.75rem 0.45rem 0.55rem;
+  border: 1px solid var(--chrome-border);
+  border-radius: 999px;
+  background: var(--chrome-bg);
   font-family: var(--font-ui);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   letter-spacing: 0.04em;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration: none;
   cursor: pointer;
-  color: inherit;
+  color: var(--garden-ink);
   position: relative;
   z-index: 2;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.room-overlay__close-mark {
+  display: inline-block;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.room-overlay__close:hover,
+.room-overlay__close:focus-visible {
+  background: var(--garden-ink);
+  border-color: var(--garden-ink);
+  color: var(--garden-paper);
+  outline: none;
+  transform: translateX(-2px);
+  box-shadow: 0 8px 18px rgba(8, 20, 24, 0.18);
+}
+
+.room-overlay__close:hover .room-overlay__close-mark,
+.room-overlay__close:focus-visible .room-overlay__close-mark {
+  transform: translateX(-3px);
+}
+
+.room-overlay__close:active {
+  transform: translateX(-1px) scale(0.98);
+}
+
+.room-overlay__text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.35rem 0 0;
+  padding: 0.35rem 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0.78;
+  transition:
+    opacity 0.2s ease,
+    letter-spacing 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.room-overlay__text-link:hover,
+.room-overlay__text-link:focus-visible {
+  opacity: 1;
+  letter-spacing: 0.08em;
+  outline: none;
+  transform: translateX(2px);
 }
 
 .section-page--overlay,
@@ -128,37 +241,55 @@ body.is-resizing-panel iframe {
 .room-overlay__body {
   position: relative;
   z-index: 1;
-  padding: 0.5rem 1.2rem 2rem;
+  padding: 0.35rem 1.25rem 2.25rem;
 }
 
-.section-page--overlay .section-page__list button,
-.dimension-page--overlay .dimension-page__nav button {
+.section-page--overlay .section-page__list button {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
   width: 100%;
-  padding: 0.65rem 0;
+  padding: 0.7rem 0.15rem;
   border: 0;
-  border-bottom: 1px solid rgba(26, 42, 46, 0.18);
+  border-bottom: 1px solid rgba(26, 42, 46, 0.14);
   background: transparent;
   color: inherit;
   text-align: left;
   cursor: pointer;
   font: inherit;
+  border-radius: 2px;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    padding-left 0.18s ease;
 }
 
-.dimension-page--overlay .dimension-page__nav button {
+html[data-theme="dark"] .section-page--overlay .section-page__list button {
+  border-bottom-color: rgba(230, 235, 232, 0.12);
+}
+
+.dimension-page--overlay .dimension-page__nav {
+  margin-top: 1.5rem;
+}
+
+.dimension-page--overlay .dimension-page__nav button.room-overlay__text-link {
   width: auto;
-  border-bottom: 0;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  padding: 0;
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+  padding: 0.35rem 0;
 }
 
 .section-page--overlay .section-page__list button:hover,
 .section-page--overlay .section-page__list button:focus-visible {
-  color: #0a4066;
+  color: inherit;
+  background: rgba(26, 42, 46, 0.06);
+  padding-left: 0.45rem;
   outline: none;
+}
+
+html[data-theme="dark"] .section-page--overlay .section-page__list button:hover,
+html[data-theme="dark"] .section-page--overlay .section-page__list button:focus-visible {
+  background: rgba(230, 235, 232, 0.08);
 }
 
 @keyframes room-overlay-in {
@@ -180,14 +311,14 @@ body.is-resizing-panel iframe {
 
   .room-overlay__panel {
     width: 100%;
-    height: min(58dvh, 28rem);
+    height: min(62dvh, 30rem);
     border-left: 0;
-    border-top: 1px solid rgba(26, 42, 46, 0.28);
+    border-top: 1px solid var(--panel-edge, rgba(26, 42, 46, 0.28));
     box-shadow: 0 -12px 40px rgba(8, 20, 24, 0.28);
   }
 
-  .room-overlay__close {
-    margin-top: 1rem;
+  .room-overlay__toolbar {
+    padding-top: 0.85rem;
   }
 
   @keyframes room-overlay-in {

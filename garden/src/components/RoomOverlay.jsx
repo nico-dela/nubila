@@ -1,5 +1,8 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { dimensions, getDimensionById } from "../data/dimensions";
+import {
+  getCatalogGroupedByYear,
+  getDimensionById,
+} from "../data/dimensions";
 import { getSectionById } from "../data/roomSections";
 import { useLocale } from "../i18n/LocaleContext";
 import YoutubeEmbed from "./YoutubeEmbed";
@@ -22,16 +25,19 @@ function DimensionBody({ dimension, onOpenDimension }) {
     setSubmitted(true);
   };
 
-  const element = t(dimension.element);
+  const element = dimension.element ? t(dimension.element) : "";
   const year = dimension.year;
+  const showEyebrow = !dimension.hideEyebrow && (element || year);
 
   return (
     <div className="room-overlay__body">
       <div className="dimension-page__ornament" aria-hidden="true" />
-      <p className="dimension-page__eyebrow">
-        {element}
-        {year ? ` · ${year}` : ""}
-      </p>
+      {showEyebrow && (
+        <p className="dimension-page__eyebrow">
+          {element}
+          {element && year ? ` · ${year}` : year || ""}
+        </p>
+      )}
       <h2 className="dimension-page__title">{t(dimension.title)}</h2>
       {dimension.subtitle && (
         <p className="dimension-page__subtitle">{t(dimension.subtitle)}</p>
@@ -79,7 +85,11 @@ function DimensionBody({ dimension, onOpenDimension }) {
       )}
 
       <div className="dimension-page__nav">
-        <button type="button" onClick={() => onOpenDimension(null, "dimensiones")}>
+        <button
+          type="button"
+          className="room-overlay__text-link"
+          onClick={() => onOpenDimension(null, "dimensiones")}
+        >
           {tUi("allDimensions")}
         </button>
       </div>
@@ -89,6 +99,7 @@ function DimensionBody({ dimension, onOpenDimension }) {
 
 function SectionBody({ section, onOpenDimension }) {
   const { t } = useLocale();
+  const catalogGroups = section.listDimensions ? getCatalogGroupedByYear() : [];
 
   return (
     <div className="room-overlay__body">
@@ -111,19 +122,26 @@ function SectionBody({ section, onOpenDimension }) {
       })}
 
       {section.listDimensions && (
-        <ul className="section-page__list">
-          {dimensions.map((d) => (
-            <li key={d.id}>
-              <button type="button" onClick={() => onOpenDimension(d.id)}>
-                <span className="section-page__list-title">{t(d.title)}</span>
-                <span className="section-page__list-meta">
-                  {t(d.element)}
-                  {d.year ? ` · ${d.year}` : ""}
-                </span>
-              </button>
-            </li>
+        <div className="section-page__timeline" role="list">
+          {catalogGroups.map((group) => (
+            <section key={group.key} className="section-page__year-group">
+              <h3 className="section-page__year">{t(group.label)}</h3>
+              <ul className="section-page__list">
+                {group.items.map((d) => (
+                  <li key={d.id} role="listitem">
+                    <button type="button" onClick={() => onOpenDimension(d.id)}>
+                      <span className="section-page__list-title">{t(d.title)}</span>
+                      <span className="section-page__list-meta">
+                        {d.element ? t(d.element) : ""}
+                        {d.year ? ` · ${d.year}` : ""}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
-        </ul>
+        </div>
       )}
 
       {section.links && (
@@ -228,14 +246,19 @@ export default function RoomOverlay({
           onPointerDown={startResize}
         />
         <div className="room-overlay__scroll">
-          <button
-            ref={closeRef}
-            type="button"
-            className="room-overlay__close"
-            onClick={onClose}
-          >
-            {tUi("backToRoom")}
-          </button>
+          <header className="room-overlay__toolbar">
+            <button
+              ref={closeRef}
+              type="button"
+              className="room-overlay__close"
+              onClick={onClose}
+            >
+              <span className="room-overlay__close-mark" aria-hidden="true">
+                ←
+              </span>
+              <span>{tUi("backToRoom")}</span>
+            </button>
+          </header>
           {dimension && (
             <DimensionBody
               dimension={dimension}
