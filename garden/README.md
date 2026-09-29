@@ -2,9 +2,10 @@
 
 Single-page poetic entrance for Nubila. Preview (does not replace the main site):
 
-**https://nubila.ar/garden/**
+**Share links**
 
-## Develop
+- Cloudflare Pages (recommended): run `npm run deploy:cf` → `*.pages.dev`
+- Beside the main site: **https://nubila.ar/garden/** (`npm run deploy`)
 
 ```bash
 cd garden

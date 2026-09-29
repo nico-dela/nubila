@@ -1,8 +1,14 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
-// Production preview sits beside the CRA site at https://nubila.ar/garden/
-export default defineConfig(({ command }) => ({
-  plugins: [react()],
-  base: command === 'build' ? '/garden/' : '/',
-}))
+// GitHub Pages under nubila.ar/garden/ uses `/garden/`.
+// Cloudflare Pages preview uses `/` (set via deploy:cf).
+export default defineConfig(({ command }) => {
+  const base =
+    process.env.DEPLOY_BASE ||
+    (command === 'build' ? '/garden/' : '/')
+  return {
+    plugins: [react()],
+    base,
+  }
+})
