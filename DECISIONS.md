@@ -14,6 +14,12 @@ New entries are in English.
 - Pending:
 ```
 
+## 2026-09-29 22:36:00 — Remove files unused by garden
+- What: Deleted unused garden assets (`layers/*`, `nubila.webp`, `.nojekyll`); removed orphaned root R3F map PoC + textures + drei/fiber/three deps; dropped dead `roomObjects` helpers.
+- Why: Only Habitación-used files should linger; map was unrouted and not part of garden.
+- Rejected: Deleting the Oceánica CRA site (still the live nubila.ar product).
+- Pending: None.
+
 ## 2026-09-29 22:31:06 — Garden chrome organize + ship
 - What: Renamed shared chrome styles to `ChromeControls.css`; dropped stub `LanguageSwitcher.css` / unused Vite `icons.svg`; Terrario favicon; Linktree + icon chrome; UX a11y/mute/reduced-motion/menu; slot layout. Commit, push, Cloudflare Pages deploy.
 - Why: Session close — tidy chrome assets and publish the Habitación polish.

@@ -205,14 +205,3 @@ export const roomObjectDefs = [
     seed: 0.14,
   },
 ];
-
-export function getRoomObjectDefById(id) {
-  return roomObjectDefs.find((o) => o.id === id);
-}
-
-/** @deprecated Prefer layoutRoomObjects + roomObjectDefs */
-export const roomObjects = roomObjectDefs;
-
-export function getRoomObjectById(id) {
-  return getRoomObjectDefById(id);
-}
