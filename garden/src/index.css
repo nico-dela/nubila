@@ -24,9 +24,9 @@ html[data-theme="light"] {
   --hint-border: rgba(26, 42, 46, 0.18);
   --tooltip-bg: rgba(243, 239, 230, 0.95);
   --tooltip-border: rgba(26, 42, 46, 0.3);
-  --font-brand: "Nubifont", "Libre Baskerville", serif;
-  --font-display: "Libre Baskerville", "Palatino Linotype", Palatino, serif;
-  --font-ui: "Special Elite", "Courier New", Courier, monospace;
+  --font-brand: "Nubifont", "Fraunces", Georgia, serif;
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-ui: "DM Mono", ui-monospace, monospace;
   color: var(--garden-ink);
   background: var(--garden-room);
   color-scheme: light;
@@ -93,4 +93,45 @@ input {
 
 img {
   max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cabinet-canvas__planet-orbit,
+  .cabinet-canvas__object-bob,
+  .cabinet-canvas__planet.is-active .cabinet-canvas__planet-hit .cabinet-canvas__object-bob,
+  .cabinet-canvas__planet-hit:hover .cabinet-canvas__object-bob,
+  .cabinet-canvas__planet-hit:focus-visible .cabinet-canvas__object-bob,
+  .cabinet-canvas__object.is-active:not(.is-focused) .cabinet-canvas__object-bob,
+  .cabinet-canvas__object:hover:not(:disabled):not(.is-focused)
+    .cabinet-canvas__object-bob,
+  .cabinet-canvas__object:focus-visible:not(:disabled):not(.is-focused)
+    .cabinet-canvas__object-bob,
+  .dimension-page--oceanica .dimension-page__intro,
+  .dimension-page--fuego .dimension-page__ornament::after {
+    animation: none !important;
+  }
+
+  .cabinet-canvas__bg,
+  .cabinet-canvas__world,
+  .cabinet-canvas__zoom,
+  .cabinet-canvas__object,
+  .cabinet-canvas__planet,
+  .cabinet-canvas__wordmark,
+  .cabinet-canvas__planet-hit,
+  .cabinet-canvas__hint,
+  .cabinet-canvas__veil,
+  .room-overlay__panel,
+  .poetic-menu__toggle span {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .room-overlay__panel {
+    animation: none !important;
+  }
+
+  .room-overlay__scroll {
+    scroll-behavior: auto;
+  }
 }

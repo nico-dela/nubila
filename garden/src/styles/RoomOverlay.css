@@ -40,8 +40,8 @@ html[data-theme="dark"] .room-overlay__backdrop {
   position: relative;
   z-index: 1;
   pointer-events: auto;
-  width: min(100%, 20.5rem);
-  max-width: min(90vw, 35rem);
+  width: var(--panel-w, clamp(28rem, 42vw, 40rem));
+  max-width: none;
   max-height: none;
   height: 100%;
   overflow: hidden;
@@ -54,56 +54,6 @@ html[data-theme="dark"] .room-overlay__backdrop {
 html[data-theme="dark"] .room-overlay__panel {
   --panel-edge: rgba(230, 235, 232, 0.16);
   box-shadow: -18px 0 48px rgba(0, 0, 0, 0.45);
-}
-
-.room-overlay__resize {
-  display: none;
-}
-
-@media (min-width: 641px) {
-  .room-overlay__resize {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 5;
-    width: 10px;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    cursor: ew-resize;
-    touch-action: none;
-  }
-
-  .room-overlay__resize::after {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 50%;
-    width: 3px;
-    height: 3.5rem;
-    border-radius: 2px;
-    background: var(--chrome-sep);
-    transform: translateY(-50%);
-    transition: background 0.2s ease, height 0.2s ease;
-  }
-
-  .room-overlay__resize:hover::after,
-  .room-overlay__resize:focus-visible::after {
-    background: var(--garden-ink);
-    height: 4.5rem;
-  }
-}
-
-body.is-resizing-panel {
-  cursor: ew-resize;
-  user-select: none;
-}
-
-body.is-resizing-panel iframe {
-  pointer-events: none;
 }
 
 .room-overlay__scroll {
@@ -234,6 +184,8 @@ html[data-theme="dark"] .room-overlay__toolbar {
   min-height: 100%;
   height: auto;
   padding: 0;
+  margin: 0;
+  max-width: none;
   position: relative;
   overflow: visible;
 }
@@ -242,6 +194,12 @@ html[data-theme="dark"] .room-overlay__toolbar {
   position: relative;
   z-index: 1;
   padding: 0.35rem 1.25rem 2.25rem;
+}
+
+@media (min-width: 641px) {
+  .room-overlay__body {
+    padding: 0.5rem 1.75rem 2.75rem;
+  }
 }
 
 .section-page--overlay .section-page__list button {
@@ -309,16 +267,35 @@ html[data-theme="dark"] .section-page--overlay .section-page__list button:focus-
     justify-content: stretch;
   }
 
+  .room-overlay__backdrop {
+    background: rgba(8, 12, 14, 0.45);
+  }
+
+  html[data-theme="dark"] .room-overlay__backdrop {
+    background: rgba(0, 0, 0, 0.55);
+  }
+
   .room-overlay__panel {
     width: 100%;
-    height: min(62dvh, 30rem);
+    max-width: none;
+    height: min(72dvh, 34rem);
     border-left: 0;
     border-top: 1px solid var(--panel-edge, rgba(26, 42, 46, 0.28));
+    border-radius: 1rem 1rem 0 0;
     box-shadow: 0 -12px 40px rgba(8, 20, 24, 0.28);
   }
 
   .room-overlay__toolbar {
-    padding-top: 0.85rem;
+    padding: 0.85rem 1rem 0.5rem;
+  }
+
+  .room-overlay__close {
+    max-width: 100%;
+    font-size: 0.72rem;
+  }
+
+  .room-overlay__body {
+    padding: 0.25rem 1rem 1.75rem;
   }
 
   @keyframes room-overlay-in {

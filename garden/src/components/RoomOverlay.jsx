@@ -10,11 +10,21 @@ import "../styles/DimensionPage.css";
 import "../styles/SectionPage.css";
 import "../styles/RoomOverlay.css";
 
-const PANEL_MIN = 280;
-const PANEL_MAX = 560;
-const PANEL_DEFAULT = 328;
+const FOCUSABLE_SELECTOR = [
+  "button:not([disabled])",
+  "[href]",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[tabindex]:not([tabindex="-1"])',
+].join(", ");
 
-function DimensionBody({ dimension, onOpenDimension }) {
+function DimensionBody({
+  dimension,
+  titleId,
+  onOpenDimension,
+  onMediaPlaybackChange,
+}) {
   const { t, tUi } = useLocale();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -38,7 +48,9 @@ function DimensionBody({ dimension, onOpenDimension }) {
           {element && year ? ` · ${year}` : year || ""}
         </p>
       )}
-      <h2 className="dimension-page__title">{t(dimension.title)}</h2>
+      <h2 id={titleId} className="dimension-page__title">
+        {t(dimension.title)}
+      </h2>
       {dimension.subtitle && (
         <p className="dimension-page__subtitle">{t(dimension.subtitle)}</p>
       )}
@@ -53,7 +65,12 @@ function DimensionBody({ dimension, onOpenDimension }) {
         );
       })}
 
-      {dimension.listen?.length > 0 && <YoutubeEmbed tracks={dimension.listen} />}
+      {dimension.listen?.length > 0 && (
+        <YoutubeEmbed
+          tracks={dimension.listen}
+          onPlaybackChange={onMediaPlaybackChange}
+        />
+      )}
 
       {dimension.waitlist && (
         <form className="dimension-page__waitlist" onSubmit={handleWaitlist}>
@@ -97,14 +114,16 @@ function DimensionBody({ dimension, onOpenDimension }) {
   );
 }
 
-function SectionBody({ section, onOpenDimension }) {
+function SectionBody({ section, titleId, onOpenDimension }) {
   const { t } = useLocale();
   const catalogGroups = section.listDimensions ? getCatalogGroupedByYear() : [];
 
   return (
     <div className="room-overlay__body">
       <p className="section-page__eyebrow">{t(section.eyebrow)}</p>
-      <h2 className="section-page__title">{t(section.title)}</h2>
+      <h2 id={titleId} className="section-page__title">
+        {t(section.title)}
+      </h2>
       {section.body.map((paragraph) => {
         const text = t(paragraph);
         return (
@@ -161,44 +180,66 @@ function SectionBody({ section, onOpenDimension }) {
 
 export default function RoomOverlay({
   panel,
-  panelWidthPx,
-  onPanelWidthChange,
+  onMediaPlaybackChange,
   onClose,
   onOpenDimension,
   onOpenSection,
 }) {
   const closeRef = useRef(null);
-  const dragRef = useRef(null);
-  const { t, tUi } = useLocale();
+  const dialogRef = useRef(null);
+  const previousFocusRef = useRef(null);
+  const titleId = useId();
+  const { tUi } = useLocale();
 
   useEffect(() => {
-    if (!panel) return undefined;
+    if (!panel) {
+      const prev = previousFocusRef.current;
+      previousFocusRef.current = null;
+      if (prev && typeof prev.focus === "function") {
+        prev.focus();
+      }
+      return undefined;
+    }
+
+    if (!previousFocusRef.current) {
+      previousFocusRef.current = document.activeElement;
+    }
+
     const onKeyDown = (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const root = dialogRef.current;
+      if (!root) return;
+      const focusable = Array.from(
+        root.querySelectorAll(FOCUSABLE_SELECTOR),
+      ).filter(
+        (el) =>
+          !el.hasAttribute("disabled") &&
+          el.getAttribute("aria-hidden") !== "true",
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (e.shiftKey && (active === first || !root.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (active === last || !root.contains(active))) {
+        e.preventDefault();
+        first.focus();
+      }
     };
+
     window.addEventListener("keydown", onKeyDown);
     closeRef.current?.focus();
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [panel, onClose]);
-
-  useEffect(() => {
-    const onMove = (e) => {
-      if (!dragRef.current) return;
-      const next = window.innerWidth - e.clientX;
-      const clamped = Math.min(PANEL_MAX, Math.max(PANEL_MIN, next));
-      onPanelWidthChange?.(clamped);
-    };
-    const onUp = () => {
-      dragRef.current = null;
-      document.body.classList.remove("is-resizing-panel");
-    };
-    window.addEventListener("pointermove", onMove);
-    window.addEventListener("pointerup", onUp);
-    return () => {
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerup", onUp);
-    };
-  }, [onPanelWidthChange]);
 
   if (!panel) return null;
 
@@ -209,42 +250,25 @@ export default function RoomOverlay({
 
   if (!dimension && !section) return null;
 
-  const title = dimension
-    ? t(dimension.title)
-    : section
-      ? t(section.title)
-      : "Nubila";
   const themeClass = dimension
     ? `dimension-page dimension-page--overlay dimension-page--${dimension.theme}`
     : "section-page section-page--overlay";
 
-  const startResize = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dragRef.current = { startX: e.clientX, startW: panelWidthPx || PANEL_DEFAULT };
-    document.body.classList.add("is-resizing-panel");
-    e.currentTarget.setPointerCapture?.(e.pointerId);
-  };
-
   return (
-    <div className="room-overlay" role="dialog" aria-modal="true" aria-label={title}>
+    <div
+      ref={dialogRef}
+      className="room-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={titleId}
+    >
       <button
         type="button"
         className="room-overlay__backdrop"
         aria-label={tUi("closeOverlay")}
         onClick={onClose}
       />
-      <div
-        className={`room-overlay__panel ${themeClass}`}
-        style={{ width: panelWidthPx ? `${panelWidthPx}px` : undefined }}
-      >
-        <button
-          type="button"
-          className="room-overlay__resize"
-          aria-label={tUi("resizePanel")}
-          title={tUi("resizePanel")}
-          onPointerDown={startResize}
-        />
+      <div className={`room-overlay__panel ${themeClass}`}>
         <div className="room-overlay__scroll">
           <header className="room-overlay__toolbar">
             <button
@@ -262,6 +286,8 @@ export default function RoomOverlay({
           {dimension && (
             <DimensionBody
               dimension={dimension}
+              titleId={titleId}
+              onMediaPlaybackChange={onMediaPlaybackChange}
               onOpenDimension={(id, sectionId) => {
                 if (sectionId) onOpenSection(sectionId);
                 else if (id) onOpenDimension(id);
@@ -271,6 +297,7 @@ export default function RoomOverlay({
           {section && (
             <SectionBody
               section={section}
+              titleId={titleId}
               onOpenDimension={(id) => onOpenDimension(id)}
             />
           )}

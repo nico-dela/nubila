@@ -38,8 +38,16 @@ export const ui = {
     en: "Move the cursor to wander the room",
   },
   hintMobile: {
-    es: "Deslizá el dedo sobre el fondo — o incliná el teléfono — para el parallax",
-    en: "Drag on the background — or tilt the phone — for parallax",
+    es: "Tocá la habitación: después incliná el teléfono o deslizá el dedo",
+    en: "Tap the room, then tilt the phone or drag with your finger",
+  },
+  hintMobileTilt: {
+    es: "Incliná el teléfono — o deslizá — para el parallax",
+    en: "Tilt the phone — or drag — for parallax",
+  },
+  hintMobileDrag: {
+    es: "Este navegador no comparte sensores de movimiento — deslizá el dedo para el parallax",
+    en: "This browser isn’t sharing motion sensors — drag for parallax",
   },
   hintDebug: {
     es: "Debug de objetos activo (?debugSectors=1)",
@@ -49,15 +57,18 @@ export const ui = {
     es: "Nubila — quiénes somos",
     en: "Nubila — about us",
   },
-  resizePanel: {
-    es: "Arrastrá para ensanchar o achicar el panel",
-    en: "Drag to widen or shrink the panel",
-  },
   listen: { es: "Escuchar", en: "Listen" },
   language: { es: "Idioma", en: "Language" },
   theme: { es: "Tema", en: "Theme" },
   themeLight: { es: "Claro", en: "Light" },
   themeDark: { es: "Oscuro", en: "Dark" },
+  ambient: { es: "Ambiente", en: "Ambient" },
+  ambientMute: { es: "Silenciar", en: "Mute" },
+  ambientUnmute: { es: "Sonido", en: "Sound" },
+  linktree: {
+    es: "Linktree de Nubila",
+    en: "Nubila on Linktree",
+  },
   menu: {
     room: { es: "La Habitación", en: "The Room" },
     origen: { es: "El Origen", en: "The Origin" },

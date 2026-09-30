@@ -6,7 +6,7 @@
   --zoom-y: 50%;
   --focus-cx: 36%;
   --focus-cy: 46%;
-  --panel-w: 20.5rem;
+  --panel-w: clamp(28rem, 42vw, 40rem);
   --panel-shift: 0px;
   position: relative;
   width: 100%;

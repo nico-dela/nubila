@@ -1,15 +1,31 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { layoutRoomObjects } from "../data/layoutObjects";
 import { useLocale } from "../i18n/LocaleContext";
+import {
+  hasTiltApi,
+  requestTiltPermission,
+  subscribeTilt,
+} from "../lib/tiltParallax";
 import oceanicaNylonUrl from "../assets/music/Oceanica-Nylon.mp3";
 import "../styles/CabinetCanvas.css";
 
 const ZOOM_MS = 850;
 const PARALLAX_LERP = 0.1;
 const ABOUT_ID = "nubila-about";
-const DEFAULT_PANEL_PX = 328;
+/** Matches --panel-w clamp mid for zoom focus math before layout measures. */
+const PANEL_RATIO_FALLBACK = 0.3;
 const AUDIO_BASE_VOL = 0.32;
 const AUDIO_MAX_VOL = 0.62;
+
+function resolveCssLengthPx(host, property) {
+  if (!host) return 0;
+  const probe = document.createElement("div");
+  probe.style.cssText = `position:absolute;visibility:hidden;pointer-events:none;width:var(${property})`;
+  host.appendChild(probe);
+  const width = probe.getBoundingClientRect().width;
+  probe.remove();
+  return width;
+}
 
 function isCoarsePointer() {
   return (
@@ -18,9 +34,17 @@ function isCoarsePointer() {
   );
 }
 
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 export default function CabinetCanvas({
   panelOpen,
-  panelWidthPx = DEFAULT_PANEL_PX,
+  mediaPlaying = false,
+  ambientMuted = false,
   onSelectDimension,
 }) {
   const { t, tUi } = useLocale();
@@ -34,6 +58,9 @@ export default function CabinetCanvas({
   /** idle | in | held | out */
   const [zoomPhase, setZoomPhase] = useState("idle");
   const [mobileHint, setMobileHint] = useState(false);
+  /** off | pending | on | denied */
+  const [tiltState, setTiltState] = useState("off");
+  const [reduceMotion, setReduceMotion] = useState(prefersReducedMotion);
 
   const rootRef = useRef(null);
   const frameRef = useRef(null);
@@ -46,7 +73,18 @@ export default function CabinetCanvas({
   const touchDragRef = useRef(null);
   const audioRef = useRef(null);
   const audioStartedRef = useRef(false);
+  const mediaPlayingRef = useRef(mediaPlaying);
+  const ambientMutedRef = useRef(ambientMuted);
+  const reduceMotionRef = useRef(reduceMotion);
+  const tiltAskedRef = useRef(false);
+  const tiltUnsubRef = useRef(null);
+  const lockedRef = useRef(false);
+  mediaPlayingRef.current = mediaPlaying;
+  ambientMutedRef.current = ambientMuted;
+  reduceMotionRef.current = reduceMotion;
   zoomPhaseRef.current = zoomPhase;
+
+  const zoomMs = reduceMotion ? 0 : ZOOM_MS;
 
   const layoutSeed = useMemo(() => Date.now() % 1e9, []);
   const objects = useMemo(() => layoutRoomObjects(layoutSeed), [layoutSeed]);
@@ -54,9 +92,18 @@ export default function CabinetCanvas({
   const zoomedIn = zoomPhase === "in" || zoomPhase === "held";
   const locked = zoomPhase !== "idle" || panelOpen;
   const focusing = Boolean(focusId);
+  lockedRef.current = locked;
 
   useEffect(() => {
     setMobileHint(isCoarsePointer());
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
   }, []);
 
   useEffect(() => {
@@ -74,15 +121,21 @@ export default function CabinetCanvas({
 
   const hint = useMemo(() => {
     if (debug) return tUi("hintDebug");
-    return mobileHint ? tUi("hintMobile") : tUi("hint");
-  }, [debug, mobileHint, tUi]);
+    if (!mobileHint || reduceMotion) return tUi("hint");
+    if (tiltState === "on") return tUi("hintMobileTilt");
+    if (tiltState === "denied") return tUi("hintMobileDrag");
+    return tUi("hintMobile");
+  }, [debug, mobileHint, reduceMotion, tiltState, tUi]);
 
   useEffect(() => {
     const tick = () => {
       const cur = currentParallax.current;
-      const target = targetParallax.current;
-      cur.x += (target.x - cur.x) * PARALLAX_LERP;
-      cur.y += (target.y - cur.y) * PARALLAX_LERP;
+      const target = reduceMotionRef.current
+        ? { x: 0, y: 0 }
+        : targetParallax.current;
+      const lerp = reduceMotionRef.current ? 1 : PARALLAX_LERP;
+      cur.x += (target.x - cur.x) * lerp;
+      cur.y += (target.y - cur.y) * lerp;
 
       const mag = Math.min(1, Math.hypot(cur.x, cur.y));
 
@@ -93,7 +146,12 @@ export default function CabinetCanvas({
       }
 
       const audio = audioRef.current;
-      if (audio && audioStartedRef.current) {
+      if (
+        audio &&
+        audioStartedRef.current &&
+        !mediaPlayingRef.current &&
+        !ambientMutedRef.current
+      ) {
         const vol =
           AUDIO_BASE_VOL + mag * (AUDIO_MAX_VOL - AUDIO_BASE_VOL);
         audio.volume = locked ? AUDIO_BASE_VOL * 0.55 : vol;
@@ -107,9 +165,14 @@ export default function CabinetCanvas({
   }, [locked]);
 
   useEffect(() => {
-    if (!rootRef.current) return;
-    rootRef.current.style.setProperty("--panel-w", `${panelWidthPx}px`);
-  }, [panelWidthPx]);
+    const audio = audioRef.current;
+    if (!audio || !audioStartedRef.current) return;
+    if (ambientMuted || mediaPlaying) {
+      audio.pause();
+      return;
+    }
+    audio.play().catch(() => {});
+  }, [ambientMuted, mediaPlaying]);
 
   useEffect(() => {
     return () => {
@@ -125,12 +188,19 @@ export default function CabinetCanvas({
     const phase = zoomPhaseRef.current;
     if (phase === "held" || phase === "in") {
       if (zoomTimerRef.current) window.clearTimeout(zoomTimerRef.current);
+      const outMs = prefersReducedMotion() ? 0 : ZOOM_MS;
+      if (outMs === 0) {
+        setZoomPhase("idle");
+        setFocusId(null);
+        targetParallax.current = { x: 0, y: 0 };
+        return;
+      }
       setZoomPhase("out");
       zoomTimerRef.current = window.setTimeout(() => {
         setZoomPhase("idle");
         setFocusId(null);
         targetParallax.current = { x: 0, y: 0 };
-      }, ZOOM_MS);
+      }, outMs);
       return;
     }
 
@@ -139,33 +209,77 @@ export default function CabinetCanvas({
   }, [panelOpen]);
 
   useEffect(() => {
-    if (!mobileHint || locked) return undefined;
-
-    const onOrient = (e) => {
-      if (locked || touchDragRef.current) return;
-      const gamma = e.gamma ?? 0;
-      const beta = e.beta ?? 0;
-      targetParallax.current = {
-        x: Math.max(-1, Math.min(1, gamma / 28)),
-        y: Math.max(-1, Math.min(1, (beta - 45) / 35)),
-      };
+    return () => {
+      tiltUnsubRef.current?.();
+      tiltUnsubRef.current = null;
     };
+  }, []);
 
-    window.addEventListener("deviceorientation", onOrient, true);
-    return () => window.removeEventListener("deviceorientation", onOrient, true);
-  }, [mobileHint, locked]);
+  useEffect(() => {
+    if (!reduceMotion) return;
+    tiltUnsubRef.current?.();
+    tiltUnsubRef.current = null;
+    targetParallax.current = { x: 0, y: 0 };
+    setTiltState((s) => (s === "on" || s === "pending" ? "off" : s));
+  }, [reduceMotion]);
+
+  const enableTiltFromGesture = () => {
+    if (
+      reduceMotionRef.current ||
+      !mobileHint ||
+      tiltAskedRef.current ||
+      !hasTiltApi()
+    ) {
+      return;
+    }
+    tiltAskedRef.current = true;
+    setTiltState("pending");
+
+    requestTiltPermission().then((status) => {
+      if (status === "denied" || status === "unsupported") {
+        setTiltState(status === "denied" ? "denied" : "off");
+        return;
+      }
+
+      let gotReady = false;
+      const failTimer = window.setTimeout(() => {
+        if (gotReady) return;
+        tiltUnsubRef.current?.();
+        tiltUnsubRef.current = null;
+        setTiltState("denied");
+      }, 2500);
+
+      tiltUnsubRef.current?.();
+      tiltUnsubRef.current = subscribeTilt({
+        isActive: () =>
+          !reduceMotionRef.current &&
+          !lockedRef.current &&
+          !touchDragRef.current,
+        onReady: () => {
+          gotReady = true;
+          window.clearTimeout(failTimer);
+          setTiltState("on");
+        },
+        onTilt: (next) => {
+          if (reduceMotionRef.current) return;
+          targetParallax.current = next;
+        },
+      });
+    });
+  };
 
   const ensureAudio = () => {
     const audio = audioRef.current;
     if (!audio || audioStartedRef.current) return;
     audioStartedRef.current = true;
+    if (ambientMutedRef.current || mediaPlayingRef.current) return;
     audio.play().catch(() => {
       audioStartedRef.current = false;
     });
   };
 
   const updateParallaxFromClient = (clientX, clientY) => {
-    if (locked || !rootRef.current) return;
+    if (reduceMotionRef.current || locked || !rootRef.current) return;
     const rect = rootRef.current.getBoundingClientRect();
     if (rect.width === 0 || rect.height === 0) return;
     targetParallax.current = {
@@ -208,9 +322,13 @@ export default function CabinetCanvas({
       cy = ((box.top + box.height / 2 - frame.top) / frame.height) * 100;
     }
 
-    const panelRatio = frame
-      ? Math.min(0.45, panelWidthPx / frame.width)
-      : 0.28;
+    let panelRatio = PANEL_RATIO_FALLBACK;
+    if (frame && rootRef.current) {
+      const panelPx = resolveCssLengthPx(rootRef.current, "--panel-w");
+      if (panelPx > 0 && frame.width > 0) {
+        panelRatio = Math.min(0.45, panelPx / frame.width);
+      }
+    }
     const focusCx = ((1 - panelRatio) / 2) * 100;
     const focusCy = 46;
 
@@ -221,12 +339,18 @@ export default function CabinetCanvas({
       rootRef.current.style.setProperty("--focus-cy", `${focusCy}%`);
     }
     targetParallax.current = { x: 0, y: 0 };
+
+    if (zoomMs === 0) {
+      openDimension(dimensionId);
+      return;
+    }
+
     setZoomPhase("in");
 
     if (zoomTimerRef.current) window.clearTimeout(zoomTimerRef.current);
     zoomTimerRef.current = window.setTimeout(() => {
       openDimension(dimensionId);
-    }, ZOOM_MS);
+    }, zoomMs);
   };
 
   const handleActivate = (obj, el) => {
@@ -240,17 +364,7 @@ export default function CabinetCanvas({
   const onCanvasPointerDown = (e) => {
     if (locked) return;
     ensureAudio();
-
-    const DOE = window.DeviceOrientationEvent;
-    if (
-      mobileHint &&
-      DOE &&
-      typeof DOE.requestPermission === "function" &&
-      !onCanvasPointerDown._orientAsked
-    ) {
-      onCanvasPointerDown._orientAsked = true;
-      DOE.requestPermission().catch(() => {});
-    }
+    enableTiltFromGesture();
 
     if (
       e.target.closest(
@@ -270,7 +384,7 @@ export default function CabinetCanvas({
   };
 
   const onCanvasPointerMove = (e) => {
-    if (locked) return;
+    if (locked || reduceMotionRef.current) return;
     const drag = touchDragRef.current;
     if (drag && drag.id === e.pointerId) {
       const rect = rootRef.current?.getBoundingClientRect();
@@ -308,6 +422,7 @@ export default function CabinetCanvas({
       if (locked) return;
       e.stopPropagation();
       ensureAudio();
+      enableTiltFromGesture();
       setPressedId(obj.id);
       setHovered(obj);
       setTooltipFromElement(e.currentTarget);
@@ -334,8 +449,13 @@ export default function CabinetCanvas({
       onPointerMove={onCanvasPointerMove}
       onPointerUp={onCanvasPointerUp}
       onPointerCancel={onCanvasPointerUp}
-      onPointerLeave={() => {
-        if (!locked && !touchDragRef.current) {
+      onPointerLeave={(e) => {
+        // Only snap mouse leave to center — touch leave was wiping tilt.
+        if (
+          e.pointerType === "mouse" &&
+          !locked &&
+          !touchDragRef.current
+        ) {
           targetParallax.current = { x: 0, y: 0 };
         }
       }}
@@ -344,10 +464,9 @@ export default function CabinetCanvas({
 
       <div className="cabinet-canvas__world">
         <div className="cabinet-canvas__zoom">
-          <div
+          <section
             className="cabinet-canvas__frame"
             ref={frameRef}
-            role="img"
             aria-label={tUi("roomAria")}
           >
             <button
@@ -377,6 +496,7 @@ export default function CabinetCanvas({
                 if (locked) return;
                 e.stopPropagation();
                 ensureAudio();
+                enableTiltFromGesture();
                 setPressedId(ABOUT_ID);
               }}
               onPointerUp={() => setPressedId(null)}
@@ -486,7 +606,7 @@ export default function CabinetCanvas({
                 {hovered.tooltip ? t(hovered.tooltip) : ""}
               </div>
             )}
-          </div>
+          </section>
         </div>
       </div>
 

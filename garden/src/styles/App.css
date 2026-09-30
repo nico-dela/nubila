@@ -1,5 +1,11 @@
 .garden-app {
+  /* Shared side panel width for albums and catalog sections alike */
+  --panel-w: clamp(28rem, 42vw, 40rem);
   min-height: 100%;
   min-height: 100dvh;
   position: relative;
+}
+
+.garden-app__backdrop {
+  min-height: inherit;
 }

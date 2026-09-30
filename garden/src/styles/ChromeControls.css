@@ -1,0 +1,112 @@
+.chrome-controls {
+  position: fixed;
+  top: 1.1rem;
+  right: 1.1rem;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  max-width: calc(100vw - 2.2rem);
+  transition:
+    right 0.35s cubic-bezier(0.22, 0.12, 0.2, 1),
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+/* Sit fully left of the side panel (desktop) */
+@media (min-width: 641px) {
+  .garden-app.is-panel-open .chrome-controls {
+    right: calc(var(--panel-w, clamp(28rem, 42vw, 40rem)) + 1.25rem);
+    z-index: 25; /* below panel so Volver stays clickable if they ever meet */
+  }
+}
+
+/* Mobile + panel open: hide chrome — Volver is in the sheet */
+@media (max-width: 640px) {
+  .chrome-controls {
+    top: max(0.75rem, env(safe-area-inset-top));
+    right: max(0.75rem, env(safe-area-inset-right));
+    left: max(0.75rem, env(safe-area-inset-left));
+    max-width: none;
+    justify-content: flex-end;
+  }
+
+  .garden-app.is-panel-open .chrome-controls {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.language-switcher,
+.theme-switcher,
+.ambient-mute,
+.linktree-link {
+  position: static;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--chrome-border);
+  border-radius: 2px;
+  background: var(--chrome-bg);
+  backdrop-filter: blur(6px);
+  color: var(--chrome-muted);
+  text-decoration: none;
+}
+
+.language-switcher__btn,
+.theme-switcher__btn,
+.ambient-mute__btn,
+.chrome-icon-btn {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--chrome-muted);
+  cursor: pointer;
+  transition: color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.chrome-icon-btn svg {
+  display: block;
+}
+
+a.linktree-link.chrome-icon-btn {
+  color: var(--chrome-muted);
+}
+
+.language-switcher__btn.is-active,
+.language-switcher__btn:hover,
+.language-switcher__btn:focus-visible,
+.theme-switcher__btn.is-active,
+.theme-switcher__btn:hover,
+.theme-switcher__btn:focus-visible,
+.ambient-mute__btn.is-active,
+.ambient-mute__btn:hover,
+.ambient-mute__btn:focus-visible,
+.linktree-link:hover,
+.linktree-link:focus-visible,
+.chrome-icon-btn:hover,
+.chrome-icon-btn:focus-visible {
+  color: var(--garden-ink);
+  outline: none;
+}
+
+.ambient-mute__btn.is-muted {
+  color: var(--chrome-muted);
+}
+
+.language-switcher__sep,
+.theme-switcher__sep {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  color: var(--chrome-sep);
+}

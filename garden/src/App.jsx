@@ -1,48 +1,94 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AmbientMute from "./components/AmbientMute";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import LinktreeLink from "./components/LinktreeLink";
+import PoeticMenu from "./components/PoeticMenu";
+import RoomOverlay from "./components/RoomOverlay";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import EntrancePage from "./pages/EntrancePage";
 import { LocaleProvider } from "./i18n/LocaleContext";
 import { ThemeProvider } from "./theme/ThemeContext";
 import "./styles/App.css";
-import "./styles/ThemeSwitcher.css";
+import "./styles/ChromeControls.css";
 
-const PANEL_DEFAULT = 328;
+const AMBIENT_MUTE_KEY = "nubila-garden-ambient-muted";
+
+function readAmbientMuted() {
+  try {
+    return window.localStorage.getItem(AMBIENT_MUTE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
 
 function GardenShell() {
   const [panel, setPanel] = useState(null);
-  const [panelWidthPx, setPanelWidthPx] = useState(PANEL_DEFAULT);
+  const [mediaPlaying, setMediaPlaying] = useState(false);
+  const [ambientMuted, setAmbientMuted] = useState(readAmbientMuted);
 
-  const closePanel = () => setPanel(null);
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(AMBIENT_MUTE_KEY, ambientMuted ? "1" : "0");
+    } catch {
+      /* ignore quota / private mode */
+    }
+  }, [ambientMuted]);
+
+  const closePanel = () => {
+    setMediaPlaying(false);
+    setPanel(null);
+  };
 
   const openDimension = (id) => {
     if (!id) {
       closePanel();
       return;
     }
+    setMediaPlaying(false);
     setPanel({ type: "dimension", id });
   };
 
   const openSection = (id) => {
+    setMediaPlaying(false);
     setPanel({ type: "section", id });
   };
 
+  const onMenuSelect = (id) => {
+    if (id === "room") {
+      closePanel();
+      return;
+    }
+    openSection(id);
+  };
+
+  const panelOpen = Boolean(panel);
+
   return (
-    <div
-      className={`garden-app${panel ? " is-panel-open" : ""}`}
-      style={{ "--panel-w": `${panelWidthPx}px` }}
-    >
-      <div className="chrome-controls">
-        <ThemeSwitcher />
-        <LanguageSwitcher />
+    <div className={`garden-app${panelOpen ? " is-panel-open" : ""}`}>
+      <div className="garden-app__backdrop" inert={panelOpen || undefined}>
+        <PoeticMenu onSelect={onMenuSelect} />
+        <div className="chrome-controls">
+          <AmbientMute
+            muted={ambientMuted}
+            onToggle={() => setAmbientMuted((v) => !v)}
+          />
+          <ThemeSwitcher />
+          <LanguageSwitcher />
+          <LinktreeLink />
+        </div>
+        <EntrancePage
+          panelOpen={panelOpen}
+          mediaPlaying={mediaPlaying}
+          ambientMuted={ambientMuted}
+          onSelectDimension={openDimension}
+        />
       </div>
-      <EntrancePage
+      <RoomOverlay
         panel={panel}
-        panelWidthPx={panelWidthPx}
-        onPanelWidthChange={setPanelWidthPx}
-        onSelectDimension={openDimension}
-        onOpenSection={openSection}
+        onMediaPlaybackChange={setMediaPlaying}
         onClose={closePanel}
+        onOpenDimension={openDimension}
+        onOpenSection={openSection}
       />
     </div>
   );

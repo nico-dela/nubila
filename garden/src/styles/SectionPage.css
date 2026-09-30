@@ -114,6 +114,10 @@ html[data-theme="dark"] .section-page__year-group {
 }
 
 .section-page--overlay {
+  /* Same docked side panel as dimension overlays — undo page layout centering */
+  max-width: none;
+  margin: 0;
+  width: 100%;
   background: var(--garden-paper);
   color: var(--garden-ink);
 }
