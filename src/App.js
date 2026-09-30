@@ -21,6 +21,33 @@ import { Puff } from "react-loader-spinner";
 const Menu = lazy(() => import("./components/Menu"));
 const MusicPlayer = lazy(() => import("./components/MusicPlayer"));
 
+const AppShell = () => {
+  return (
+    <>
+      <Menu />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/oceanica" element={<OceanicaPage />} />
+        <Route path="/girasoles" element={<GirasolesPage />} />
+        <Route path="/bolerito" element={<BoleritoPage />} />
+        <Route path="/mariposa" element={<MariposaPage />} />
+        <Route path="/frio" element={<FrioPage />} />
+        <Route path="/limonero" element={<LimoneroPage />} />
+        <Route path="/creditos" element={<CreditosPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        {/* <Route
+          path="/sentimiento-oceanico"
+          element={<SentimientoPage />}
+        /> */}
+        <Route path="/colabora" element={<ColaboraPage />} />
+        <Route path="/acerca" element={<AcercaPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+      <MusicPlayer />
+    </>
+  );
+};
+
 const App = () => {
   const [isOffline] = useState(false);
 
@@ -32,42 +59,21 @@ const App = () => {
             <Route path="/*" element={<OfflinePage />} />
           </Routes>
         ) : (
-          <>
-            <Suspense
-              fallback={
-                <div className="loading-container">
-                  <Puff
-                    height={80}
-                    width={80}
-                    radius={1}
-                    color="#0A4066"
-                    ariaLabel="puff-loading"
-                  />
-                </div>
-              }
-            >
-              <Menu />
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/oceanica" element={<OceanicaPage />} />
-                <Route path="/girasoles" element={<GirasolesPage />} />
-                <Route path="/bolerito" element={<BoleritoPage />} />
-                <Route path="/mariposa" element={<MariposaPage />} />
-                <Route path="/frio" element={<FrioPage />} />
-                <Route path="/limonero" element={<LimoneroPage />} />
-                <Route path="/creditos" element={<CreditosPage />} />
-                <Route path="/blog" element={<BlogPage />} />
-                {/* <Route
-                  path="/sentimiento-oceanico"
-                  element={<SentimientoPage />}
-                /> */}
-                <Route path="/colabora" element={<ColaboraPage />} />
-                <Route path="/acerca" element={<AcercaPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-              <MusicPlayer />
-            </Suspense>
-          </>
+          <Suspense
+            fallback={
+              <div className="loading-container">
+                <Puff
+                  height={80}
+                  width={80}
+                  radius={1}
+                  color="#0A4066"
+                  ariaLabel="puff-loading"
+                />
+              </div>
+            }
+          >
+            <AppShell />
+          </Suspense>
         )}
       </div>
     </Router>
