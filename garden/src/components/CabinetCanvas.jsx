@@ -107,12 +107,9 @@ export default function CabinetCanvas({
   }, []);
 
   useEffect(() => {
-    const audio = new Audio(oceanicaNylonUrl);
-    audio.loop = true;
-    audio.preload = "auto";
-    audio.volume = AUDIO_BASE_VOL;
-    audioRef.current = audio;
     return () => {
+      const audio = audioRef.current;
+      if (!audio) return;
       audio.pause();
       audio.src = "";
       audioRef.current = null;
@@ -269,8 +266,17 @@ export default function CabinetCanvas({
   };
 
   const ensureAudio = () => {
-    const audio = audioRef.current;
-    if (!audio || audioStartedRef.current) return;
+    if (audioStartedRef.current) return;
+
+    let audio = audioRef.current;
+    if (!audio) {
+      audio = new Audio(oceanicaNylonUrl);
+      audio.loop = true;
+      audio.preload = "auto";
+      audio.volume = AUDIO_BASE_VOL;
+      audioRef.current = audio;
+    }
+
     audioStartedRef.current = true;
     if (ambientMutedRef.current || mediaPlayingRef.current) return;
     audio.play().catch(() => {
@@ -551,7 +557,14 @@ export default function CabinetCanvas({
                           {...pointer}
                         >
                           <span className="cabinet-canvas__object-bob">
-                            <img src={obj.src} alt="" draggable={false} />
+                            <img
+                              src={obj.src}
+                              alt=""
+                              width={obj.imgW}
+                              height={obj.imgH}
+                              decoding="async"
+                              draggable={false}
+                            />
                           </span>
                         </button>
                       </div>
@@ -587,7 +600,14 @@ export default function CabinetCanvas({
                     {...pointer}
                   >
                     <span className="cabinet-canvas__object-bob">
-                      <img src={obj.src} alt="" draggable={false} />
+                      <img
+                        src={obj.src}
+                        alt=""
+                        width={obj.imgW}
+                        height={obj.imgH}
+                        decoding="async"
+                        draggable={false}
+                      />
                     </span>
                   </button>
                 );

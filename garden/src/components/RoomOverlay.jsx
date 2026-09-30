@@ -192,15 +192,6 @@ export default function RoomOverlay({
   const { tUi } = useLocale();
 
   useEffect(() => {
-    if (!panel) {
-      const prev = previousFocusRef.current;
-      previousFocusRef.current = null;
-      if (prev && typeof prev.focus === "function") {
-        prev.focus();
-      }
-      return undefined;
-    }
-
     if (!previousFocusRef.current) {
       previousFocusRef.current = document.activeElement;
     }
@@ -238,7 +229,14 @@ export default function RoomOverlay({
 
     window.addEventListener("keydown", onKeyDown);
     closeRef.current?.focus();
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      const prev = previousFocusRef.current;
+      previousFocusRef.current = null;
+      if (prev && typeof prev.focus === "function") {
+        prev.focus();
+      }
+    };
   }, [panel, onClose]);
 
   if (!panel) return null;

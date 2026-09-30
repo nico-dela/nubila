@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import AmbientMute from "./components/AmbientMute";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import LinktreeLink from "./components/LinktreeLink";
 import PoeticMenu from "./components/PoeticMenu";
-import RoomOverlay from "./components/RoomOverlay";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import EntrancePage from "./pages/EntrancePage";
 import { LocaleProvider } from "./i18n/LocaleContext";
 import { ThemeProvider } from "./theme/ThemeContext";
 import "./styles/App.css";
 import "./styles/ChromeControls.css";
+
+const RoomOverlay = lazy(() => import("./components/RoomOverlay"));
 
 const AMBIENT_MUTE_KEY = "nubila-garden-ambient-muted";
 
@@ -83,13 +84,17 @@ function GardenShell() {
           onSelectDimension={openDimension}
         />
       </div>
-      <RoomOverlay
-        panel={panel}
-        onMediaPlaybackChange={setMediaPlaying}
-        onClose={closePanel}
-        onOpenDimension={openDimension}
-        onOpenSection={openSection}
-      />
+      {panel ? (
+        <Suspense fallback={null}>
+          <RoomOverlay
+            panel={panel}
+            onMediaPlaybackChange={setMediaPlaying}
+            onClose={closePanel}
+            onOpenDimension={openDimension}
+            onOpenSection={openSection}
+          />
+        </Suspense>
+      ) : null}
     </div>
   );
 }

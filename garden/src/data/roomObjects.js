@@ -1,14 +1,14 @@
-import nebulosaImg from "../assets/images/objects/nebulosa.png";
-import oceanicaImg from "../assets/images/objects/oceanica.png";
-import cenizaImg from "../assets/images/objects/ceniza.png";
-import ecosistemaImg from "../assets/images/objects/ecosistema.png";
-import trilogiaImg from "../assets/images/objects/trilogia.png";
-import terrarioImg from "../assets/images/objects/terrario.png";
-import poeticaImg from "../assets/images/objects/poetica.png";
-import junglaImg from "../assets/images/objects/jungla.png";
-import cactusImg from "../assets/images/objects/cactus.png";
-import jarraImg from "../assets/images/objects/jarra.png";
-import suenosImg from "../assets/images/objects/suenos.png";
+import nebulosaImg from "../assets/images/objects/nebulosa.webp";
+import oceanicaImg from "../assets/images/objects/oceanica.webp";
+import cenizaImg from "../assets/images/objects/ceniza.webp";
+import ecosistemaImg from "../assets/images/objects/ecosistema.webp";
+import trilogiaImg from "../assets/images/objects/trilogia.webp";
+import terrarioImg from "../assets/images/objects/terrario.webp";
+import poeticaImg from "../assets/images/objects/poetica.webp";
+import junglaImg from "../assets/images/objects/jungla.webp";
+import cactusImg from "../assets/images/objects/cactus.webp";
+import jarraImg from "../assets/images/objects/jarra.webp";
+import suenosImg from "../assets/images/objects/suenos.webp";
 
 /** Fixed widths by catalog size tier (% of frame). */
 export const SIZE_TIERS = {
@@ -36,6 +36,8 @@ export const roomObjectDefs = [
     label: { es: "Nebulosa", en: "Nebula" },
     tooltip: { es: "Nebulosa · Álbum", en: "Nebula · Album" },
     src: nebulosaImg,
+    imgW: 313,
+    imgH: 200,
     seed: 0.18,
   },
   {
@@ -46,6 +48,8 @@ export const roomObjectDefs = [
     label: { es: "Terrario", en: "Terrarium" },
     tooltip: { es: "Terrario · Álbum", en: "Terrarium · Album" },
     src: terrarioImg,
+    imgW: 187,
+    imgH: 187,
     seed: 0.55,
   },
   {
@@ -56,6 +60,8 @@ export const roomObjectDefs = [
     label: { es: "Oceánica", en: "Oceánica" },
     tooltip: { es: "Oceánica · Álbum", en: "Oceánica · Album" },
     src: oceanicaImg,
+    imgW: 176,
+    imgH: 179,
     seed: 0.88,
   },
   {
@@ -69,6 +75,8 @@ export const roomObjectDefs = [
       en: "Fire Album · Coming soon",
     },
     src: cenizaImg,
+    imgW: 160,
+    imgH: 104,
     seed: 0.41,
   },
   {
@@ -87,6 +95,8 @@ export const roomObjectDefs = [
       en: "Trilogy I — Ch’ien · Modesty, the mountain",
     },
     src: trilogiaImg,
+    imgW: 105,
+    imgH: 150,
     seed: 0.29,
   },
   {
@@ -103,6 +113,8 @@ export const roomObjectDefs = [
       en: "Trilogy II · EP",
     },
     src: trilogiaImg,
+    imgW: 105,
+    imgH: 150,
     seed: 0.67,
   },
   {
@@ -114,6 +126,8 @@ export const roomObjectDefs = [
     label: { es: "Sueños", en: "Dreams" },
     tooltip: { es: "Sueños · Videoclip", en: "Dreams · Music video" },
     src: suenosImg,
+    imgW: 121,
+    imgH: 237,
     seed: 0.47,
   },
   {
@@ -128,6 +142,8 @@ export const roomObjectDefs = [
       en: "Ecosystem · Music video",
     },
     src: ecosistemaImg,
+    imgW: 191,
+    imgH: 208,
     seed: 0.72,
   },
   {
@@ -145,6 +161,8 @@ export const roomObjectDefs = [
       en: "Fleeting Creations · Music video",
     },
     src: poeticaImg,
+    imgW: 160,
+    imgH: 193,
     seed: 0.22,
   },
   {
@@ -159,6 +177,8 @@ export const roomObjectDefs = [
       en: "Virtual Terrarium · Live",
     },
     src: junglaImg,
+    imgW: 137,
+    imgH: 192,
     seed: 0.63,
   },
   {
@@ -175,6 +195,8 @@ export const roomObjectDefs = [
       en: "Pez Volcán · Live",
     },
     src: cactusImg,
+    imgW: 82,
+    imgH: 196,
     seed: 0.37,
   },
   {
@@ -188,6 +210,8 @@ export const roomObjectDefs = [
     },
     tooltip: { es: "Blog", en: "Blog" },
     src: jarraImg,
+    imgW: 96,
+    imgH: 99,
     seed: 0.81,
   },
   {
