@@ -6,7 +6,7 @@ import {
   requestTiltPermission,
   subscribeTilt,
 } from "../lib/tiltParallax";
-import oceanicaNylonUrl from "../assets/music/Oceanica-Nylon.mp3";
+import polvoTunnelUrl from "../assets/music/Polvo-tunnel.ogg";
 import "../styles/CabinetCanvas.css";
 
 const ZOOM_MS = 850;
@@ -270,7 +270,7 @@ export default function CabinetCanvas({
 
     let audio = audioRef.current;
     if (!audio) {
-      audio = new Audio(oceanicaNylonUrl);
+      audio = new Audio(polvoTunnelUrl);
       audio.loop = true;
       audio.preload = "auto";
       audio.volume = AUDIO_BASE_VOL;

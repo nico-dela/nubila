@@ -27,4 +27,4 @@ Does **not** publish to nubila.ar.
 - Click an object → zoom → side panel
 - **NUBILA** wordmark → About
 - Theme + language switchers (top right)
-- Ambient *Oceanica Nylon* starts after the first click
+- Ambient *Polvo tunnel* starts after the first click
