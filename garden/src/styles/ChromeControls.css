@@ -27,8 +27,6 @@
   .chrome-controls {
     top: max(0.75rem, env(safe-area-inset-top));
     right: max(0.75rem, env(safe-area-inset-right));
-    left: max(0.75rem, env(safe-area-inset-left));
-    max-width: none;
     justify-content: flex-end;
   }
 

@@ -49,8 +49,8 @@ export function hasTiltApi() {
 export function parallaxFromOrientation(beta, gamma, baseline) {
   if (beta == null || gamma == null) return null;
   return {
-    x: clamp1((gamma - baseline.gamma) / 24),
-    y: clamp1((beta - baseline.beta) / 24),
+    x: clamp1((gamma - baseline.gamma) / 12),
+    y: clamp1((beta - baseline.beta) / 12),
   };
 }
 
@@ -63,8 +63,8 @@ export function parallaxFromOrientation(beta, gamma, baseline) {
 export function parallaxFromGravity(ax, ay, az, baseline) {
   if (ax == null || ay == null || az == null) return null;
   return {
-    x: clamp1((ax - baseline.ax) / 4.5),
-    y: clamp1((baseline.az - az) / 4.5),
+    x: clamp1((ax - baseline.ax) / 2.5),
+    y: clamp1((baseline.az - az) / 2.5),
   };
 }
 

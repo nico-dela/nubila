@@ -132,7 +132,9 @@
 .dimension-page--nebulosa {
   color: #3a3228;
   background:
-    radial-gradient(circle at 20% 20%, rgba(180, 140, 90, 0.18), transparent 40%),
+    radial-gradient(circle at 78% 28%, rgba(70, 60, 140, 0.16), transparent 42%),
+    radial-gradient(circle at 22% 22%, rgba(40, 140, 150, 0.2), transparent 40%),
+    radial-gradient(circle at 20% 20%, rgba(180, 140, 90, 0.14), transparent 40%),
     linear-gradient(160deg, #f4ecd8 0%, #e8dcc4 50%, #d9cbb0 100%);
 }
 
@@ -172,20 +174,24 @@
 .dimension-page--terrario {
   color: #2a2e2c;
   background:
-    linear-gradient(90deg, rgba(80, 90, 85, 0.08) 1px, transparent 1px),
-    linear-gradient(rgba(80, 90, 85, 0.08) 1px, transparent 1px),
-    linear-gradient(180deg, #d5d8d4 0%, #c4cbc6 55%, #b7c0b4 100%);
+    linear-gradient(90deg, rgba(90, 100, 80, 0.09) 1px, transparent 1px),
+    linear-gradient(rgba(90, 100, 80, 0.09) 1px, transparent 1px),
+    linear-gradient(180deg, #dde0d4 0%, #c9d0c2 55%, #bac4b0 100%);
   background-size: 24px 24px, 24px 24px, auto;
 }
 
 .dimension-page--terrario .dimension-page__ornament {
   background:
-    radial-gradient(ellipse at 15% 85%, rgba(70, 110, 70, 0.2), transparent 45%);
+    radial-gradient(ellipse at 15% 85%, rgba(70, 110, 70, 0.22), transparent 45%);
 }
 
 .dimension-page--aire {
-  color: #f2f2f2;
-  background: #050505;
+  color: #2a2e2c;
+  background:
+    linear-gradient(90deg, rgba(80, 90, 85, 0.07) 1px, transparent 1px),
+    linear-gradient(rgba(80, 90, 85, 0.07) 1px, transparent 1px),
+    linear-gradient(180deg, #faf8f0 0%, #f7f1dc 55%, #efe6c8 100%);
+  background-size: 24px 24px, 24px 24px, auto;
 }
 
 .dimension-page--aire .dimension-page__ornament::before {
@@ -242,8 +248,8 @@
 .dimension-page--trilogia {
   color: #1a1a1a;
   background:
-    radial-gradient(circle at 70% 20%, rgba(0, 0, 0, 0.06), transparent 40%),
-    linear-gradient(180deg, #f4f1ea 0%, #e6e2d8 100%);
+    radial-gradient(circle at 70% 20%, rgba(0, 0, 0, 0.05), transparent 40%),
+    linear-gradient(180deg, #f0f1f2 0%, #e4e6e8 100%);
 }
 
 .dimension-page--trilogia .dimension-page__ornament::before {
@@ -257,20 +263,22 @@
 }
 
 .dimension-page--poetica {
-  color: #2c2924;
-  background: linear-gradient(165deg, #efe8dc 0%, #e0d6c6 100%);
+  color: #243038;
+  background:
+    radial-gradient(ellipse at 70% 25%, rgba(60, 110, 150, 0.16), transparent 45%),
+    linear-gradient(165deg, #e8eef2 0%, #d5dde6 100%);
 }
 
 .dimension-page--jungla {
-  color: #e8f0e4;
+  color: #2a2428;
   background:
-    radial-gradient(ellipse at 30% 70%, rgba(60, 120, 70, 0.35), transparent 50%),
-    linear-gradient(180deg, #1a2e1c 0%, #243828 100%);
+    radial-gradient(ellipse at 75% 30%, rgba(90, 60, 120, 0.18), transparent 48%),
+    linear-gradient(180deg, #ebe4d6 0%, #ddd2c0 100%);
 }
 
 .dimension-page--cactus {
   color: #2a3328;
-  background: linear-gradient(180deg, #dce6d4 0%, #c5d2bc 100%);
+  background: linear-gradient(180deg, #e8e6d8 0%, #d4d8c8 100%);
 }
 
 .dimension-page--jarra {
@@ -281,8 +289,8 @@
 .dimension-page--suenos {
   color: #2a2428;
   background:
-    radial-gradient(circle at 80% 15%, rgba(120, 90, 140, 0.18), transparent 40%),
-    linear-gradient(180deg, #ebe4ea 0%, #d8cfd6 100%);
+    radial-gradient(circle at 80% 15%, rgba(120, 90, 140, 0.12), transparent 40%),
+    linear-gradient(180deg, #e8e2da 0%, #d9d0c6 100%);
 }
 
 .dimension-page--about {
@@ -290,6 +298,51 @@
   background:
     radial-gradient(ellipse at 40% 20%, rgba(90, 140, 130, 0.2), transparent 45%),
     linear-gradient(180deg, #e4ebe8 0%, #cfd8d4 100%);
+}
+
+html[data-theme="dark"] .dimension-page--nebulosa {
+  color: #e8e0d4;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(180, 140, 90, 0.14), transparent 40%),
+    linear-gradient(160deg, #1a1612 0%, #161310 50%, #12100e 100%);
+}
+
+html[data-theme="dark"] .dimension-page--nebulosa .dimension-page__ornament {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 28px,
+      rgba(230, 210, 170, 0.08) 28px,
+      rgba(230, 210, 170, 0.08) 29px
+    );
+  mask-image: radial-gradient(ellipse at 70% 30%, black 0%, transparent 70%);
+}
+
+html[data-theme="dark"] .dimension-page--terrario {
+  color: #dce4de;
+  background:
+    linear-gradient(90deg, rgba(160, 180, 165, 0.07) 1px, transparent 1px),
+    linear-gradient(rgba(160, 180, 165, 0.07) 1px, transparent 1px),
+    linear-gradient(180deg, #151a16 0%, #121612 55%, #101412 100%);
+  background-size: 24px 24px, 24px 24px, auto;
+}
+
+html[data-theme="dark"] .dimension-page--terrario .dimension-page__ornament {
+  background:
+    radial-gradient(ellipse at 15% 85%, rgba(70, 130, 80, 0.22), transparent 45%);
+}
+
+html[data-theme="dark"] .dimension-page--aire {
+  color: #f2f2f2;
+  background: #050505;
+}
+
+html[data-theme="dark"] .dimension-page--jungla {
+  color: #e8f0e4;
+  background:
+    radial-gradient(ellipse at 30% 70%, rgba(60, 120, 70, 0.35), transparent 50%),
+    linear-gradient(180deg, #1a2e1c 0%, #243828 100%);
 }
 
 html[data-theme="dark"] .dimension-page--about {

@@ -9,8 +9,8 @@ import {
 import polvoTunnelUrl from "../assets/music/Polvo-tunnel.ogg";
 import "../styles/CabinetCanvas.css";
 
-const ZOOM_MS = 850;
-const PARALLAX_LERP = 0.1;
+const ZOOM_MS = 1150;
+const PARALLAX_LERP = 0.18;
 const ABOUT_ID = "nubila-about";
 /** Matches --panel-w clamp mid for zoom focus math before layout measures. */
 const PANEL_RATIO_FALLBACK = 0.3;

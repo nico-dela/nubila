@@ -14,6 +14,12 @@ New entries are in English.
 - Pending:
 ```
 
+## 2026-09-30 22:43:00 — Soften phone parallax + fix menu tap
+- What: Raised tilt gain (orientation `/12`, gravity `/2.5`) and `PARALLAX_LERP` to `0.18`; dropped CSS `transform` transitions on objects/wordmark so rAF parallax is not double-smoothed. Stopped mobile `.chrome-controls` from stretching full-width over the hamburger.
+- Why: Phone Chrome needed wide tilts and felt laggy; menu only opened via a thin bottom sliver under the chrome hit box.
+- Rejected: Changing CSS pixel multipliers or touch-drag gain (desktop feel stays); z-index shuffle for the menu.
+- Pending: Retest on phone Chrome after deploy.
+
 ## 2026-09-29 22:36:00 — Remove files unused by garden
 - What: Deleted unused garden assets (`layers/*`, `nubila.webp`, `.nojekyll`); removed orphaned root R3F map PoC + textures + drei/fiber/three deps; dropped dead `roomObjects` helpers.
 - Why: Only Habitación-used files should linger; map was unrouted and not part of garden.
