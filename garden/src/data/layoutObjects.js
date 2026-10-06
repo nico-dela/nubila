@@ -114,7 +114,7 @@ function placementWeight(def, planetCountByHost) {
       ? 4
       : def.sizeTier === "ep"
         ? 3
-        : def.sizeTier === "blog"
+        : def.sizeTier === "blog" || def.sizeTier === "nota"
           ? 2
           : 1;
   return kids * 10 + tier;

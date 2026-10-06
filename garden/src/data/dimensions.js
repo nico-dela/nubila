@@ -1,5 +1,10 @@
 /** Panel content for each catalog object. Bilingual fields use `{ es, en }`. */
 
+import frioFanzinePdf from "../assets/docs/frio-fanzine.pdf?url";
+import mariposaOrigamiPdf from "../assets/docs/mariposa-origami.pdf?url";
+import terrarioFanzinePdf from "../assets/docs/terrario-fanzine.pdf?url";
+import invertirArtePdf from "../assets/docs/invertir-en-el-arte.pdf?url";
+
 export const dimensions = [
   {
     id: "nebulosa",
@@ -84,11 +89,15 @@ export const dimensions = [
     listen: [
       {
         videoId: "0yamVsm72xw",
-        listId: "PLn4tIG1iX8-zVf4Hrm9g2XJ_gl7Dn9E7t",
-        title: {
-          es: "Trilogía I — Ch’ien · La modestia, la montaña",
-          en: "Trilogy I — Ch’ien · Modesty, the mountain",
-        },
+        title: { es: "Día", en: "Día" },
+      },
+      {
+        videoId: "cni8t_EE8rc",
+        title: { es: "Portales", en: "Portals" },
+      },
+      {
+        videoId: "OFr1u_XzIBQ",
+        title: { es: "Ecosistema", en: "Ecosystem" },
       },
     ],
   },
@@ -112,11 +121,15 @@ export const dimensions = [
     listen: [
       {
         videoId: "zlMNPiDbHQE",
-        listId: "PLn4tIG1iX8-xIp4Vc6YCdCQP0hq-2WdLv",
-        title: {
-          es: "Trilogía II — Kiën · El poder de lo creativo",
-          en: "Trilogy II — Kiën · The power of the creative",
-        },
+        title: { es: "Así", en: "Así" },
+      },
+      {
+        videoId: "m8MX_O3V988",
+        title: { es: "Espacialidad", en: "Espacialidad" },
+      },
+      {
+        videoId: "rIfBNGwbBxo",
+        title: { es: "Fotograma", en: "Fotograma" },
       },
     ],
   },
@@ -196,6 +209,95 @@ export const dimensions = [
     ],
   },
   {
+    id: "nebulosa-live",
+    title: {
+      es: "Nebulosa (Live Studio Theater)",
+      en: "Nebula (Live Studio Theater)",
+    },
+    element: { es: "Concierto en vivo", en: "Live concert" },
+    intro: {
+      es: "El Big Bang en escena: Nebulosa vuelve a encenderse bajo las luces del Studio Theater.",
+      en: "The Big Bang on stage: Nebula lights up again under the Studio Theater lamps.",
+    },
+    theme: "jungla",
+    listen: [
+      {
+        videoId: "Kg5NjZi3P_M",
+        title: {
+          es: "Nebulosa (Live Studio Theater)",
+          en: "Nebula (Live Studio Theater)",
+        },
+      },
+    ],
+  },
+  {
+    id: "sesion-clix",
+    title: {
+      es: "Luis (Sesión Clix Modernos)",
+      en: "Luis (Clix Modernos Session)",
+    },
+    element: { es: "Sesión", en: "Session" },
+    intro: {
+      es: "Una sesión íntima: Luis en Clix Modernos, el cuarto reducido a voz, cables y cercanía.",
+      en: "An intimate session: Luis at Clix Modernos, the room reduced to voice, cables, and closeness.",
+    },
+    theme: "cactus",
+    listen: [
+      {
+        videoId: "LFSvZiAF0k4",
+        title: {
+          es: "Luis (Sesión Clix Modernos)",
+          en: "Luis (Clix Modernos Session)",
+        },
+      },
+    ],
+  },
+  {
+    id: "frio-fanzine",
+    title: { es: "Frio", en: "Frio" },
+    element: { es: "Fanzine · Oceánica", en: "Fanzine · Oceánica" },
+    year: 2024,
+    intro: {
+      es: "Tinta alrededor de Oceánica: un fanzine de TOBECO.D donde la escala se invierte y la casa muta.",
+      en: "Ink orbiting Oceánica: a fanzine by TOBECO.D where scale flips and the house mutates.",
+    },
+    theme: "frio",
+    pdf: {
+      src: frioFanzinePdf,
+      title: { es: "Frio · La Casa Mutante", en: "Frio · The Mutant House" },
+    },
+  },
+  {
+    id: "mariposa-origami",
+    title: { es: "Mariposa Origami", en: "Origami Butterfly" },
+    element: { es: "Fanzine · Oceánica", en: "Fanzine · Oceánica" },
+    year: 2024,
+    intro: {
+      es: "Pliegues que orbitan Oceánica: una mariposa de papel que abre sus alas página a página.",
+      en: "Folds that orbit Oceánica: a paper butterfly that opens its wings page by page.",
+    },
+    theme: "frio",
+    pdf: {
+      src: mariposaOrigamiPdf,
+      title: { es: "Mariposa Origami", en: "Origami Butterfly" },
+    },
+  },
+  {
+    id: "terrario-fanzine",
+    title: { es: "Terrario Fanzine", en: "Terrarium Fanzine" },
+    element: { es: "Fanzine · Terrario", en: "Fanzine · Terrarium" },
+    year: 2024,
+    intro: {
+      es: "El álbum en tinta: un fanzine que gira con Terrario y recoge su ecosistema en papel.",
+      en: "The album in ink: a fanzine that turns with Terrarium and gathers its ecosystem on paper.",
+    },
+    theme: "frio",
+    pdf: {
+      src: terrarioFanzinePdf,
+      title: { es: "Terrario Fanzine", en: "Terrarium Fanzine" },
+    },
+  },
+  {
     id: "pez-volcan",
     title: {
       es: "Vivo 10 Años en Pez Volcán",
@@ -219,28 +321,86 @@ export const dimensions = [
     ],
   },
   {
-    id: "blog-arte",
+    id: "blog-invertir-arte",
     title: {
-      es: "¿Para qué sirve el arte?",
-      en: "What is art for?",
+      es: "¿Hasta cuándo invertir en el arte?",
+      en: "How long to invest in art?",
     },
     element: { es: "Blog", en: "Blog" },
-    year: 2026,
+    year: 2023,
     intro: {
-      es: "Preguntas que insisten después de diez años: qué lugar queda para el tiempo que no factura, quiénes pueden seguir creando, y a quiénes les sirve el arte como negocio.",
-      en: "Questions that keep returning after ten years: what room is left for time that does not bill, who can keep creating, and who benefits when art is treated as business.",
+      es: "Una lectura en páginas: hasta cuándo tiene sentido invertir tiempo, cuerpo y deseo en el arte.",
+      en: "A reading in pages: how long it makes sense to invest time, body, and desire in art.",
     },
-    body: [
-      {
-        es: "Este año Nubila cumplió diez años. De encuentros, ensayos, viajes, escenarios diferentes, de grabaciones improvisadas y otras muy pensadas. Al conversar juntxs sobre estos recuerdos aparecen imágenes sueltas y decisiones que en su momento parecían simples, pero ahora vemos lo decisivas que fueron.",
-        en: "This year Nubila turned ten. Encounters, rehearsals, trips, different stages, improvised recordings and carefully planned ones. Talking through those memories, loose images appear — and decisions that once seemed small now look decisive.",
-      },
-      {
-        es: "Nuestra historia viene llena de preguntas recurrentes. No son solo una queja: son pensamientos compartidos que reclaman ser dichos en voz alta, y que queremos dejar escritos para ampliar la conversación.",
-        en: "Our story is full of recurring questions. They are not only complaints: they are shared thoughts that ask to be said out loud, and that we want written down to widen the conversation.",
-      },
-    ],
     theme: "jarra",
+    pdf: {
+      src: invertirArtePdf,
+      title: {
+        es: "¿Hasta cuándo invertir en el arte? · Blog",
+        en: "How long to invest in art? · Blog",
+      },
+    },
+  },
+  {
+    id: "nota-vamos-bandas",
+    title: {
+      es: "Vamos las bandas",
+      en: "Vamos las bandas",
+    },
+    element: { es: "Nota", en: "Press" },
+    year: 2017,
+    theme: "jarra",
+    /**
+     * Live cultura.gob.ar blocks iframes — same-origin archive in a mini browser.
+     */
+    embed: {
+      title: {
+        es: "Vamos las bandas",
+        en: "Vamos las bandas",
+      },
+      address:
+        "cultura.gob.ar/conoce-a-los-ganadores-de-vamos-las-bandas_4723",
+      src: "/notas/vamos-bandas.html",
+    },
+  },
+  {
+    id: "nota-lavoz",
+    title: {
+      es: "Más música cordobesa en cuarentena",
+      en: "More Córdoba music in quarantine",
+    },
+    element: { es: "Nota", en: "Press" },
+    year: 2020,
+    theme: "jarra",
+    /** Live lavoz.com.ar blocks iframes — same-origin archive. */
+    embed: {
+      title: {
+        es: "Más música cordobesa en cuarentena",
+        en: "More Córdoba music in quarantine",
+      },
+      address:
+        "lavoz.com.ar/vos/musica/mas-musica-cordobesa-en-cuarentena…",
+      src: "/notas/lavoz-cuarentena.html",
+    },
+  },
+  {
+    id: "nota-invitacion",
+    title: {
+      es: "Video invitación de fecha",
+      en: "Show invitation video",
+    },
+    element: { es: "Nota", en: "Press" },
+    theme: "jarra",
+    embed: {
+      title: {
+        es: "Video invitación de fecha",
+        en: "Show invitation video",
+      },
+      address: "facebook.com/nubila.musica/videos/…",
+      src: "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fnubila.musica%2Fvideos%2F1875614386010272%2F&show_text=false&width=560",
+      /** Facebook iframe has no play API — pause ambient while this viewer is open. */
+      pausesAmbient: true,
+    },
   },
   {
     id: "nubila-about",

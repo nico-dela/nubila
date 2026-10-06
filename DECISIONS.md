@@ -14,6 +14,30 @@ New entries are in English.
 - Pending:
 ```
 
+## 2026-10-05 22:35:00 — Nota mini-browser (iframe sub-window)
+- What: Reworked `EmbedViewer` as chrome’d mini-browser (always iframe). Cultura / La Voz load same-origin archives under `/notas/*.html` (live sites deny framing). Facebook uses video plugin. Notas orbit `blog-invertir-arte` so they aren’t lost when free-object slots overflow.
+- Why: Notes weren’t reliably visible (11 free objects / 8 slots stacked), and plain article text didn’t feel like an in-page browser.
+- Rejected: Live newspaper iframes (X-Frame-Options); outbound tabs.
+- Pending: Hard-refresh and click a Nota moon around the Blog jarra.
+
+## 2026-10-05 22:25:00 — Notas category + schema press links
+- What: Added `nota` kind/size tier (peer to Blog/Fanzine) with three free room objects: `nota-vamos-bandas` (Cultura.gob.ar), `nota-lavoz` (La Voz), `nota-invitacion` (Facebook). Dimension panels gain a `links` list for external press URLs.
+- Why: Schema “BLOG Y NOTAS” press items had concrete URLs but no catalog type; Blog stays for own writing/PDFs, Notas for newspaper/ministry coverage.
+- Rejected: Stuffing press into Blog; inventing entries without URLs (La Capital / Homenaje Spinetta titles only).
+- Pending: Superseded by in-room EmbedViewer pass.
+
+## 2026-10-05 21:56:00 — Schema YouTube/Music planets
+- What: Added `portales` (Terrario moon, `OFr1u_XzIBQ`), `nebulosa-live` (Nebulosa moon, `Kg5NjZi3P_M`), and free `sesion-clix` (`LFSvZiAF0k4`); appended two Trilogía II listen tracks (`m8MX_O3V988`, `rIfBNGwbBxo`). Sprites reused (`poetica` / `jungla` / `cactus`).
+- Why: Schema categorized lists had concrete Music/YouTube URLs not yet in the Habitación catalog; ignore the page-1 spreadsheet rows without links.
+- Rejected: Inventing planets for PDF titles without URLs; new art assets; layout engine changes.
+- Pending: Visual check of Terrario orbit crowding (now six moons) after deploy.
+
+## 2026-10-05 21:30:00 — FRIO fanzine planet + in-app PDF viewer
+- What: Added `frio-fanzine` moon on Terrario (cover webp sprite, `fanzine` size tier); dimension panel opens an in-app `react-pdf` viewer with prev/next over the bundled 5-page fanzine PDF.
+- Why: New catalog document type needs orbit hierarchy plus readable pages inside the Habitación overlay, not an external tab.
+- Rejected: Native iframe PDF embed; converting pages to static images; reusing an unrelated object sprite.
+- Pending: Visual check of orbit crowding with five Terrario moons after deploy.
+
 ## 2026-09-30 22:43:00 — Soften phone parallax + fix menu tap
 - What: Raised tilt gain (orientation `/12`, gravity `/2.5`) and `PARALLAX_LERP` to `0.18`; dropped CSS `transform` transitions on objects/wordmark so rAF parallax is not double-smoothed. Stopped mobile `.chrome-controls` from stretching full-width over the hamburger.
 - Why: Phone Chrome needed wide tilts and felt laggy; menu only opened via a thin bottom sliver under the chrome hit box.

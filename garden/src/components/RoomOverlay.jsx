@@ -72,6 +72,18 @@ function DimensionBody({
         />
       )}
 
+      {dimension.links?.length > 0 && (
+        <ul className="dimension-page__links">
+          {dimension.links.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} rel="noreferrer" target="_blank">
+                {t(link.label)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+
       {dimension.waitlist && (
         <form className="dimension-page__waitlist" onSubmit={handleWaitlist}>
           {submitted ? (
@@ -198,6 +210,7 @@ export default function RoomOverlay({
 
     const onKeyDown = (e) => {
       if (e.key === "Escape") {
+        if (e.defaultPrevented) return;
         onClose();
         return;
       }

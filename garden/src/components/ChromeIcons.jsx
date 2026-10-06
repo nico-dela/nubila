@@ -75,6 +75,34 @@ export function IconSpeakerMuted() {
   );
 }
 
+export function IconChevronLeft() {
+  return (
+    <svg {...svgProps}>
+      <path
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15 5.5 8.5 12 15 18.5"
+      />
+    </svg>
+  );
+}
+
+export function IconChevronRight() {
+  return (
+    <svg {...svgProps}>
+      <path
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 5.5 15.5 12 9 18.5"
+      />
+    </svg>
+  );
+}
+
 /** Official Linktree mark (Simple Icons / brand path). */
 export function IconLinktree() {
   return (

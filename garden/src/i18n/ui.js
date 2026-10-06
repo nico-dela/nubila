@@ -58,6 +58,23 @@ export const ui = {
     en: "Nubila — about us",
   },
   listen: { es: "Escuchar", en: "Listen" },
+  pdfLabel: { es: "Lectura", en: "Reading" },
+  pdfPrev: { es: "Anterior", en: "Previous" },
+  pdfNext: { es: "Siguiente", en: "Next" },
+  pdfPage: { es: "Página {n} / {total}", en: "Page {n} / {total}" },
+  pdfLoading: { es: "Cargando…", en: "Loading…" },
+  pdfError: {
+    es: "No se pudo abrir el documento.",
+    en: "Could not open the document.",
+  },
+  notaLabel: { es: "Nota", en: "Press note" },
+  notaFrameBlocked: {
+    es: "El medio original no permite incrustar la página (bloqueo de iframe). Leés acá una lectura en la habitación, sin salir del sitio.",
+    en: "The original publisher blocks embedding (iframe denied). You’re reading an in-room version so you never leave the site.",
+  },
+
+
+
   language: { es: "Idioma", en: "Language" },
   theme: { es: "Tema", en: "Theme" },
   themeLight: { es: "Claro", en: "Light" },
