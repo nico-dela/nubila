@@ -79,6 +79,13 @@ export const ui = {
   theme: { es: "Tema", en: "Theme" },
   themeLight: { es: "Claro", en: "Light" },
   themeDark: { es: "Oscuro", en: "Dark" },
+  reduceMotion: { es: "Movimiento", en: "Motion" },
+  reduceMotionOff: { es: "Reducir movimiento", en: "Reduce motion" },
+  reduceMotionOn: { es: "Movimiento reducido", en: "Reduced motion" },
+  reduceMotionSystem: {
+    es: "Menos movimiento, según el sistema",
+    en: "Reduced motion, following the system",
+  },
   ambient: { es: "Ambiente", en: "Ambient" },
   ambientMute: { es: "Silenciar", en: "Mute" },
   ambientUnmute: { es: "Sonido", en: "Sound" },

@@ -40,6 +40,7 @@
 .language-switcher,
 .theme-switcher,
 .ambient-mute,
+.reduce-motion,
 .linktree-link {
   position: static;
   display: flex;
@@ -57,6 +58,7 @@
 .language-switcher__btn,
 .theme-switcher__btn,
 .ambient-mute__btn,
+.reduce-motion__btn,
 .chrome-icon-btn {
   border: 0;
   padding: 0;
@@ -90,6 +92,9 @@ a.linktree-link.chrome-icon-btn {
 .ambient-mute__btn.is-active,
 .ambient-mute__btn:hover,
 .ambient-mute__btn:focus-visible,
+.reduce-motion__btn.is-active,
+.reduce-motion__btn:hover,
+.reduce-motion__btn:focus-visible,
 .linktree-link:hover,
 .linktree-link:focus-visible,
 .chrome-icon-btn:hover,
@@ -100,6 +105,11 @@ a.linktree-link.chrome-icon-btn {
 
 .ambient-mute__btn.is-muted {
   color: var(--chrome-muted);
+}
+
+.reduce-motion__btn:disabled {
+  cursor: default;
+  opacity: 1;
 }
 
 .language-switcher__sep,

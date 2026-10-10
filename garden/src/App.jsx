@@ -3,10 +3,12 @@ import AmbientMute from "./components/AmbientMute";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import LinktreeLink from "./components/LinktreeLink";
 import PoeticMenu from "./components/PoeticMenu";
+import ReduceMotionToggle from "./components/ReduceMotionToggle";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import EntrancePage from "./pages/EntrancePage";
 import { getDimensionById } from "./data/dimensions";
 import { LocaleProvider } from "./i18n/LocaleContext";
+import { ReduceMotionProvider } from "./motion/ReduceMotionContext";
 import { ThemeProvider } from "./theme/ThemeContext";
 import "./styles/App.css";
 import "./styles/ChromeControls.css";
@@ -115,6 +117,7 @@ function GardenShell() {
             muted={ambientMuted}
             onToggle={() => setAmbientMuted((v) => !v)}
           />
+          <ReduceMotionToggle />
           <ThemeSwitcher />
           <LanguageSwitcher />
           <LinktreeLink />
@@ -164,7 +167,9 @@ export default function App() {
   return (
     <LocaleProvider>
       <ThemeProvider>
-        <GardenShell />
+        <ReduceMotionProvider>
+          <GardenShell />
+        </ReduceMotionProvider>
       </ThemeProvider>
     </LocaleProvider>
   );

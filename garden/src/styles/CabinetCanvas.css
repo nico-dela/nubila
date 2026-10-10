@@ -173,13 +173,26 @@
   visibility: hidden;
 }
 
+@property --orbit-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .cabinet-canvas__planet-orbit {
+  --orbit-angle: var(--orbit-phase, 0deg);
+  --orbit-rx: calc(var(--orbit-r) * 1cqi);
+  --orbit-ry: var(--orbit-rx);
   position: absolute;
   left: 0;
   top: 0;
   width: 0;
   height: 0;
   transform-origin: 0 0;
+  transform: translate(
+    calc(cos(var(--orbit-angle)) * var(--orbit-rx)),
+    calc(sin(var(--orbit-angle)) * var(--orbit-ry))
+  );
   animation: planet-orbit var(--orbit-dur) linear var(--orbit-delay) infinite;
   will-change: transform;
   backface-visibility: hidden;
@@ -187,11 +200,10 @@
 
 @keyframes planet-orbit {
   from {
-    transform: rotate(0deg) translateX(calc(var(--orbit-r) * 1cqi)) rotate(0deg);
+    --orbit-angle: 0deg;
   }
   to {
-    transform: rotate(360deg) translateX(calc(var(--orbit-r) * 1cqi))
-      rotate(-360deg);
+    --orbit-angle: 360deg;
   }
 }
 
@@ -577,6 +589,30 @@ html[data-theme="dark"] .cabinet-canvas__planet.is-focused img {
 
   .cabinet-canvas__object {
     min-width: 2.85rem;
+  }
+
+  /* Width-based rings collapse on a tall phone. Stretch them vertically
+     and floor the radius, clamped so moons stay inside the frame. */
+  .cabinet-canvas__planet-orbit {
+    --orbit-room-x: calc(
+      (min(var(--cx-n), 100 - var(--cx-n)) - 4) * 1cqi
+    );
+    --orbit-room-y: calc(
+      (min(var(--cy-n), 100 - var(--cy-n)) - 7) * 1cqb
+    );
+    --orbit-rx: min(
+      var(--orbit-room-x),
+      max(2.65rem, calc(var(--orbit-r) * 1cqi + 1.05rem))
+    );
+    --orbit-ry: min(
+      var(--orbit-room-y),
+      max(var(--orbit-rx), calc(var(--orbit-r) * 0.7rem))
+    );
+  }
+
+  .cabinet-canvas__planet-hit {
+    width: min(calc(var(--w) * 1cqi), 2rem);
+    min-width: 1.55rem;
   }
 
   .cabinet-canvas__wordmark {

@@ -14,6 +14,18 @@ New entries are in English.
 - Pending:
 ```
 
+## 2026-10-10 13:05:00 — Wider mobile moon orbits
+- What: On narrow screens, moon rings use a taller ellipse with a pixel floor, clamped to the host’s distance from the frame. Planet art is slightly smaller there. Desktop rings stay circular.
+- Why: A width-only orbit shrinks on a phone until moons sit on the host even after the reduced-motion phase fix.
+- Rejected: Moving every free object inward; one scale would pack the edges into the wordmark.
+- Pending: None.
+
+## 2026-10-10 12:50:00 — Reduced motion keeps moons on their rings
+- What: Pinned each moon with `--orbit-phase` when motion is reduced (OS `prefers-reduced-motion` or the new chrome toggle). The toggle is stored in localStorage; the system setting still forces reduced motion. Same flag stops parallax, tilt, breathing, and zoom duration.
+- Why: Turning animations off dropped every moon onto its host center, so orbiting objects disappeared.
+- Rejected: Letting the in-app toggle override a system reduce-motion request.
+- Pending: None.
+
 ## 2026-10-05 22:35:00 — Nota mini-browser (iframe sub-window)
 - What: Reworked `EmbedViewer` as chrome’d mini-browser (always iframe). Cultura / La Voz load same-origin archives under `/notas/*.html` (live sites deny framing). Facebook uses video plugin. Notas orbit `blog-invertir-arte` so they aren’t lost when free-object slots overflow.
 - Why: Notes weren’t reliably visible (11 free objects / 8 slots stacked), and plain article text didn’t feel like an in-page browser.

@@ -16,6 +16,13 @@
       } catch (e) {
         document.documentElement.dataset.theme = "light";
       }
+      try {
+        var osReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var storedReduce = localStorage.getItem("nubila-garden-reduce-motion") === "on";
+        if (osReduce || storedReduce) {
+          document.documentElement.dataset.reduceMotion = "on";
+        }
+      } catch (e) {}
     </script>
   </head>
   <body>

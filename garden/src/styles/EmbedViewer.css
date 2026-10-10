@@ -194,3 +194,8 @@
     animation: none;
   }
 }
+
+html[data-reduce-motion="on"] .embed-viewer--fullscreen,
+html[data-reduce-motion="on"] .embed-viewer__shell {
+  animation: none;
+}

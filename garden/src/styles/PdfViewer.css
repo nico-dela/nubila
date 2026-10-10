@@ -286,3 +286,12 @@
     transition: none;
   }
 }
+
+html[data-reduce-motion="on"] .pdf-viewer__slide--next,
+html[data-reduce-motion="on"] .pdf-viewer__slide--prev,
+html[data-reduce-motion="on"] .pdf-viewer--fullscreen,
+html[data-reduce-motion="on"] .pdf-viewer__shell,
+html[data-reduce-motion="on"] .pdf-viewer__btn {
+  animation: none;
+  transition: none;
+}

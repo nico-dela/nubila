@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { layoutRoomObjects } from "../data/layoutObjects";
 import { useLocale } from "../i18n/LocaleContext";
+import { useReduceMotion } from "../motion/ReduceMotionContext";
 import {
   hasTiltApi,
   requestTiltPermission,
@@ -34,13 +35,6 @@ function isCoarsePointer() {
   );
 }
 
-function prefersReducedMotion() {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-}
-
 export default function CabinetCanvas({
   panelOpen,
   mediaPlaying = false,
@@ -48,6 +42,7 @@ export default function CabinetCanvas({
   onSelectDimension,
 }) {
   const { t, tUi } = useLocale();
+  const { reduceMotion } = useReduceMotion();
   const debug =
     typeof window !== "undefined" &&
     new URLSearchParams(window.location.search).get("debugSectors") === "1";
@@ -60,7 +55,6 @@ export default function CabinetCanvas({
   const [mobileHint, setMobileHint] = useState(false);
   /** off | pending | on | denied */
   const [tiltState, setTiltState] = useState("off");
-  const [reduceMotion, setReduceMotion] = useState(prefersReducedMotion);
 
   const rootRef = useRef(null);
   const frameRef = useRef(null);
@@ -96,14 +90,6 @@ export default function CabinetCanvas({
 
   useEffect(() => {
     setMobileHint(isCoarsePointer());
-  }, []);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduceMotion(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
   }, []);
 
   useEffect(() => {
@@ -185,7 +171,7 @@ export default function CabinetCanvas({
     const phase = zoomPhaseRef.current;
     if (phase === "held" || phase === "in") {
       if (zoomTimerRef.current) window.clearTimeout(zoomTimerRef.current);
-      const outMs = prefersReducedMotion() ? 0 : ZOOM_MS;
+      const outMs = reduceMotionRef.current ? 0 : ZOOM_MS;
       if (outMs === 0) {
         setZoomPhase("idle");
         setFocusId(null);
@@ -531,6 +517,8 @@ export default function CabinetCanvas({
                       style={{
                         "--cx": `${obj.cx}%`,
                         "--cy": `${obj.cy}%`,
+                        "--cx-n": obj.cx,
+                        "--cy-n": obj.cy,
                         "--w": obj.width,
                         "--depth": obj.depth,
                         "--float-dur": obj.floatDur,
@@ -539,6 +527,7 @@ export default function CabinetCanvas({
                         "--float-delay": obj.delay,
                         "--bob-scale": obj.bobScale,
                         "--orbit-r": obj.orbitR,
+                        "--orbit-phase": `${obj.orbitPhase}deg`,
                         "--orbit-dur": obj.orbitDur,
                         "--orbit-delay": obj.orbitDelay,
                         zIndex: isFocused ? 80 : obj.z,

@@ -75,6 +75,36 @@ export function IconSpeakerMuted() {
   );
 }
 
+export function IconMotion() {
+  return (
+    <svg {...svgProps}>
+      <path
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 5.2a6.8 6.8 0 1 1-4.8 2"
+      />
+      <path
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 2.8v3.2H8.8"
+      />
+    </svg>
+  );
+}
+
+export function IconMotionStill() {
+  return (
+    <svg {...svgProps}>
+      <circle cx="12" cy="12" r="6.5" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="12" cy="6.2" r="1.35" fill="currentColor" />
+    </svg>
+  );
+}
+
 export function IconChevronLeft() {
   return (
     <svg {...svgProps}>

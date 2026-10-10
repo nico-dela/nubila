@@ -143,6 +143,7 @@ img {
   max-width: 100%;
 }
 
+/* OS reduce-motion and the in-app toggle (html[data-reduce-motion="on"]). */
 @media (prefers-reduced-motion: reduce) {
   .cabinet-canvas__planet-orbit,
   .cabinet-canvas__object-bob,
@@ -182,4 +183,52 @@ img {
   .room-overlay__scroll {
     scroll-behavior: auto;
   }
+}
+
+html[data-reduce-motion="on"] .cabinet-canvas__planet-orbit,
+html[data-reduce-motion="on"] .cabinet-canvas__object-bob,
+html[data-reduce-motion="on"]
+  .cabinet-canvas__planet.is-active
+  .cabinet-canvas__planet-hit
+  .cabinet-canvas__object-bob,
+html[data-reduce-motion="on"] .cabinet-canvas__planet-hit:hover .cabinet-canvas__object-bob,
+html[data-reduce-motion="on"]
+  .cabinet-canvas__planet-hit:focus-visible
+  .cabinet-canvas__object-bob,
+html[data-reduce-motion="on"]
+  .cabinet-canvas__object.is-active:not(.is-focused)
+  .cabinet-canvas__object-bob,
+html[data-reduce-motion="on"]
+  .cabinet-canvas__object:hover:not(:disabled):not(.is-focused)
+  .cabinet-canvas__object-bob,
+html[data-reduce-motion="on"]
+  .cabinet-canvas__object:focus-visible:not(:disabled):not(.is-focused)
+  .cabinet-canvas__object-bob,
+html[data-reduce-motion="on"] .dimension-page--oceanica .dimension-page__intro,
+html[data-reduce-motion="on"] .dimension-page--fuego .dimension-page__ornament::after {
+  animation: none !important;
+}
+
+html[data-reduce-motion="on"] .cabinet-canvas__bg,
+html[data-reduce-motion="on"] .cabinet-canvas__world,
+html[data-reduce-motion="on"] .cabinet-canvas__zoom,
+html[data-reduce-motion="on"] .cabinet-canvas__object,
+html[data-reduce-motion="on"] .cabinet-canvas__planet,
+html[data-reduce-motion="on"] .cabinet-canvas__wordmark,
+html[data-reduce-motion="on"] .cabinet-canvas__planet-hit,
+html[data-reduce-motion="on"] .cabinet-canvas__hint,
+html[data-reduce-motion="on"] .cabinet-canvas__veil,
+html[data-reduce-motion="on"] .room-overlay__panel,
+html[data-reduce-motion="on"] .poetic-menu__toggle span {
+  transition-duration: 0.01ms !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+}
+
+html[data-reduce-motion="on"] .room-overlay__panel {
+  animation: none !important;
+}
+
+html[data-reduce-motion="on"] .room-overlay__scroll {
+  scroll-behavior: auto;
 }
